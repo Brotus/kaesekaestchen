@@ -13,6 +13,6 @@ public class Map {
 	}
 	
 	public String toString() {
-		return null;
+		return "";
 	}
 }
