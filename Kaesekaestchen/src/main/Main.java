@@ -1,18 +1,29 @@
 package main;
 
-import entity.Edge;
-import entity.Entity;
-import entity.Field;
+import java.util.Scanner;
+
+import entity.Player;
 
 public class Main {
 	
+	private static Scanner s = new Scanner(System.in);
+	private static Game game;
+	
 	public static void main(String[] args){
-		Entity[] e = new Entity[10];
-		e[0] = new Edge();
-		e[1] = new Field();
+		init();
+	}
+	
+	private static void init(){
+		System.out.println("Name of Player 1:");
+		Player p1 = new Player(s.next());
+		System.out.println("Name of Player 2:");
+		Player p2 = new Player(s.next());
+		System.out.println("Width of the board:");
+		int width = s.nextInt();
+		System.out.println("Height of the board:");
+		int height = s.nextInt();
 		
-		System.out.println(e[0]);
-		System.out.println(e[1]);
+		game = new Game(width, height, p1, p2);
 	}
 
 }
