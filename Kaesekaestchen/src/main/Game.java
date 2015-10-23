@@ -5,8 +5,6 @@ import entity.Entity;
 import entity.Player;
 
 public class Game {
-	private Entity[][] entities;
-	private Edge[] edges;
 	
 	private int width, height;
 	private Player p1, p2;
