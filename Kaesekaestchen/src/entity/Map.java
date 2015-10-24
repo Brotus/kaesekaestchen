@@ -111,7 +111,13 @@ public class Map {
 		for (int linep = 0; linep < lines * 2 + 1; linep++) {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
 				if (colp % 2 == 1 && linep % 2 == 1) {
-					sb.append("\t[").append(fieldp++).append("]");
+					Field f = fields[fieldp];
+					if(f.isOwned())
+						sb.append(f.getOwner());
+					else
+						sb.append("\t[").append(fieldp).append("]");
+					
+					fieldp++;
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
 					sb.append("\t");
 					Edge e = edges[edgep];
