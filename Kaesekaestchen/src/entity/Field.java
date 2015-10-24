@@ -30,11 +30,9 @@ public class Field extends Entity{
 	public int getEdgeAmount() {
 		return edgeAmount;
 	}
-
-	@Override
-	public String toString(){
-		return "";
-		
+	
+	public boolean isOwned(){
+		return getEdgeAmount() == 4;
 	}
 
 }

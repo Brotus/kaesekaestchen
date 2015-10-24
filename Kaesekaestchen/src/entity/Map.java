@@ -111,13 +111,24 @@ public class Map {
 		for (int linep = 0; linep < lines * 2 + 1; linep++) {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
 				if (colp % 2 == 1 && linep % 2 == 1) {
-					sb.append("\t[").append(fieldp++).append("]");
+					sb.append("\t");
+					Field f = fields[fieldp];
+					if(f.isOwned()){
+						String name = f.getOwner().getName();
+						sb.append(name.substring(0, Math.min(3, name.length())));
+					} else
+						sb.append("[").append(fieldp).append("]");
+					
+					fieldp++;
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
 					sb.append("\t");
-					if(edges[edgep].isSelected())
-						sb.append((edges[edgep++].isVertical() ? "|" : "-"));
+					Edge e = edges[edgep];
+					if(e.isSelected())
+						sb.append(e.isVertical() ? "|" : "-");
 					else
-						sb.append(edgep++);
+						sb.append(edgep);
+					
+					edgep++;
 				} else {
 					sb.append("\t *");
 				}
