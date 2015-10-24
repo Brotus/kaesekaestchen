@@ -104,23 +104,29 @@ public class Map {
 	 * Basic print of the map of entities to the console
 	 */
 	public void plot() {
+		StringBuilder sb = new StringBuilder();
 		int edgep = 0;
 		int fieldp = 0;
 
 		for (int linep = 0; linep < lines * 2 + 1; linep++) {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
 				if (colp % 2 == 1 && linep % 2 == 1) {
-					System.out.print("\t[" + fieldp++ + "]");
+					sb.append("\t[").append(fieldp++).append("]");
+					//System.out.print("\t[" + fieldp++ + "]");
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
-					System.out.print("\t" + edgep++);
+					sb.append("\t").append(edgep++);
+					//System.out.print("\t" + edgep++);
 					//System.out.print("\t" + (edges[edgep++].isVertical() ? "|" : "-"));
 				} else {
-					System.out.print("\t *");
+					sb.append("\t *");
+					//System.out.print("\t *");
 				}
 			}
 
-			System.out.println();
+			sb.append(System.lineSeparator()).append(System.lineSeparator());
 		}
+		
+		System.out.println(sb);
 
 	}
 
