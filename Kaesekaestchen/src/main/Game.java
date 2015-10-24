@@ -16,6 +16,7 @@ public class Game {
 	private static Scanner s = new Scanner(System.in);
 	Map gameMap;
 	
+	
 	Game(int width, int height, Player p1, Player p2){
 		this.width = width;
 		this.height = height;
@@ -26,18 +27,25 @@ public class Game {
 	}
 	
 		
-	
+	/**
+	 * manages the turns of the game 
+	 * @param activePlayer
+	 */
 	private void GameLoop (Player activePlayer) {
 		
 		gameMap.plot();
+		int numberOfFields = height*width;
+		
 		if(errorMessage){
 			System.out.println("edge already selected");
 			errorMessage = false;
 		}
+		
 		System.out.println(activePlayer.getName() + " enter the edge you want to claim");
 		int playerInput = s.nextInt();
+		
+		//players have to enter again if edge was already claimed, if they  get a point (or two) they get an additional turn
 		FieldStates fs =  gameMap.markEdge(playerInput, activePlayer);
-		int numberOfFields = height*width;
 		switch (fs) {
 			case INVALID :
 				errorMessage = true;
@@ -61,6 +69,9 @@ public class Game {
 			}
 		System.out.println(p1.getOwnedEdges());
 		System.out.println(p2.getOwnedEdges());
+		
+		
+		// decides if game is over (and who won) based on the sum of the player scores
 		if((p1.getOwnedEdges() + p2.getOwnedEdges()) == numberOfFields){
 			if(p1.getOwnedEdges() < p2.getOwnedEdges()){
 				System.out.println("congratulations " + p2.getName() + " you won");
@@ -75,6 +86,11 @@ public class Game {
 		
 	}
 	
+	/**
+	 * switches the active player 
+	 * @param activePlayer
+	 * @return
+	 */
 	private Player switchActivePlayer (Player activePlayer){
 		if (activePlayer.equals(p1)){
 			return p2;
