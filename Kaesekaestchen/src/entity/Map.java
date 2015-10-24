@@ -66,19 +66,27 @@ public class Map {
 	 * @param edgeID
 	 * @return
 	 */
-	public boolean markEdge(int edgeID) {
+	public FieldStates markEdge(int edgeID, Player markingPlayer) {
 		if (edges[edgeID].isSelected()) {
-			return false;
+			return FieldStates.INVALID;
 		}
 		
 		edges[edgeID].setSelected();
-		
-		for (int fieldID : this.hashFunction(edgeID)) {
-			if (fieldID != -1) {
-				fields[fieldID].increment();
+		// counting marked Fields
+		int c = 0;
+		for (int fieldID : this.hashFunction(edgeID)) {			
+			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)){
+					c++;
 			}
 		}
-		return true;
+		
+		if ( c==0) {
+			return FieldStates.MARKED;
+		} else if (c==1) {
+			return FieldStates.ONE;
+		} else {
+			return FieldStates.TWO;
+		}
 	}
 
 	/**
