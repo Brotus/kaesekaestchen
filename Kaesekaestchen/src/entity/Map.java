@@ -114,10 +114,13 @@ public class Map {
 					sb.append("\t[").append(fieldp++).append("]");
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
 					sb.append("\t");
-					if(edges[edgep].isSelected())
-						sb.append((edges[edgep++].isVertical() ? "|" : "-"));
+					Edge e = edges[edgep];
+					if(e.isSelected())
+						sb.append(e.isVertical() ? "|" : "-");
 					else
-						sb.append(edgep++);
+						sb.append(edgep);
+					
+					edgep++;
 				} else {
 					sb.append("\t *");
 				}
