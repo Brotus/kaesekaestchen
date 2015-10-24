@@ -33,8 +33,19 @@ public class Map {
 	private void makeEdges() {
 		int nOfEdges = lines + columns + 2 * lines * columns;
 		edges = new Edge[nOfEdges];
+		int c = 0;
+		boolean vertical = false;
 		for (int i = 0; i < nOfEdges; i++) {
-			edges[i] = new Edge(i);
+			edges[i] = new Edge(i, vertical);
+			if(!vertical && c == columns -1){
+				vertical = true;
+				c= 0;
+			} else if(vertical && c == columns){
+				vertical = false;
+				c= 0;
+			} else {
+				c++;
+			}			
 		}
 	}
 
@@ -94,6 +105,7 @@ public class Map {
 					System.out.print("\t[" + fieldp++ + "]");
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
 					System.out.print("\t" + edgep++);
+					//System.out.print("\t" + (edges[edgep++].isVertical() ? "|" : "-"));
 				} else {
 					System.out.print("\t *");
 				}

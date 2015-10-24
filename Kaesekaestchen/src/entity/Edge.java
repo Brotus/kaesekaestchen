@@ -6,16 +6,16 @@ public class Edge extends Entity{
 
 	private int ID;
 
-	private boolean selected;
+	private boolean selected, vertical;
 	
-	public Edge(int ID) {
+	public Edge(int ID, boolean vertical) {
 		this.ID = ID;
 		selected = false;
+		this.vertical = vertical;
 	}
-	@Override
-	public String toString(){
-		return "";
-		
+	
+	public boolean isVertical(){
+		return vertical;
 	}
 	
 
