@@ -112,14 +112,14 @@ public class Map {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
 				if (colp % 2 == 1 && linep % 2 == 1) {
 					sb.append("\t[").append(fieldp++).append("]");
-					//System.out.print("\t[" + fieldp++ + "]");
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
-					sb.append("\t").append(edgep++);
-					//System.out.print("\t" + edgep++);
-					//System.out.print("\t" + (edges[edgep++].isVertical() ? "|" : "-"));
+					sb.append("\t");
+					if(edges[edgep++].isSelected())
+						sb.append((edges[edgep].isVertical() ? "|" : "-"));
+					else
+						sb.append(edgep);
 				} else {
 					sb.append("\t *");
-					//System.out.print("\t *");
 				}
 			}
 
