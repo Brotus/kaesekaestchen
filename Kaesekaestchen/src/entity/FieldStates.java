@@ -1,5 +1,5 @@
 package entity;
 
 public enum FieldStates {
-INVALID, MARKED, ONE, TWO
+	INVALID, MARKED, ONE, TWO
 }

@@ -1,33 +1,28 @@
 package entity;
 
-public class Edge extends Entity{
-	
-	
-
-	private int ID;
+public class Edge extends Entity {
 
 	private boolean selected, vertical;
-	
-	public Edge(int ID, boolean vertical) {
-		this.ID = ID;
+
+	Edge(int id, boolean vertical) {
+		this.id = id;
 		selected = false;
 		this.vertical = vertical;
 	}
-	
-	public boolean isVertical(){
+
+	boolean isVertical() {
 		return vertical;
 	}
-	
 
-	public int getID() {
-		return ID;
+	int getId() {
+		return id;
 	}
-	
-	public boolean isSelected() {
+
+	boolean isSelected() {
 		return selected;
 	}
 
-	public void setSelected() {
+	void setSelected() {
 		this.selected = true;
 	}
 

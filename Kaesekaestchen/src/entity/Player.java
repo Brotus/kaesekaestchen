@@ -1,28 +1,26 @@
 package entity;
 
-public class Player {
+public class Player extends Entity {
 	
 	private String name;
-	public int ownedEdges = 0;
+	private int ownedEdges = 0;
+	
+
+	public Player(String name, int id){
+		this.name = name;
+		this.id = id;
+	}
 	
 	public int getOwnedEdges() {
 		return ownedEdges;
 	}
 
-	public void setOwnedEdges(int ownedEdges) {
-		this.ownedEdges = ownedEdges;
-	}
-
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Player(String name){
-		this.name = name;
+	
+	String getStrId(){
+		return "P" + id;
 	}
 	
 	public void increaseOwnedEdges (int n) throws IllegalArgumentException  {

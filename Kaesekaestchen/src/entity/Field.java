@@ -1,38 +1,33 @@
 package entity;
 
-public class Field extends Entity{
-	
-	private int ID;
+public class Field extends Entity {
+
 	private Player owner;
 	private int edgeAmount;
-	
-	public Field(int ID) {
-		ID = this.ID;
+
+	Field(int id) {
+		this.id = id;
 		edgeAmount = 0;
 	}
-	
-	public Player getOwner() {
+
+	Player getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Player owner) {
+	void setOwner(Player owner) {
 		this.owner = owner;
 	}
-	
-	public boolean increment(Player markingPlayer) {
+
+	boolean increment(Player markingPlayer) {
 		if (++edgeAmount == 4) {
 			this.owner = markingPlayer;
 			return true;
 		}
 		return false;
 	}
-	
-	public int getEdgeAmount() {
-		return edgeAmount;
-	}
-	
-	public boolean isOwned(){
-		return getEdgeAmount() == 4;
+
+	boolean isOwned() {
+		return edgeAmount == 4;
 	}
 
 }

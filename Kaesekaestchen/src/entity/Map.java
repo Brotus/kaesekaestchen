@@ -37,49 +37,44 @@ public class Map {
 		boolean vertical = false;
 		for (int i = 0; i < nOfEdges; i++) {
 			edges[i] = new Edge(i, vertical);
-			if(!vertical && c == columns -1){
+			if (!vertical && c == columns - 1) {
 				vertical = true;
-				c= 0;
-			} else if(vertical && c == columns){
+				c = 0;
+			} else if (vertical && c == columns) {
 				vertical = false;
-				c= 0;
+				c = 0;
 			} else {
 				c++;
-			}			
+			}
 		}
 	}
 
-	public String toString() {
-		return "ab";
-	}
-	
-	
 	/**
 	 * This marks an edge of a given ID if it is not marked yet.
+	 * 
 	 * @param edgeID
 	 * @return INVALID = Edge was already marked
 	 * @return MARKED = Edge has been marked without surrounding a field
 	 * @return ONE = The Edge has been marked, one Field got owned.
-	 * @return TWO = The two surrounding Fields of the Edge got owned. 
+	 * @return TWO = The two surrounding Fields of the Edge got owned.
 	 */
 	public FieldStates markEdge(int edgeID, Player markingPlayer) {
 		if (edges[edgeID].isSelected()) {
 			return FieldStates.INVALID;
 		}
-		
+
 		edges[edgeID].setSelected();
 		// counting marked Fields
 		int c = 0;
-		for (int fieldID : this.hashFunction(edgeID)) {		
-//			System.out.println("checking field " + fieldID);
-			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)){
-					c++;
+		for (int fieldID : this.hashFunction(edgeID)) {
+			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)) {
+				c++;
 			}
 		}
-		
-		if ( c==0) {
+
+		if (c == 0) {
 			return FieldStates.MARKED;
-		} else if (c==1) {
+		} else if (c == 1) {
 			return FieldStates.ONE;
 		} else {
 			return FieldStates.TWO;
@@ -99,21 +94,20 @@ public class Map {
 				if (colp % 2 == 1 && linep % 2 == 1) {
 					sb.append("\t");
 					Field f = fields[fieldp];
-					if(f.isOwned()){
-						String name = f.getOwner().getName();
-						sb.append(name.substring(0, Math.min(3, name.length())));
+					if (f.isOwned()) {
+						sb.append(f.getOwner().getStrId());
 					} else
 						sb.append("[").append(fieldp).append("]");
-					
+
 					fieldp++;
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
 					sb.append("\t");
 					Edge e = edges[edgep];
-					if(e.isSelected())
+					if (e.isSelected())
 						sb.append(e.isVertical() ? "|" : "-");
 					else
 						sb.append(edgep);
-					
+
 					edgep++;
 				} else {
 					sb.append("\t *");
@@ -122,7 +116,7 @@ public class Map {
 
 			sb.append(System.lineSeparator()).append(System.lineSeparator());
 		}
-		
+
 		System.out.println(sb);
 
 	}
@@ -139,19 +133,17 @@ public class Map {
 		int edgesPerLine = this.columns * 2 + 1;
 
 		// applying 1st function
-		if ((edgeID + columns +1) % edgesPerLine == 0) {
+		if ((edgeID + columns + 1) % edgesPerLine == 0) {
 			result[0] = -1;
 		} else {
-			result[0] = edgeID - Math.floorDiv(edgeID +columns+1, edgesPerLine)
-					* (columns + 1);
+			result[0] = edgeID - Math.floorDiv(edgeID + columns + 1, edgesPerLine) * (columns + 1);
 		}
 
 		// applying 2nd function
 		if ((edgeID + 1) % edgesPerLine == 0) {
 			result[1] = -1;
 		} else {
-			result[1] = edgeID - columns - Math.floorDiv(edgeID +1, edgesPerLine)
-					* (columns + 1);
+			result[1] = edgeID - columns - Math.floorDiv(edgeID + 1, edgesPerLine) * (columns + 1);
 		}
 
 		// removing fields out of boundaries
@@ -160,7 +152,7 @@ public class Map {
 				result[i] = -1;
 			}
 		}
-		
+
 		return result;
 	}
 }

@@ -5,25 +5,24 @@ import java.util.Scanner;
 import entity.Player;
 
 public class Main {
-	
+
 	private static Scanner s = new Scanner(System.in);
-	private static Game game;
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		init();
 	}
-	
-	private static void init(){
-		System.out.println("Name of Player 1:");
-		Player p1 = new Player(s.next());
-		System.out.println("Name of Player 2:");
-		Player p2 = new Player(s.next());
-		System.out.println("Width of the board:");
+
+	private static void init() {
+		System.out.println("Enter the name of player P1:");
+		Player p1 = new Player(s.next(), 1);
+		System.out.println("Enter the name of player P2:");
+		Player p2 = new Player(s.next(), 2);
+		System.out.println("Enter the width of the board:");
 		int width = s.nextInt();
-		System.out.println("Height of the board:");
+		System.out.println("Enter the height of the board:");
 		int height = s.nextInt();
-		
-		game = new Game(width, height, p1, p2);
+
+		new Game(width, height, p1, p2);
 	}
 
 }
