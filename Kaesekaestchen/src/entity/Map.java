@@ -53,10 +53,7 @@ public class Map {
 	 * This marks an edge of a given ID if it is not marked yet.
 	 * 
 	 * @param edgeID
-	 * @return INVALID = Edge was already marked
-	 * @return MARKED = Edge has been marked without surrounding a field
-	 * @return ONE = The Edge has been marked, one Field got owned.
-	 * @return TWO = The two surrounding Fields of the Edge got owned.
+	 * @return an according FieldState
 	 */
 	public FieldStates markEdge(int edgeID, Player markingPlayer) {
 		if (edges[edgeID].isSelected()) {

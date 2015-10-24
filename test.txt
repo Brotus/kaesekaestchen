@@ -1,3 +1,0 @@
-test
-
-ändern, adden, commiten, pushen
