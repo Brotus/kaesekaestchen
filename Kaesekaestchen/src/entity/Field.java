@@ -19,8 +19,12 @@ public class Field extends Entity{
 		this.owner = owner;
 	}
 	
-	public void increment() {
-		edgeAmount++;
+	public boolean increment(Player markingPlayer) {
+		if (++edgeAmount == 4) {
+			this.owner = markingPlayer;
+			return true;
+		}
+		return false;
 	}
 	
 	public int getEdgeAmount() {
