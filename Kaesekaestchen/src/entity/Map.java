@@ -111,11 +111,13 @@ public class Map {
 		for (int linep = 0; linep < lines * 2 + 1; linep++) {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
 				if (colp % 2 == 1 && linep % 2 == 1) {
+					sb.append("\t");
 					Field f = fields[fieldp];
-					if(f.isOwned())
-						sb.append(f.getOwner());
-					else
-						sb.append("\t[").append(fieldp).append("]");
+					if(f.isOwned()){
+						String name = f.getOwner().getName();
+						sb.append(name.substring(0, Math.min(3, name.length())));
+					} else
+						sb.append("[").append(fieldp).append("]");
 					
 					fieldp++;
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
