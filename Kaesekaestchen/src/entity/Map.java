@@ -52,30 +52,15 @@ public class Map {
 	public String toString() {
 		return "ab";
 	}
-
-//	/**
-//	 * This uses hashFunction to set the Nghbs of all Edges
-//	 */
-//	private void setFieldRefs() {
-//		for (Edge e : this.edges) {
-//			Field[] nghbs = new Field[2];
-//			int c = 0;
-//			for (int i : 
-//				this.hashFunction(e.getID())
-//				) {
-//				if (i != -1) {
-//					nghbs[c] = fields[i];
-//					c++;
-//				}
-				
-//			}
-//		}
 	
 	
 	/**
-	 * This marks an  edge of a given ID and if it is not marked yet. In this case this method returns false
+	 * This marks an edge of a given ID if it is not marked yet.
 	 * @param edgeID
-	 * @return
+	 * @return INVALID = Edge was already marked
+	 * @return MARKED = Edge has been marked without surrounding a field
+	 * @return ONE = The Edge has been marked, one Field got owned.
+	 * @return TWO = The two surrounding Fields of the Edge got owned. 
 	 */
 	public FieldStates markEdge(int edgeID, Player markingPlayer) {
 		if (edges[edgeID].isSelected()) {
@@ -85,7 +70,8 @@ public class Map {
 		edges[edgeID].setSelected();
 		// counting marked Fields
 		int c = 0;
-		for (int fieldID : this.hashFunction(edgeID)) {			
+		for (int fieldID : this.hashFunction(edgeID)) {		
+//			System.out.println("checking field " + fieldID);
 			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)){
 					c++;
 			}
@@ -145,7 +131,7 @@ public class Map {
 		if ((edgeID + columns +1) % edgesPerLine == 0) {
 			result[0] = -1;
 		} else {
-			result[0] = edgeID - Math.floorDiv(edgeID + 5, edgesPerLine)
+			result[0] = edgeID - Math.floorDiv(edgeID +columns+1, edgesPerLine)
 					* (columns + 1);
 		}
 
@@ -153,7 +139,7 @@ public class Map {
 		if ((edgeID + 1) % edgesPerLine == 0) {
 			result[1] = -1;
 		} else {
-			result[1] = edgeID - columns - Math.floorDiv(edgeID, edgesPerLine)
+			result[1] = edgeID - columns - Math.floorDiv(edgeID +1, edgesPerLine)
 					* (columns + 1);
 		}
 
