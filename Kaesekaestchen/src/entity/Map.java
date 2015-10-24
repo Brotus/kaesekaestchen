@@ -49,14 +49,16 @@ public class Map {
 //		for (Edge e : this.edges) {
 //			Field[] nghbs = new Field[2];
 //			int c = 0;
-//			for (int i : this.hashFunction(e.getID())) {
+//			for (int i : 
+//				this.hashFunction(e.getID())
+//				) {
 //				if (i != -1) {
 //					nghbs[c] = fields[i];
 //					c++;
 //				}
+				
 //			}
 //		}
-//	}
 	
 	
 	/**
@@ -114,7 +116,7 @@ public class Map {
 		int edgesPerLine = this.columns * 2 + 1;
 
 		// applying 1st function
-		if ((edgeID + 5) % edgesPerLine == 0) {
+		if ((edgeID + columns +1) % edgesPerLine == 0) {
 			result[0] = -1;
 		} else {
 			result[0] = edgeID - Math.floorDiv(edgeID + 5, edgesPerLine)
@@ -135,6 +137,7 @@ public class Map {
 				result[i] = -1;
 			}
 		}
+		
 		return result;
 	}
 }

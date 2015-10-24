@@ -4,8 +4,9 @@ public class MapTest {
 
 	public static void main(String[] args) {
 		
-		Map testMap = new Map(6, 8);
+		Map testMap = new Map(7, 6);
 		testMap.plot();
+		
 	}
 
 }
