@@ -1,5 +1,11 @@
 package entity;
 
+/**
+ * A simple Enumaration to differ States within the game loop.
+ * @author paddy
+ *
+ */
+
 public enum FieldStates {
 	/**
 	 * Edge has already been marked.

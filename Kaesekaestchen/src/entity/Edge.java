@@ -1,5 +1,9 @@
 package entity;
-
+/**
+ * This is a vertical or horizontal Edge entity that can be marked throughout the Game.
+ * @author paddy
+ *
+ */
 public class Edge extends Entity {
 
 	private boolean selected, vertical;

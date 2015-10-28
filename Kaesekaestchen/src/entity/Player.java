@@ -26,7 +26,6 @@ public class Player extends Entity {
 	public void increaseOwnedEdges (int n) throws IllegalArgumentException  {
 		if (0 < n && n < 3 ){
 			ownedEdges = ownedEdges + n;
-			System.out.println("n is " +n);
 		}
 		else 
 			throw new IllegalArgumentException();
