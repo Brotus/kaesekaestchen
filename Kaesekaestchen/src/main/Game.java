@@ -6,6 +6,11 @@ import entity.FieldStates;
 import entity.Map;
 import entity.Player;
 
+/**
+ * 
+ * This class handles the UI (console) and runs the game loop.
+ *
+ */
 public class Game {
 
 	private int width, height;
@@ -14,6 +19,9 @@ public class Game {
 	private static Scanner s = new Scanner(System.in);
 	private Map gameMap;
 	
+	/**
+	 * Start the game. 
+	 */
 	Game(){
 		init();
 
@@ -21,6 +29,9 @@ public class Game {
 		GameLoop(p1);
 	}
 	
+	/**
+	 * Make the users enter their names and the size of the map.
+	 */
 	private void init(){
 		System.out.println("Enter the name of player P1:");
 		p1 = new Player(s.next(), 1);
@@ -63,21 +74,21 @@ public class Game {
 			break;
 
 		case ONE:
-			activePlayer.increaseOwnedEdges(1);
+			activePlayer.increaseOwnedFields(1);
 			break;
 
 		case TWO:
-			activePlayer.increaseOwnedEdges(2);
+			activePlayer.increaseOwnedFields(2);
 			break;
 		}
 		
 		// decides if game is over (and who won) based on the sum of the player
 		// scores
-		if ((p1.getOwnedEdges() + p2.getOwnedEdges()) == numberOfFields) {
-			if (p1.getOwnedEdges() < p2.getOwnedEdges()) {
+		if ((p1.getOwnedFields() + p2.getOwnedFields()) == numberOfFields) {
+			if (p1.getOwnedFields() < p2.getOwnedFields()) {
 				System.out.println("Congratulations " + p2.getName() + ", you won!");
 			}
-			if (p1.getOwnedEdges() > p2.getOwnedEdges()) {
+			if (p1.getOwnedFields() > p2.getOwnedFields()) {
 				System.out.println("Congratulations " + p1.getName() + ", you won!");
 			} else
 				System.out.println("It's a draw. Nobody wins. :( ");

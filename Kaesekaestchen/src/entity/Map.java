@@ -82,11 +82,11 @@ public class Map {
 	 * @return TWO - Edge has been marked and markingPlayer achieved to own two Fields
 	 */
 	public FieldStates markEdge(int edgeID, Player markingPlayer) {
-		if (edges[edgeID].isSelected()) {
+		if (edges[edgeID].isMarked()) {
 			return FieldStates.INVALID;
 		}
 
-		edges[edgeID].setSelected();
+		edges[edgeID].setMarked();
 		// counting marked Fields
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
@@ -126,7 +126,7 @@ public class Map {
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
 					sb.append("\t");
 					Edge e = edges[edgep];
-					if (e.isSelected())
+					if (e.isMarked())
 						sb.append(e.isVertical() ? "|" : "-");
 					else
 						sb.append(edgep);

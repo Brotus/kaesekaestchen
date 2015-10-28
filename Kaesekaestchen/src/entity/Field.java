@@ -3,14 +3,18 @@ package entity;
 /**
  * This is a Field, edgeAmount is the number of marked neighbor Edges and if all
  * edges are marked owner is set to the Player owning this Field from then on.
- * 
- * @author paddy
  *
  */
 
 public class Field extends Entity {
 
+	/**
+	 * The player that owns this field. Can be null.
+	 */
 	private Player owner;
+	/**
+	 * The amount of edges of this field that are currently marked. Some value from 0 (incl) to 4 (incl)
+	 */
 	private int edgeAmount;
 
 	/**
@@ -23,6 +27,9 @@ public class Field extends Entity {
 		edgeAmount = 0;
 	}
 
+	/**
+	 * @return The current owner of this field or null if it is not yet owned
+	 */
 	Player getOwner() {
 		return owner;
 	}

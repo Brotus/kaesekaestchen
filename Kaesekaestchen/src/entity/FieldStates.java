@@ -1,9 +1,7 @@
 package entity;
 
 /**
- * A simple Enumaration to differ States within the game loop.
- * @author paddy
- *
+ * A simple Enumeration to differ States within the game loop.
  */
 
 public enum FieldStates {
