@@ -117,10 +117,17 @@ public class Map {
 				if (colp % 2 == 1 && linep % 2 == 1) {
 					sb.append("\t");
 					Field f = fields[fieldp];
-					if (f.isOwned()) {
+					
+					if (f.isOwned())
+						sb.append(f.getOwner().getStrId());
+					
+					/**
+					 * Use the following 4 lines instead of the previous 2 to print the id of the field on the map
+					 */
+					/*if (f.isOwned()) {
 						sb.append(f.getOwner().getStrId());
 					} else
-						sb.append("[").append(fieldp).append("]");
+						sb.append("[").append(fieldp).append("]");*/
 
 					fieldp++;
 				} else if (colp % 2 == 1 || linep % 2 == 1) {
