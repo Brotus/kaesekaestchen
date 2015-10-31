@@ -1,5 +1,6 @@
 package entity;
 
+
 /**
  * This is a Field, edgeAmount is the number of marked neighbor Edges and if all
  * edges are marked owner is set to the Player owning this Field from then on.

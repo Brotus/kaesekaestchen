@@ -1,5 +1,6 @@
 package entity;
 
+
 /**
  * This class is used to model both players who play the game.
  *
@@ -40,7 +41,7 @@ public class Player extends Entity {
 	 * 
 	 * @return "P" + id
 	 */
-	String getStrId() {
+	public String getStrId() {
 		return "P" + id;
 	}
 
