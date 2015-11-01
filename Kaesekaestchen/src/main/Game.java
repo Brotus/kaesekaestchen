@@ -33,14 +33,33 @@ public class Game {
 	 * Make the users enter their names and the size of the map.
 	 */
 	private void init(){
-		System.out.println("Enter the name of player P1:");
-		p1 = new Player(s.next(), 1);
-		System.out.println("Enter the name of player P2:");
-		p2 = new Player(s.next(), 2);
-		System.out.println("Enter the width of the board:");
-		width = s.nextInt();
-		System.out.println("Enter the height of the board:");
-		height = s.nextInt();
+		System.out.println("Application will ignore any input after the first space in each line.");
+		String str;
+		str = parseInput("Enter the amount of players:","[1-9]+");
+		int players = Integer.parseInt(str);
+		// remove this later
+		players = 2;
+		for (int i = 1; i <= players; i++){
+			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w+" );
+			if(i==1)
+				p1 = new Player(str, 1);
+			else if(i==2)
+				p2 = new Player(str, 2);
+		}
+		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+"));
+		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+"));
+	}
+	
+	private String parseInput(String prompt, String matcher){
+		String str;
+		while(true){
+			System.out.println(prompt);
+			str = s.nextLine();
+			if(str.matches(matcher))
+				return str;
+			else
+				System.out.println("Input has to match " + matcher + ".");
+		}
 	}
 
 	/**
