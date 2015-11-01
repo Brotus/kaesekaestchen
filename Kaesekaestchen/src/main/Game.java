@@ -15,10 +15,12 @@ import entity.Player;
 public class Game {
 
 	private int width, height;
-	private Player p1, p2;
+	private Player[] players;
+	private int playerAmount;
 	private boolean errorMessage = false;
 	private static Scanner s = new Scanner(System.in);
 	private Map gameMap;
+	private boolean useAI;
 
 	/**
 	 * Start the game.
@@ -27,7 +29,7 @@ public class Game {
 		init();
 
 		gameMap = new Map(height, width);
-		GameLoop(p1);
+		GameLoop(0);
 	}
 
 	/**
@@ -36,16 +38,12 @@ public class Game {
 	private void init() {
 		System.out.println("Application will ignore whitespaces.");
 		String str;
-		str = parseInput("Enter the amount of players:", "[1-9]+");
-		int players = Integer.parseInt(str);
-		// remove this later
-		players = 2;
-		for (int i = 1; i <= players; i++) {
+		playerAmount = Integer.parseInt(parseInput("Enter the amount of players:", "[1-9]+"));
+		players = new Player[playerAmount];
+		useAI = playerAmount == 1;
+		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w+");
-			if (i == 1)
-				p1 = new Player(str, 1);
-			else if (i == 2)
-				p2 = new Player(str, 2);
+			players[i-1] = new Player(str, i);
 		}
 		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+"));
 		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+"));
@@ -103,9 +101,9 @@ public class Game {
 	/**
 	 * manages the turns of the game
 	 * 
-	 * @param activePlayer
+	 * @param pid the index of the active player in players
 	 */
-	private void GameLoop(Player activePlayer) {
+	private void GameLoop(int pid) {
 		gameMap.plot();
 		int numberOfFields = height * width;
 
@@ -114,46 +112,59 @@ public class Game {
 			errorMessage = false;
 		}
 
-		int playerInput = Integer.parseInt(parseInput(activePlayer.getName() + ", enter the edge you want to claim:", "\\d+", p -> {
+		// prompts the user to enter a valid edge
+		int playerInput = Integer.parseInt(parseInput(players[pid].getName() + ", enter the edge you want to claim:", "\\d+", p -> {
 			int n = Integer.parseInt(p);
 			return 0 <= n && n < gameMap.getEdgeCount();
 		}, "Input too high or too low."));
 
 		// players have to enter again if edge was already claimed, if they get
 		// a point (or two) they get an additional turn
-		FieldStates fs = gameMap.markEdge(playerInput, activePlayer);
+		FieldStates fs = gameMap.markEdge(playerInput, players[pid]);
 		switch (fs) {
 		case INVALID:
 			errorMessage = true;
-			GameLoop(activePlayer);
+			GameLoop(pid);
 			break;
 
 		case MARKED:
-			activePlayer = switchActivePlayer(activePlayer);
+			pid = switchActivePlayer(pid);
 			break;
 
 		case ONE:
-			activePlayer.increaseOwnedFields(1);
+			players[pid].increaseOwnedFields(1);
 			break;
 
 		case TWO:
-			activePlayer.increaseOwnedFields(2);
+			players[pid].increaseOwnedFields(2);
 			break;
 		}
 
 		// decides if game is over (and who won) based on the sum of the player
 		// scores
-		if ((p1.getOwnedFields() + p2.getOwnedFields()) == numberOfFields) {
-			if (p1.getOwnedFields() < p2.getOwnedFields()) {
-				System.out.println("Congratulations " + p2.getName() + ", you won!");
+		int sum = 0;
+		for(int i = 0; i < playerAmount; i++)
+			sum += players[i].getOwnedFields();
+		
+		if(sum == numberOfFields){
+			int maxID = 0;
+			boolean draw = false;
+			for(int i = 1; i < playerAmount; i++){
+				if(players[i].getOwnedFields() > players[maxID].getOwnedFields()){
+					maxID = i;
+					draw = false;
+				} else if (players[i].getOwnedFields() == players[maxID].getOwnedFields()) {
+					draw = true;
+				}
 			}
-			if (p1.getOwnedFields() > p2.getOwnedFields()) {
-				System.out.println("Congratulations " + p1.getName() + ", you won!");
-			} else
+			if (draw)
 				System.out.println("It's a draw. Nobody wins. :( ");
-		} else
-			GameLoop(activePlayer);
-
+			else {
+				System.out.println("Congratulations, " + players[maxID].getName() + ", you won!");
+				return;
+			}
+		}else
+			GameLoop(pid);
 	}
 
 	/**
@@ -162,10 +173,13 @@ public class Game {
 	 * @param activePlayer
 	 * @return
 	 */
-	private Player switchActivePlayer(Player activePlayer) {
-		if (activePlayer.equals(p1)) {
-			return p2;
-		} else
-			return p1;
+	private int switchActivePlayer(int pid) {
+		// playerAmount -1?
+		if(pid < playerAmount -1)
+			pid++;
+		else 
+			pid = 0;
+		
+		return pid;
 	}
 }
