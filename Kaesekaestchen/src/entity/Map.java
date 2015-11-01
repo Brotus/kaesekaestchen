@@ -190,4 +190,8 @@ public class Map {
 
 		return result;
 	}
+	
+	public int getEdgeCount(){
+		return edges.length;
+	}
 }
