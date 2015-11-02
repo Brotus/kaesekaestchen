@@ -6,7 +6,9 @@ import java.util.function.Predicate;
 import entity.FieldStates;
 import entity.Map;
 import entity.Player;
+import entity.AI.AI;
 import entity.AI.MinMaxAI;
+import entity.AI.SimpleAI;
 
 /**
  * 
@@ -22,18 +24,18 @@ public class Game {
 	private static Scanner s = new Scanner(System.in);
 	private Map gameMap;
 	private boolean useAI;
-	// AI to help the player when he enters 'help', 'aux' stands for auxiluary
-	private MinMaxAI auxAI;
 
 	/**
 	 * Start the game.
 	 */
 	Game() {
-		init();
+		System.out.println("Application will ignore whitespaces.");
+		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+"));
+		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+"));
 
 		gameMap = new Map(height, width);
 		
-		auxAI = new MinMaxAI(gameMap);
+		init();
 		
 		GameLoop(0);
 	}
@@ -42,18 +44,31 @@ public class Game {
 	 * Make the users enter their names and the size of the map.
 	 */
 	private void init() {
-		System.out.println("Application will ignore whitespaces.");
 		String str;
 		playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+"));
 		useAI = playerAmount == 1;
+		boolean auxAIAvailable = playerAmount == 2;
 		players = new Player[playerAmount + (useAI?1:0)];
 		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players[i-1] = new Player(str, i);
+			players[i-1] = new Player(str, i, auxAIAvailable ? new MinMaxAI(gameMap) : null, true);
 		}
-		// if(useAI) players[1] = new AI()
-		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+"));
-		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+"));
+		if(useAI){
+			int aiType = Integer.parseInt(parseInput("Enter KI type you want to play against. (0 or 1):", "[01]"));
+			AI ai;
+			switch(aiType){
+			case 0: 
+				ai = new SimpleAI(gameMap);
+				break;
+			case 1:
+				ai = new MinMaxAI(gameMap);
+				break;
+			default: 
+				ai = new SimpleAI(gameMap);
+			}
+			players[1] = new Player("KI", 2, ai, false);
+		}
+		
 	}
 
 	/**

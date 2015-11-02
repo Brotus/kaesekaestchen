@@ -3,9 +3,9 @@ package entity.AI;
 import entity.Map;
 import java.util.Random;
 
-public class simpleAI extends AI {
+public class SimpleAI extends AI {
 
-	public simpleAI(Map gameMap) {
+	public SimpleAI(Map gameMap) {
 		super(gameMap);
 		// TODO Auto-generated constructor stub
 	}

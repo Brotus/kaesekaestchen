@@ -1,11 +1,16 @@
 package entity;
 
+import entity.AI.AI;
+
 
 /**
  * This class is used to model both players who play the game.
  *
  */
 public class Player extends Entity {
+
+	private AI ai;
+	private boolean human;
 
 	/**
 	 * The name of the player. Will be displayed in console messages.
@@ -19,9 +24,11 @@ public class Player extends Entity {
 	/**
 	 * Create a new player with a name and an id (inherited from Entity)
 	 */
-	public Player(String name, int id) {
+	public Player(String name, int id, AI ai, boolean human) {
 		this.name = name;
 		this.id = id;
+		this.ai = ai;
+		this.human = human;
 	}
 
 	public int getOwnedFields() {
@@ -55,6 +62,19 @@ public class Player extends Entity {
 			ownedFields = ownedFields + n;
 		} else
 			throw new IllegalArgumentException();
+	}
+	
+	public boolean isHuman(){
+		return human;
+	}
+	
+	public int getTurn(){
+		return ai.suggestTurn();
+		
+	}
+	
+	public void doTurn(){
+		
 	}
 
 }
