@@ -112,10 +112,10 @@ public class Game {
 		}
 
 		// prompts the user to enter a valid edge
-		String playerInput = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'help':", "\\d+|", p -> {
+		int playerInput = Integer.parseInt(parseInput(players[pid].getName() + ", enter the edge you want to claim or 'help':", "\\d+", p -> {
 			int n = Integer.parseInt(p);
 			return 0 <= n && n < gameMap.getEdgeCount();
-		}, "Input too high or too low.");
+		}, "Input too high or too low."));
 
 		// players have to enter again if edge was already claimed, if they get
 		// a point (or two) they get an additional turn
