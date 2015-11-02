@@ -113,9 +113,9 @@ public class Map {
 		int edgep = 0;
 		int fieldp = 0;
 
-		for (int linep = 0; linep < rows * 2 + 1; linep++) {
+		for (int rowp = 0; rowp < rows * 2 + 1; rowp++) {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
-				if (colp % 2 == 1 && linep % 2 == 1) {
+				if (colp % 2 == 1 && rowp % 2 == 1) {
 					sb.append("\t");
 					Field f = fields[fieldp];
 					
@@ -131,7 +131,7 @@ public class Map {
 						sb.append("[").append(fieldp).append("]");*/
 
 					fieldp++;
-				} else if (colp % 2 == 1 || linep % 2 == 1) {
+				} else if (colp % 2 == 1 || rowp % 2 == 1) {
 					sb.append("\t");
 					Edge e = edges[edgep];
 					if (e.isMarked())
