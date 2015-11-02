@@ -42,7 +42,7 @@ public class Game {
 		players = new Player[playerAmount];
 		useAI = playerAmount == 1;
 		for (int i = 1; i <= playerAmount; i++) {
-			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w+");
+			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
 			players[i-1] = new Player(str, i);
 		}
 		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+"));
@@ -174,7 +174,6 @@ public class Game {
 	 * @return
 	 */
 	private int switchActivePlayer(int pid) {
-		// playerAmount -1?
 		if(pid < playerAmount -1)
 			pid++;
 		else 
