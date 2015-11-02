@@ -1,6 +1,7 @@
 package entity.AI;
 
 import entity.Map;
+import java.util.Random;
 
 public class simpleAI extends AI {
 
@@ -11,9 +12,10 @@ public class simpleAI extends AI {
 
 	@Override
 	public int suggestTurn() {
+		int max = gameMap.getEdgeCount();
+		Random randNum = new Random() ;
 		
-		// TODO Auto-generated method stub
-		return 0;
+		return randNum.nextInt(max);
 	}
 
 }
