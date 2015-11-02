@@ -58,15 +58,7 @@ public class Game {
 	 * @return a valid input the user entered
 	 */
 	private String parseInput(String prompt, String matcher) {
-		String str;
-		while (true) {
-			System.out.println(prompt);
-			str = s.nextLine();
-			if (str.matches(matcher))
-				return str;
-			else
-				System.out.println("Input has to match " + matcher + ".");
-		}
+		return parseInput(prompt, matcher, x -> true, "Input has to match " + matcher + ".");
 	}
 
 	/**
