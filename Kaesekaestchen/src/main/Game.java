@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import entity.FieldStates;
 import entity.Map;
 import entity.Player;
+import entity.AI.MinMaxAI;
 
 /**
  * 
@@ -21,6 +22,8 @@ public class Game {
 	private static Scanner s = new Scanner(System.in);
 	private Map gameMap;
 	private boolean useAI;
+	// AI to help the player when he enters 'help', 'aux' stands for auxiluary
+	private MinMaxAI auxAI;
 
 	/**
 	 * Start the game.
@@ -29,6 +32,9 @@ public class Game {
 		init();
 
 		gameMap = new Map(height, width);
+		
+		auxAI = new MinMaxAI(gameMap);
+		
 		GameLoop(0);
 	}
 
@@ -38,13 +44,14 @@ public class Game {
 	private void init() {
 		System.out.println("Application will ignore whitespaces.");
 		String str;
-		playerAmount = Integer.parseInt(parseInput("Enter the amount of players:", "[1-9]+"));
-		players = new Player[playerAmount];
+		playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+"));
 		useAI = playerAmount == 1;
+		players = new Player[playerAmount + (useAI?1:0)];
 		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
 			players[i-1] = new Player(str, i);
 		}
+		// if(useAI) players[1] = new AI()
 		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+"));
 		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+"));
 	}
@@ -105,10 +112,10 @@ public class Game {
 		}
 
 		// prompts the user to enter a valid edge
-		int playerInput = Integer.parseInt(parseInput(players[pid].getName() + ", enter the edge you want to claim:", "\\d+", p -> {
+		String playerInput = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'help':", "\\d+|", p -> {
 			int n = Integer.parseInt(p);
 			return 0 <= n && n < gameMap.getEdgeCount();
-		}, "Input too high or too low."));
+		}, "Input too high or too low.");
 
 		// players have to enter again if edge was already claimed, if they get
 		// a point (or two) they get an additional turn

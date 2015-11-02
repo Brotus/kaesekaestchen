@@ -5,7 +5,7 @@ import entity.Map;
 
 public abstract class AI {
 
-	Map gameMap;
+	protected Map gameMap;
 
 	public AI(Map gameMap) {
 	
