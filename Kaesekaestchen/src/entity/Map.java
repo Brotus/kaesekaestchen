@@ -23,10 +23,10 @@ public class Map {
 	 * @param width
 	 *            The number of columns of the map
 	 */
-	public Map(int height, int width) {
+	public Map(int rows, int columns) {
 
-		this.rows = height;
-		this.columns = width;
+		this.rows = rows;
+		this.columns = columns;
 
 		this.makeEdges();
 		this.makeFields();
@@ -193,5 +193,13 @@ public class Map {
 	
 	public int getEdgeCount(){
 		return edges.length;
+	}
+	
+	@Override
+	public Map clone(){
+		Map map = new Map(rows, columns);
+		map.makeEdges();
+		map.makeFields();
+		return map;
 	}
 }
