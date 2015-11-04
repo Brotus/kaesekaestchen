@@ -59,6 +59,7 @@ public class Game {
 					gameMap) : null, true);
 		}
 		if (useAI) {
+			playerAmount = 2;
 			int aiType = Integer
 					.parseInt(parseInput(
 							"Enter KI type you want to play against. (0 or 1):",
@@ -139,8 +140,10 @@ public class Game {
 		// prompts the user to enter a valid edge
 
 		int playerInput;
+		System.out.println("Useai = " + useAI + " pid " + pid);
 		if (useAI && pid == 1) {
 			playerInput = players[pid].getTurn();
+			System.out.println("playerinput= " + playerInput);
 		} else {
 			String input = parseInput(players[pid].getName()
 					+ ", enter the edge you want to claim or 'help':",
@@ -171,8 +174,7 @@ public class Game {
 		case INVALID:
 			errorMessage = true;
 			GameLoop(pid);
-			break;
-
+			return;
 		case MARKED:
 			pid = switchActivePlayer(pid);
 			break;
@@ -192,6 +194,7 @@ public class Game {
 			sum += players[i].getOwnedFields();
 
 		if (sum == numberOfFields) {
+			gameMap.plot();
 			int maxID = 0;
 			boolean draw = false;
 			for (int i = 1; i < playerAmount; i++) {
@@ -213,6 +216,7 @@ public class Game {
 			}
 		} else
 			GameLoop(pid);
+		
 
 	}
 

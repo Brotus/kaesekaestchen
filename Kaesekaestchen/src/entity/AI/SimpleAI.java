@@ -12,10 +12,11 @@ public class SimpleAI extends AI {
 
 	@Override
 	public int suggestTurn() {
-		int max = gameMap.getEdgeCount();
-		Random randNum = new Random() ;
+		System.out.println("Simple suggests");
+		int max = gameMap.getUnmarkedEdges().size();
+		Random randNum = new Random();
 		
-		return randNum.nextInt(max);
+		return gameMap.getUnmarkedEdges().get(randNum.nextInt(max));
 	}
 
 }

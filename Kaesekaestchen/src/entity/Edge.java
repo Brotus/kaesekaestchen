@@ -33,7 +33,7 @@ public class Edge extends Entity {
 		return id;
 	}
 
-	boolean isMarked() {
+	public boolean isMarked() {
 		return marked;
 	}
 
