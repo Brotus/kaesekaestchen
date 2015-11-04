@@ -40,5 +40,12 @@ public class Edge extends Entity {
 	void setMarked() {
 		this.marked = true;
 	}
+	
+	@Override
+	public Edge clone() {
+		Edge newEdge = new Edge(id, vertical);
+		newEdge.marked = this.marked;
+		return newEdge;
+	}
 
 }

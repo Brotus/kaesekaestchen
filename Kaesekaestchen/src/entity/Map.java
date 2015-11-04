@@ -13,7 +13,7 @@ public class Map {
 
 	private int rows;
 	private int columns;
-	private LinkedList<Integer> unmarkedEdges;
+	private LinkedList<Integer> unmarkedEdges = new LinkedList<Integer>();
 	private Edge[] edges;
 	private Field[] fields;
 
@@ -37,7 +37,6 @@ public class Map {
 
 	private void makeUnmarkedList() {
 
-		unmarkedEdges = new LinkedList<>();
 		for (int i = 0; i < edges.length; i++) {
 			unmarkedEdges.add(i);
 		}
@@ -103,7 +102,10 @@ public class Map {
 			return FieldStates.INVALID;
 		}
 
+		
 		edges[edgeID].setMarked();
+		unmarkedEdges.remove(new Integer(edgeID));
+		
 		// counting marked Fields
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
@@ -116,7 +118,6 @@ public class Map {
 			return FieldStates.MARKED;
 		} else {
 			
-			unmarkedEdges.remove(new Integer(edgeID));
 			if (c == 1) {
 				return FieldStates.ONE;
 			} else {
@@ -227,8 +228,16 @@ public class Map {
 	@Override
 	public Map clone() {
 		Map map = new Map(rows, columns);
-		map.makeEdges();
-		map.makeFields();
+		int p = 0;
+		map.unmarkedEdges.clear();
+		for (Edge edge : edges){
+			map.edges[p] = edge.clone();
+			p++;
+			if(!edge.isMarked()) {
+				map.unmarkedEdges.add(edge.id);
+			}
+			
+		}
 		return map;
 	}
 }
