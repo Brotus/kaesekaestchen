@@ -32,16 +32,8 @@ public class Map {
 
 		this.makeEdges();
 		this.makeFields();
-		this.makeUnmarkedList();
 	}
 
-	private void makeUnmarkedList() {
-
-		for (int i = 0; i < edges.length; i++) {
-			unmarkedEdges.add(i);
-		}
-
-	}
 
 	/**
 	 * This initializes the fields array. The ID of a Field in this Map is equal
@@ -56,7 +48,7 @@ public class Map {
 	}
 
 	/**
-	 * This initializes the edges array. The ID of an Edge is equal to it's
+	 * This initializes the edges array and the unmarkedEdges list. The ID of an Edge is equal to it's
 	 * position in the edges array of this class. This method also sets if an
 	 * edge is horizontal based on the Maps size.
 	 */
@@ -66,6 +58,7 @@ public class Map {
 		int c = 0;
 		boolean vertical = false;
 		for (int i = 0; i < nOfEdges; i++) {
+			unmarkedEdges.add(i);
 			edges[i] = new Edge(i, vertical);
 			if (!vertical && c == columns - 1) {
 				vertical = true;
