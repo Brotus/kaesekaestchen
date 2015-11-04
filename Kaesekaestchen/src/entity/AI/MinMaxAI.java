@@ -14,13 +14,13 @@ public class MinMaxAI extends AI {
 	 */
 	HashMap<Integer, Integer> edgeHash = new HashMap<>();
 	/**
-	 * Psoido player - needed to run Map.markEdge(EdgeID, Player);
+	 * Pseudo player - needed to run Map.markEdge(EdgeID, Player);
 	 */
 	private Player AIPlayer;
 	/**
 	 * Layers of recursion
 	 */
-	int layers = 5;
+	int layers = 2;
 
 	public MinMaxAI(Map gameMap) {
 		super(gameMap);
@@ -76,12 +76,10 @@ public class MinMaxAI extends AI {
 
 		case ONE:
 			// getting one point - still players turn
-			System.out.println("BEEN HERE");
 			points = 1;
 			break;
 
 		case TWO:
-			System.out.println("BEEN HERE TWO");
 			points = 2;
 			break;
 		}

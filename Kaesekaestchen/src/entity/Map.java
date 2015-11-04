@@ -238,6 +238,11 @@ public class Map {
 			}
 			
 		}
+		int i=0;
+		for (Field field : this.fields){
+			map.fields[i] = field.clone();
+			i++;
+		}
 		return map;
 	}
 }

@@ -1,6 +1,5 @@
 package entity;
 
-
 /**
  * This is a Field, edgeAmount is the number of marked neighbor Edges and if all
  * edges are marked owner is set to the Player owning this Field from then on.
@@ -14,7 +13,8 @@ public class Field extends Entity {
 	 */
 	private Player owner;
 	/**
-	 * The amount of edges of this field that are currently marked. Some value from 0 (incl) to 4 (incl)
+	 * The amount of edges of this field that are currently marked. Some value
+	 * from 0 (incl) to 4 (incl)
 	 */
 	private int edgeAmount;
 
@@ -55,6 +55,13 @@ public class Field extends Entity {
 	 */
 	boolean isOwned() {
 		return edgeAmount == 4;
+	}
+
+	@Override
+	public Field clone() {
+		Field newField = new Field(id);
+		newField.edgeAmount = this.edgeAmount;
+		return newField;
 	}
 
 }
