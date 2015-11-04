@@ -104,6 +104,10 @@ public class MinMaxAI extends AI {
 		for (int nextEdge : newMap.getUnmarkedEdges()) {
 			values.add(rate(nextPath, nextEdge, newMap, n));
 		}
+		
+		if (values.isEmpty()) {
+			return points;
+		}
 		// for debugging:
 		// System.out.print("rating ");
 		// for (int i : path) {
