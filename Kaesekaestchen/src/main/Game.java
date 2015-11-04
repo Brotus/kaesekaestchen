@@ -29,41 +29,35 @@ public class Game {
 	 * Start the game.
 	 */
 	Game() {
+		// width and height need to be entered here because Game.init() needs
+		// gameMap
 		System.out.println("Application will ignore whitespaces.");
-		width = Integer.parseInt(parseInput("Enter the width of the board:",
-				"[1-9]+"));
-		height = Integer.parseInt(parseInput("Enter the height of the board:",
-				"[1-9]+"));
+		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+\\d*"));
+		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+\\d*"));
 
 		gameMap = new Map(height, width);
 
 		init();
 
-		GameLoop(0);
+		GameLoop();
 	}
 
 	/**
-	 * Make the users enter their names and the size of the map.
+	 * Input of - amount of players - names of players - AI types
 	 */
 	private void init() {
 		String str;
-		playerAmount = Integer.parseInt(parseInput(
-				"Enter the amount of players (1 == human against AI):",
-				"[1-9]+"));
+		playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
 		useAI = playerAmount == 1;
 		boolean auxAIAvailable = playerAmount <= 2;
 		players = new Player[playerAmount + (useAI ? 1 : 0)];
 		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players[i - 1] = new Player(str, i, auxAIAvailable ? new MinMaxAI(
-					gameMap) : null, true);
+			players[i - 1] = new Player(str, i, auxAIAvailable ? new MinMaxAI(gameMap) : null, true);
 		}
 		if (useAI) {
 			playerAmount = 2;
-			int aiType = Integer
-					.parseInt(parseInput(
-							"Enter KI type you want to play against. (0 or 1):",
-							"[01]"));
+			int aiType = Integer.parseInt(parseInput("Enter AI type you want to play against. (0 or 1):", "[01]"));
 			AI ai;
 			switch (aiType) {
 			case 0:
@@ -75,22 +69,21 @@ public class Game {
 			default:
 				ai = new SimpleAI(gameMap);
 			}
-			players[1] = new Player("KI", 2, ai, false);
+			players[1] = new Player("AI", 2, ai, false);
 		}
 
 	}
 
 	/**
 	 * Prompts the user the prompt as long as the input does not yet match the
-	 * matcher (regular expression). Whitespaces will be deleted.
+	 * matcher (regular expression). Whitespace will be deleted.
 	 * 
 	 * @param matcher
 	 *            a regular expression the input as to match to
 	 * @return a valid input the user entered
 	 */
 	private String parseInput(String prompt, String matcher) {
-		return parseInput(prompt, matcher, x -> true, "Input has to match "
-				+ matcher + ".");
+		return parseInput(prompt, matcher, x -> true, "Input has to match " + matcher + ".");
 	}
 
 	/**
@@ -107,8 +100,7 @@ public class Game {
 	 *            predicate
 	 * @return a valid string
 	 */
-	private String parseInput(String prompt, String matcher,
-			Predicate<String> p, String predicateFailMessage) {
+	private String parseInput(String prompt, String matcher, Predicate<String> p, String predicateFailMessage) {
 		String str;
 		while (true) {
 			System.out.println(prompt);
@@ -129,7 +121,7 @@ public class Game {
 	 * @param pid
 	 *            the index of the active player in players
 	 */
-	private void GameLoop(int pid) {
+	private void GameLoop2(int pid) {
 		gameMap.plot();
 
 		if (errorMessage) {
@@ -139,28 +131,29 @@ public class Game {
 
 		// prompts the user to enter a valid edge
 
+		// playerInput will contain the targeted edge
 		int playerInput;
-		System.out.println("Useai = " + useAI + " pid " + pid);
+		// 1 player against AI, AI's turn
 		if (useAI && pid == 1) {
 			playerInput = players[pid].getTurn();
-			System.out.println("playerinput= " + playerInput);
 		} else {
-			String input = parseInput(players[pid].getName()
-					+ ", enter the edge you want to claim or 'help':",
-					"(\\d+)|(help)", p -> {
-						if (p.equals("help"))
-							return true;
-						else
-							try {
-								int n = Integer.parseInt(p);
-								return 0 <= n && n < gameMap.getEdgeCount();
-							} catch (Exception e) {
-								return false;
-							}
-					}, "Input has to match (\\d+)|(help).");
+			// this is complicated because it parses 'help' and edgeids
+			String input = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'help':", "(\\d+)|(help)", p -> {
+				if (p.equals("help"))
+					return true;
+				else
+					// parse for valid edge
+					try {
+						int n = Integer.parseInt(p);
+						return 0 <= n && n < gameMap.getEdgeCount();
+					} catch (Exception e) {
+						return false;
+					}
+			}, "Input has to match (\\d+)|(help).");
 			if (input.equals("help")) {
+
 				System.out.println("AI suggests: " + players[pid].getTurn());
-				GameLoop(pid);
+				GameLoop2(pid);
 				return;
 			} else
 				playerInput = Integer.parseInt(input);
@@ -173,7 +166,7 @@ public class Game {
 		switch (fs) {
 		case INVALID:
 			errorMessage = true;
-			GameLoop(pid);
+			GameLoop2(pid);
 			return;
 		case MARKED:
 			pid = switchActivePlayer(pid);
@@ -198,25 +191,116 @@ public class Game {
 			int maxID = 0;
 			boolean draw = false;
 			for (int i = 1; i < playerAmount; i++) {
-				if (players[i].getOwnedFields() > players[maxID]
-						.getOwnedFields()) {
+				if (players[i].getOwnedFields() > players[maxID].getOwnedFields()) {
 					maxID = i;
 					draw = false;
-				} else if (players[i].getOwnedFields() == players[maxID]
-						.getOwnedFields()) {
+				} else if (players[i].getOwnedFields() == players[maxID].getOwnedFields()) {
 					draw = true;
 				}
 			}
 			if (draw)
 				System.out.println("It's a draw. Nobody wins. :( ");
 			else {
-				System.out.println("Congratulations, "
-						+ players[maxID].getName() + ", you won!");
+				System.out.println("Congratulations, " + players[maxID].getName() + ", you won!");
 				return;
 			}
 		} else
-			GameLoop(pid);
+			GameLoop2(pid);
+
+	}
+
+	private void GameLoop() {
+		// the id of the currently active player
+		int pid = 0;
 		
+		// playerInput will contain the targeted edge
+		int playerInput;
+		
+		int amountOfFields = height * width;
+		
+		gameMap.plot();
+
+		while (true) {
+
+			// 1 player against AI, AI's turn
+			if (useAI && pid == 1) {
+				playerInput = players[pid].getTurn();
+			} else {
+				// this is complicated because it parses 'help' and edgeids
+				String input = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'help':", "(\\d+)|(help)", p -> {
+					if (p.equals("help"))
+						return true;
+					else
+						// parse for valid edge
+						try {
+							int n = Integer.parseInt(p);
+							return 0 <= n && n < gameMap.getEdgeCount();
+						} catch (Exception e) {
+							return false;
+						}
+				}, "Input has to match (\\d+)|(help).");
+				if (input.equals("help")) {
+					System.out.println("AI suggests: " + players[pid].getTurn());
+					continue;
+				} else
+					playerInput = Integer.parseInt(input);
+			}
+			
+			// players have to enter again if edge was already claimed, if they get
+			// a point (or two) they get an additional turn
+			FieldStates fs = gameMap.markEdge(playerInput, players[pid]);
+			switch (fs) {
+			case INVALID:
+				System.out.println("This edge is already selected.");
+				continue;
+			case MARKED:
+				pid = switchActivePlayer(pid);
+				if (useAI && pid == 1)
+					System.out.println("AI selects " + playerInput + ".");
+				break;
+			case ONE:
+				players[pid].increaseOwnedFields(1);
+				if (useAI && pid == 1)
+					System.out.println("AI selects " + playerInput);
+				break;
+
+			case TWO:
+				players[pid].increaseOwnedFields(2);
+				if (useAI && pid == 1)
+					System.out.println("AI selects " + playerInput);
+				break;
+			}
+			// decides if game is over (and who won) based on the sum of the player
+			// scores
+			int sum = 0;
+			for (int i = 0; i < playerAmount; i++)
+				sum += players[i].getOwnedFields();
+
+			if (sum == amountOfFields) {
+				gameMap.plot();
+				int maxID = 0;
+				boolean draw = false;
+				for (int i = 1; i < playerAmount; i++) {
+					if (players[i].getOwnedFields() > players[maxID].getOwnedFields()) {
+						maxID = i;
+						draw = false;
+					} else if (players[i].getOwnedFields() == players[maxID].getOwnedFields()) {
+						draw = true;
+					}
+				}
+				if (draw)
+					System.out.println("It's a draw. Nobody wins. :( ");
+				else {
+					System.out.println("Congratulations, " + players[maxID].getName() + ", you won!");
+					return;
+				}
+			}
+			
+			if (!(useAI && pid == 1)) {
+				gameMap.plot();
+			}
+
+		} // end of while
 
 	}
 
