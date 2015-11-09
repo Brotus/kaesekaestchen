@@ -4,18 +4,22 @@ import entity.Map;
 import java.util.Random;
 
 public class SimpleAI extends AI {
+	
+	/**
+	 * Creating a simple artificial intelligence for the game, choosing random edges of the edges left.
+	 * @param gameMap
+	 */
 
 	public SimpleAI(Map gameMap) {
 		super(gameMap);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public int suggestTurn() {
-		int max = gameMap.getEdgeCount();
-		Random randNum = new Random() ;
+		int max = gameMap.getUnmarkedEdges().size();
+		Random randNum = new Random();
 		
-		return randNum.nextInt(max);
+		return gameMap.getUnmarkedEdges().get(randNum.nextInt(max));
 	}
 
 }

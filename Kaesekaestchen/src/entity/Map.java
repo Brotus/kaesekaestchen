@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.LinkedList;
 
 /**
  * This Class contains the Entities needed for the game loop, manages their ID's
@@ -12,6 +13,7 @@ public class Map {
 
 	private int rows;
 	private int columns;
+	private LinkedList<Integer> unmarkedEdges = new LinkedList<Integer>();
 	private Edge[] edges;
 	private Field[] fields;
 
@@ -32,6 +34,7 @@ public class Map {
 		this.makeFields();
 	}
 
+
 	/**
 	 * This initializes the fields array. The ID of a Field in this Map is equal
 	 * to its position in the fields array of this class.
@@ -45,7 +48,7 @@ public class Map {
 	}
 
 	/**
-	 * This initializes the edges array. The ID of an Edge is equal to it's
+	 * This initializes the edges array and the unmarkedEdges list. The ID of an Edge is equal to it's
 	 * position in the edges array of this class. This method also sets if an
 	 * edge is horizontal based on the Maps size.
 	 */
@@ -55,6 +58,7 @@ public class Map {
 		int c = 0;
 		boolean vertical = false;
 		for (int i = 0; i < nOfEdges; i++) {
+			unmarkedEdges.add(i);
 			edges[i] = new Edge(i, vertical);
 			if (!vertical && c == columns - 1) {
 				vertical = true;
@@ -66,28 +70,35 @@ public class Map {
 				c++;
 			}
 		}
+
 	}
 
 	/**
 	 * This marks an edge of a given ID if it is not marked yet and marks the
-	 * surrounding Field-Entities if necessary. It returns the correspondent action that took place.
-	 
-	 * @param edgeID 
-	 * The ID of the marked Edge.
-	 * @param markingPlayer 
-	 * The Player marking this edge.
+	 * surrounding Field-Entities if necessary. It returns the correspondent
+	 * action that took place.
 	 * 
-	 * @return FieldStates.INVALID - Edge already marked 
+	 * @param edgeID
+	 *            The ID of the marked Edge.
+	 * @param markingPlayer
+	 *            The Player marking this edge.
+	 * 
+	 * @return FieldStates.INVALID - Edge already marked
 	 * @return MARKED - Edge has been marked
-	 * @return ONE - Edge has been marked and markingPlayer achieved to own one Field
-	 * @return TWO - Edge has been marked and markingPlayer achieved to own two Fields
+	 * @return ONE - Edge has been marked and markingPlayer achieved to own one
+	 *         Field
+	 * @return TWO - Edge has been marked and markingPlayer achieved to own two
+	 *         Fields
 	 */
 	public FieldStates markEdge(int edgeID, Player markingPlayer) {
 		if (edges[edgeID].isMarked()) {
 			return FieldStates.INVALID;
 		}
 
+		
 		edges[edgeID].setMarked();
+		unmarkedEdges.remove(new Integer(edgeID));
+		
 		// counting marked Fields
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
@@ -98,11 +109,22 @@ public class Map {
 
 		if (c == 0) {
 			return FieldStates.MARKED;
-		} else if (c == 1) {
-			return FieldStates.ONE;
 		} else {
-			return FieldStates.TWO;
+			
+			if (c == 1) {
+				return FieldStates.ONE;
+			} else {
+				return FieldStates.TWO;
+			}
 		}
+	}
+
+	public Edge[] getEdges() {
+		return edges;
+	}
+	
+	public LinkedList<Integer> getUnmarkedEdges() {
+		return unmarkedEdges;
 	}
 
 	/**
@@ -118,17 +140,18 @@ public class Map {
 				if (colp % 2 == 1 && rowp % 2 == 1) {
 					sb.append("\t");
 					Field f = fields[fieldp];
-					
+
 					if (f.isOwned())
 						sb.append(f.getOwner().getStrId());
-					
+
 					/**
-					 * Use the following 4 lines instead of the previous 2 to print the id of the field on the map
+					 * Use the following 4 lines instead of the previous 2 to
+					 * print the id of the field on the map
 					 */
-					/*if (f.isOwned()) {
-						sb.append(f.getOwner().getStrId());
-					} else
-						sb.append("[").append(fieldp).append("]");*/
+					/*
+					 * if (f.isOwned()) { sb.append(f.getOwner().getStrId()); }
+					 * else sb.append("[").append(fieldp).append("]");
+					 */
 
 					fieldp++;
 				} else if (colp % 2 == 1 || rowp % 2 == 1) {
@@ -153,11 +176,11 @@ public class Map {
 	}
 
 	/**
-	 * This maps the edgeID to an array of two integers that mark the surrounding
-	 * field entities of that edge.
+	 * This maps the edgeID to an array of two integers that mark the
+	 * surrounding field entities of that edge.
 	 * 
 	 * @param edgeID
-	 * The Edge's ID of which the neighbors are sought
+	 *            The Edge's ID of which the neighbors are sought
 	 * @return An array of neighbor FieldIDs or -1 if there is none.
 	 */
 	private int[] hashFunction(int edgeID) {
@@ -190,16 +213,29 @@ public class Map {
 
 		return result;
 	}
-	
-	public int getEdgeCount(){
+
+	public int getEdgeCount() {
 		return edges.length;
 	}
-	
+
 	@Override
-	public Map clone(){
+	public Map clone() {
 		Map map = new Map(rows, columns);
-		map.makeEdges();
-		map.makeFields();
+		int p = 0;
+		map.unmarkedEdges.clear();
+		for (Edge edge : edges){
+			map.edges[p] = edge.clone();
+			p++;
+			if(!edge.isMarked()) {
+				map.unmarkedEdges.add(edge.id);
+			}
+			
+		}
+		int i=0;
+		for (Field field : this.fields){
+			map.fields[i] = field.clone();
+			i++;
+		}
 		return map;
 	}
 }

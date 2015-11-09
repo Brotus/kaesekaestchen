@@ -33,12 +33,19 @@ public class Edge extends Entity {
 		return id;
 	}
 
-	boolean isMarked() {
+	public boolean isMarked() {
 		return marked;
 	}
 
 	void setMarked() {
 		this.marked = true;
+	}
+	
+	@Override
+	public Edge clone() {
+		Edge newEdge = new Edge(id, vertical);
+		newEdge.marked = this.marked;
+		return newEdge;
 	}
 
 }
