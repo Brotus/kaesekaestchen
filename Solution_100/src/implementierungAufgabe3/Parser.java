@@ -3,6 +3,9 @@ package implementierungAufgabe3;
 public class Parser {
 	
 	public Tree parseBooleanEx(String s) throws IllegalArgumentException{
+		if(s == null || s == ""){
+			throw new IllegalArgumentException("Empty input");
+		}
 		Stack stack = new Stack();
 		
 		String[] sArr = s.split(" ");

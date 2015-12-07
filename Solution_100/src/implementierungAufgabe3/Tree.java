@@ -19,4 +19,9 @@ public class Tree {
 		}
 		return str;
 	}
+	
+	@Override
+	public boolean equals(Object t){
+		return t != null && t instanceof Tree && this.traverse().equals(((Tree)t).traverse());
+	}
 }
