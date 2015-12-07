@@ -3,7 +3,6 @@ package entity.AI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 
 import entity.Map;
 import entity.Player;
@@ -94,8 +93,7 @@ public class AdvancedAI extends AI {
 		// the clone Map gets the edge marked and returns if a point was scored
 		switch (newMap.markEdge(edge, AIPlayer)) {
 		case INVALID:
-			System.err.println("There should be no marked Edges to check");
-			break;
+			throw new IllegalArgumentException("There should be no marked Edges to check!");
 
 		case MARKED:
 			// points will not change, but it is the other player's turn
@@ -138,10 +136,7 @@ public class AdvancedAI extends AI {
 		// we return the points made with the largest score made in the upcoming
 		// level of recursion. It is being subtracted if the player changed.
 		// if the list is empty, the points will be returned.
-		try {
 			return points + sign * Collections.max(values);
-		} catch (NoSuchElementException e) {
-			return points;
-		}
+		
 	}
 }
