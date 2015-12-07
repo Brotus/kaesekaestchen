@@ -29,7 +29,7 @@ public class Edge extends Entity {
 		return vertical;
 	}
 
-	int getId() {
+	public int getId() {
 		return id;
 	}
 
