@@ -41,6 +41,9 @@ public class ParserTest {
 	Node or = new Node("|", A, and);
 	Tree testTree = new Tree(or);
 	
+	System.out.println(testTree.traverse());
+	System.out.println(parser.parseBooleanEx(testString).traverse());
+	
 	assertEquals(parser.parseBooleanEx(testString), testTree);
 	}
 
