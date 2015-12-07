@@ -52,16 +52,17 @@ public class AdvancedAI extends AI {
 		System.out.println();
 		
 		int max = Collections.max(edgeHash.values());
+		int bestChoice = 0;
 		// picking one with the highest rating
 		for (Integer i : edgeHash.keySet()) {
 
 			if (edgeHash.get(i).equals(max)) {
-				return i;
+				bestChoice = i;
 			}
 		}
 
 		// should not get until here
-		return 0;
+		return bestChoice;
 	}
 
 	/**
