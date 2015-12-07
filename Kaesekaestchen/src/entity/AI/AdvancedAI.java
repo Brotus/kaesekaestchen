@@ -81,7 +81,7 @@ public class AdvancedAI extends AI {
 	 *            the layers of recursion not yet reached
 	 * @return a rating of choosing this edge
 	 */
-	private int rate(LinkedList<Integer> path, int edge, Map MapAtThisPoint,
+	public int rate(LinkedList<Integer> path, int edge, Map MapAtThisPoint,
 			int maxLayers, int maxDepth) {
 
 		// sign is used to subtract the score if its the other players turn
