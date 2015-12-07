@@ -12,9 +12,7 @@ public class Tree {
 	
 	private String traverse(Node root){
 		String str = root.s;
-		if(root.r == null || root.r == null){
-			//str = str + ")";
-		} else {
+		if(!(root.r == null || root.r == null)){
 			str = str + "(" + traverse(root.l) + ", "+ traverse(root.r) + ")";
 		}
 		return str;
