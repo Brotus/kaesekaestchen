@@ -23,6 +23,8 @@ public class Parser {
 				throw new IllegalArgumentException("Found invalid character");
 			}
 		}
+		if(stack.elems != 0)
+			throw new IllegalArgumentException("Found too few operations");
 		
 		return stack.toTree();
 	}
