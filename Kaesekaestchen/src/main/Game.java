@@ -28,7 +28,7 @@ public class Game {
 	/**
 	 * Start the game.
 	 */
-	Game() {
+	public Game() {
 		// width and height need to be entered here because Game.init() needs
 		// gameMap
 		System.out.println("Application will ignore whitespaces.");
