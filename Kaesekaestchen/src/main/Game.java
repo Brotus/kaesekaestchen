@@ -7,7 +7,7 @@ import entity.FieldStates;
 import entity.Map;
 import entity.Player;
 import entity.AI.AI;
-import entity.AI.MinMaxAI;
+import entity.AI.AdvancedAI;
 import entity.AI.SimpleAI;
 
 /**
@@ -53,7 +53,7 @@ public class Game {
 		players = new Player[playerAmount + (useAI ? 1 : 0)];
 		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players[i - 1] = new Player(str, i, auxAIAvailable ? new MinMaxAI(gameMap) : null, true);
+			players[i - 1] = new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true);
 		}
 		if (useAI) {
 			playerAmount = 2;
@@ -64,7 +64,7 @@ public class Game {
 				ai = new SimpleAI(gameMap);
 				break;
 			case 1:
-				ai = new MinMaxAI(gameMap);
+				ai = new AdvancedAI(gameMap);
 				break;
 			default:
 				ai = new SimpleAI(gameMap);
