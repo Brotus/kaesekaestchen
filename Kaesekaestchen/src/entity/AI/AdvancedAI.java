@@ -3,6 +3,7 @@ package entity.AI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 import entity.Map;
 import entity.Player;
@@ -21,12 +22,12 @@ public class AdvancedAI extends AI {
 	/**
 	 * Layers of recursion (This is how often the players alternated), we decided that two is adequately.
 	 */
-	private final int maxLayers = 2;
+	private final int maxLayers = 4;
 	
 	/**
 	 * Maximum Depth of the decision tree.
 	 */
-	private final int maxDepth = 10;
+	private final int maxDepth = 5;
 
 	/**
 	 * Creating an artificial intelligence for the game using the MinMax-Algorithm
@@ -136,7 +137,10 @@ public class AdvancedAI extends AI {
 		// we return the points made with the largest score made in the upcoming
 		// level of recursion. It is being subtracted if the player changed.
 		// if the list is empty, the points will be returned.
-			return points + sign * Collections.max(values);
-		
+		try {	
+		return points + sign * Collections.max(values);
+		} catch (NoSuchElementException e) {
+			return points;
+		}
 	}
 }
