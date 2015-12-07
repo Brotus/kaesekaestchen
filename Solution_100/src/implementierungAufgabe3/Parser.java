@@ -3,6 +3,8 @@ package implementierungAufgabe3;
 public class Parser {
 	
 	public Tree parseBooleanEx(String s) throws IllegalArgumentException{
+		Stack stack = new Stack();
+		
 		String[] sArr = s.split(" ");
 		for(String t: sArr){
 			if(t.matches("[A-Za-z]+")){
@@ -13,7 +15,7 @@ public class Parser {
 				throw new IllegalArgumentException();
 			}
 		}
-		Stack stack = new Stack();
+		
 		return stack.toTree();
 	}
 
