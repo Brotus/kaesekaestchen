@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 import entity.Map;
 import entity.Player;
 
-public class MinMaxAI extends AI {
+public class AdvancedAI extends AI {
 
 	/**
 	 * Here the Ratings will be stored. This is cleared every time suggestTurn()
@@ -20,15 +20,20 @@ public class MinMaxAI extends AI {
 	 */
 	private Player AIPlayer;
 	/**
-	 * Layers of recursion, we decided that two is adequately.
+	 * Layers of recursion (This is how often the players alternated), we decided that two is adequately.
 	 */
-	int layers = 2;
+	private final int maxLayers = 2;
+	
+	/**
+	 * Maximum Depth of the decision tree.
+	 */
+	private final int maxDepth = 10;
 
 	/**
 	 * Creating an artificial intelligence for the game using the MinMax-Algorithm
 	 * @param gameMap
 	 */
-	public MinMaxAI(Map gameMap) {
+	public AdvancedAI(Map gameMap) {
 		super(gameMap);
 	}
 
@@ -39,10 +44,14 @@ public class MinMaxAI extends AI {
 	public int suggestTurn() {
 		edgeHash.clear();
 
+		System.out.print("AI is thinking");
 		// Rating all possible Edges
 		for (Integer i : gameMap.getUnmarkedEdges()) {
-			edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, layers));
+			edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, maxLayers, maxDepth));
+		System.out.print(".");
 		}
+		System.out.println();
+		
 
 		// picking one with the highest rating
 		for (Integer i : edgeHash.keySet()) {
@@ -68,12 +77,12 @@ public class MinMaxAI extends AI {
 	 *            the EdgeID that will be selected now
 	 * @param MapAtThisPoint
 	 *            a clone of the Map at this Point
-	 * @param n
+	 * @param maxLayers
 	 *            the layers of recursion not yet reached
 	 * @return a rating of choosing this edge
 	 */
 	private int rate(LinkedList<Integer> path, int edge, Map MapAtThisPoint,
-			int n) {
+			int maxLayers, int maxDepth) {
 
 		// sign is used to subtract the score if its the other players turn
 		int sign = 1;
@@ -86,15 +95,12 @@ public class MinMaxAI extends AI {
 		switch (newMap.markEdge(edge, AIPlayer)) {
 		case INVALID:
 			System.err.println("There should be no marked Edges to check");
-			// return 0;
-			// points += 0;
-			// sign = 1;
 			break;
 
 		case MARKED:
 			// points will not change, but it is the other player's turn
 			sign = -1;
-			--n;
+			--maxLayers;
 			break;
 
 		case ONE:
@@ -110,7 +116,7 @@ public class MinMaxAI extends AI {
 		// if there are too many layers of recursion we will break here
 		// returning
 		// the points
-		if (n == 0) {
+		if (maxLayers == 0 || maxDepth-- == 0) {
 			return points;
 		}
 
@@ -126,7 +132,7 @@ public class MinMaxAI extends AI {
 		// recursively this method is called with the new path, new map, the
 		// levels of recursion left on each of the edges not marked yet.
 		for (int nextEdge : newMap.getUnmarkedEdges()) {
-			values.add(rate(nextPath, nextEdge, newMap, n));
+			values.add(rate(nextPath, nextEdge, newMap, maxLayers, maxDepth));
 		}
 
 		// we return the points made with the largest score made in the upcoming
