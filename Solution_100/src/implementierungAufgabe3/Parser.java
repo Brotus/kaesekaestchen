@@ -8,9 +8,11 @@ public class Parser {
 		String[] sArr = s.split(" ");
 		for(String t: sArr){
 			if(t.matches("[A-Za-z]+")){
-				
+				stack.push(new Node(t));
 			} else if(t.matches("[&|]")){
-				
+				Node n2 = stack.pop();
+				Node n1 = stack.pop();
+				stack.push(new Node(t, n1, n2));
 			} else {
 				throw new IllegalArgumentException();
 			}
