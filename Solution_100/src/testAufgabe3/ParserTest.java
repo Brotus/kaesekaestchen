@@ -1,11 +1,10 @@
 package testAufgabe3;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import implementierungAufgabe3.Node;
 import implementierungAufgabe3.Parser;
 import implementierungAufgabe3.Tree;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ParserTest {
