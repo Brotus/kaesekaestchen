@@ -16,7 +16,7 @@ import entity.AI.AdvancedAI;
  *             reference Implementation.
  */
 @Deprecated
-public class AdvancedAITest {
+public class OurAdvancedAITest {
 
 	Map simpleSetUp;
 	AdvancedAI simpleAISetUp;
