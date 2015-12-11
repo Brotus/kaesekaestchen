@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: de.tud.cs.se.ws15.kaesekaestchen_team100.testAufgabe1.OurAdvancedAITest
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.175 sec
