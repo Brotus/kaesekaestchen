@@ -15,4 +15,6 @@
 /kaesekaestchen-team100/target/classes/*
 /kaesekaestchen-team100/target/surefire-reports/*
 /kaesekaestchen-team100/target/test-classes/*
+/kaesekaestchen-team100/target/
+/kaesekaestchen-team100/target/*
 /kaesekaestchen-team100/.gitignore
