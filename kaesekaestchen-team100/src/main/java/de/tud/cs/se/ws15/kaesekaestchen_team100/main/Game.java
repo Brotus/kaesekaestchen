@@ -1,5 +1,8 @@
 package de.tud.cs.se.ws15.kaesekaestchen_team100.main;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -32,6 +35,18 @@ public class Game {
 		// width and height need to be entered here because Game.init() needs
 		// gameMap
 		System.out.println("Application will ignore whitespaces.");
+		
+		// readme/help prompt
+		if(parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")){
+			try {
+				String content = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") + "/src/main/resources/readme.txt")));
+				System.out.println(content);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+\\d*"));
 		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+\\d*"));
 
