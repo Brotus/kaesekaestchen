@@ -9,3 +9,6 @@
 /Kaesekaestchen/.project
 /kaesekaestchen-team100/.classpath
 /kaesekaestchen-team100/.project
+/kaesekaestchen-team100/target/classes/*
+/kaesekaestchen-team100/surefire-reports/*
+/kaesekaestchen-team100/test-classes/*
