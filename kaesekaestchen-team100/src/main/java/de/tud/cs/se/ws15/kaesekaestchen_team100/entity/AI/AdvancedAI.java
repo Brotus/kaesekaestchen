@@ -14,7 +14,7 @@ public class AdvancedAI extends AI {
 	 * Here the Ratings will be stored. This is cleared every time suggestTurn()
 	 * is run.
 	 */
-	HashMap<Integer, Integer> edgeHash = new HashMap<>();
+	HashMap<Integer, Integer> edgeHash = new HashMap<Integer, Integer>();
 	/**
 	 * Pseudo player - needed to run Map.markEdge(EdgeID, Player);
 	 */

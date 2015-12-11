@@ -15,7 +15,6 @@ import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
  * @Deprecated Since we have found mistakes in our code, we decided to test the
  *             reference Implementation.
  */
-@Deprecated
 public class OurAdvancedAITest {
 
 	Map simpleSetUp;
