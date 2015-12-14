@@ -187,26 +187,36 @@ public class Game {
 
 		while (humanTurn) {
 			if (auxAIAvailable) {
-				input = parseInput(players[pid].getName()
-						+ ", enter the edge you want to claim or 'help':",
-						"(\\d+)|(help)", p -> {
-							if (p.equals("help"))
+				input = parseInput(
+						players[pid].getName()
+								+ ", enter the edge you want to claim, 'help' or 'quit':",
+						"(\\d+)|(help)|(quit)",
+						p -> {
+							if (p.equals("quit")) {
+								System.exit(0);
+								return false;
+							} else if (p.equals("help"))
 								return true;
 							else
-								// parse for valid edge
-						try {
-							int n = Integer.parseInt(p);
-							return 0 <= n && n < gameMap.getEdgeCount();
-						} catch (Exception e) {
-							return false;
-						}
-				});
+								try {
+									int n = Integer.parseInt(p);
+									return 0 <= n && n < gameMap.getEdgeCount();
+								} catch (Exception e) {
+									return false;
+								}
+						});
 			} else {
 				input = parseInput(players[pid].getName()
-						+ ", enter the edge you want to claim:", "\\d+", p -> {
-					int n = Integer.parseInt(p);
-					return 0 <= n && n < gameMap.getEdgeCount();
-				});
+						+ ", enter the edge you want to claim or 'quit':",
+						"(\\d+)|(quit)", p -> {
+							if (p.equals("quit")) {
+								System.exit(0);
+								return false;
+							} else {
+								int n = Integer.parseInt(p);
+								return 0 <= n && n < gameMap.getEdgeCount();
+							}
+						});
 			}
 
 			if (auxAIAvailable && input.equals("help")) {
