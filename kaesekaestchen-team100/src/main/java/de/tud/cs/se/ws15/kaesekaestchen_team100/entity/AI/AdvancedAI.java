@@ -120,13 +120,13 @@ public class AdvancedAI extends AI {
 		}
 
 		// We create a clone of the path and add the recently marked edge to it
-		LinkedList<Integer> nextPath = new LinkedList<>();
+		LinkedList<Integer> nextPath = new LinkedList<Integer>();
 		nextPath.addAll(path);
 		nextPath.add(edge);
 
 		// We make a list to save all values of the edges that may be selected
 		// next
-		LinkedList<Integer> values = new LinkedList<>();
+		LinkedList<Integer> values = new LinkedList<Integer>();
 
 		// recursively this method is called with the new path, new map, the
 		// levels of recursion left on each of the edges not marked yet.
