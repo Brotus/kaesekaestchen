@@ -3,7 +3,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
  * This is a vertical or horizontal Edge entity that can be marked throughout the Game.
  *
  */
-public class Edge extends Entity {
+public class Edge extends Entity{
 
 	/**
 	 * An Edge is marked iff a Player chose to mark it.
@@ -41,8 +41,7 @@ public class Edge extends Entity {
 		this.marked = true;
 	}
 	
-	@Override
-	public Edge clone() {
+	public Edge copy() {
 		Edge newEdge = new Edge(id, vertical);
 		newEdge.marked = this.marked;
 		return newEdge;

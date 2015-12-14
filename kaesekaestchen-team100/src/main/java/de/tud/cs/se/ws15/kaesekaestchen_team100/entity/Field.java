@@ -6,7 +6,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
  *
  */
 
-public class Field extends Entity {
+public class Field extends Entity implements Cloneable {
 
 	/**
 	 * The player that owns this field. Can be null.
@@ -57,8 +57,7 @@ public class Field extends Entity {
 		return edgeAmount == 4;
 	}
 
-	@Override
-	public Field clone() {
+	public Field copy() {
 		Field newField = new Field(id);
 		newField.edgeAmount = this.edgeAmount;
 		return newField;

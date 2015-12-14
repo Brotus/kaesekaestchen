@@ -90,7 +90,7 @@ public class AdvancedAI extends AI {
 		// points is the score made with this decision
 		int points = 0;
 		// we clone the map, so that the actual map remains unchanged
-		Map newMap = MapAtThisPoint.clone();
+		Map newMap = MapAtThisPoint.copy();
 
 		// the clone Map gets the edge marked and returns if a point was scored
 		switch (newMap.markEdge(edge, AIPlayer)) {

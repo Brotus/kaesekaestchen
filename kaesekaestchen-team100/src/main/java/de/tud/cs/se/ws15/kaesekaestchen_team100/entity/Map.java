@@ -216,13 +216,12 @@ public class Map implements Cloneable {
 		return edges.length;
 	}
 
-	@Override
-	public Map clone() {
+	public Map copy() {
 		Map map = new Map(rows, columns);
 		int p = 0;
 		map.unmarkedEdges.clear();
 		for (Edge edge : edges){
-			map.edges[p] = edge.clone();
+			map.edges[p] = edge.copy();
 			p++;
 			if(!edge.isMarked()) {
 				map.unmarkedEdges.add(edge.id);
@@ -231,7 +230,7 @@ public class Map implements Cloneable {
 		}
 		int i=0;
 		for (Field field : this.fields){
-			map.fields[i] = field.clone();
+			map.fields[i] = field.copy();
 			i++;
 		}
 		return map;
