@@ -79,6 +79,7 @@ public class AdvancedAI extends AI {
 	 *            a clone of the Map at this Point
 	 * @param maxLayers
 	 *            the layers of recursion not yet reached
+	 * @param maxDepth the maximum depth
 	 * @return a rating of choosing this edge
 	 */
 	public int rate(LinkedList<Integer> path, int edge, Map MapAtThisPoint,
