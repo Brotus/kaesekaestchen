@@ -6,7 +6,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
  *
  */
 
-public class Field extends Entity implements Cloneable {
+public class Field extends Entity{
 
 	/**
 	 * The player that owns this field. Can be null.

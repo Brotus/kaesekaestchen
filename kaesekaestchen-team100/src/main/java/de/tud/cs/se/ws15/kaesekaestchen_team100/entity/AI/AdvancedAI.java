@@ -22,12 +22,12 @@ public class AdvancedAI extends AI {
 	/**
 	 * Layers of recursion (This is how often the players alternated), we decided that two is adequately.
 	 */
-	private final int maxLayers = 4;
+	private static final int MAX_LAYERS = 4;
 	
 	/**
 	 * Maximum Depth of the decision tree.
 	 */
-	private final int maxDepth = 5;
+	private static final int MAX_DEPTH = 5;
 
 	/**
 	 * Creating an artificial intelligence for the game using the MinMax-Algorithm
@@ -47,7 +47,7 @@ public class AdvancedAI extends AI {
 		System.out.print("AI is thinking");
 		// Rating all possible Edges
 		for (Integer i : gameMap.getUnmarkedEdges()) {
-			edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, maxLayers, maxDepth));
+			edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, MAX_LAYERS, MAX_DEPTH));
 		System.out.print(".");
 		}
 		System.out.println();

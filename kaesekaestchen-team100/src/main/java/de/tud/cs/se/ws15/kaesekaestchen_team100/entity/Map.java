@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @author paddy
  *
  */
-public class Map implements Cloneable {
+public class Map {
 
 	private int rows;
 	private int columns;
@@ -95,7 +95,8 @@ public class Map implements Cloneable {
 
 		
 		edges[edgeID].setMarked();
-		unmarkedEdges.remove(new Integer(edgeID));
+		// instead of new Integer(edgeID)
+		unmarkedEdges.remove(Integer.valueOf(edgeID));
 		
 		// counting marked Fields
 		int c = 0;
@@ -117,6 +118,10 @@ public class Map implements Cloneable {
 		}
 	}
 
+	/**
+	 * FindBugs claims this might "expose internal representation" but it needs to be public for the tests
+	 * @return the array of the edges
+	 */
 	public Edge[] getEdges() {
 		return edges;
 	}
