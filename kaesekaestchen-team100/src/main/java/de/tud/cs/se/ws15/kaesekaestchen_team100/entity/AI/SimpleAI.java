@@ -8,7 +8,6 @@ public class SimpleAI extends AI {
 	
 	/**
 	 * Creating a simple artificial intelligence for the game, choosing random edges of the edges left.
-	 * @param gameMap
 	 */
 
 	public SimpleAI(Map gameMap) {

@@ -23,6 +23,10 @@ public class Player extends Entity {
 
 	/**
 	 * Create a new player with a name and an id (inherited from Entity)
+	 * @param name name of the player
+	 * @param id id of the player
+	 * @param ai used ai
+	 * @param human whether the player is human or ai
 	 */
 	public Player(String name, int id, AI ai, boolean human) {
 		this.name = name;

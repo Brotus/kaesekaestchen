@@ -20,10 +20,8 @@ public class Map {
 	/**
 	 * Creates a Map.
 	 * 
-	 * @param height
-	 *            The number of rows of the Map
-	 * @param width
-	 *            The number of columns of the map
+	 * @param rows The number of rows of the Map
+	 * @param columns The number of columns of the map
 	 */
 	public Map(int rows, int columns) {
 

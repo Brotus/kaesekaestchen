@@ -31,7 +31,7 @@ public class AdvancedAI extends AI {
 
 	/**
 	 * Creating an artificial intelligence for the game using the MinMax-Algorithm
-	 * @param gameMap
+	 * @param gameMap the gamemap
 	 */
 	public AdvancedAI(Map gameMap) {
 		super(gameMap);
