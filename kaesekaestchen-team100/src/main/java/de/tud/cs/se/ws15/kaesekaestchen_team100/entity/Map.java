@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @author paddy
  *
  */
-public class Map {
+public class Map implements Cloneable {
 
 	private int rows;
 	private int columns;
@@ -137,7 +137,7 @@ public class Map {
 
 		for (int rowp = 0; rowp < rows * 2 + 1; rowp++) {
 			for (int colp = 0; colp < columns * 2 + 1; colp++) {
-				if (colp % 2 == 1 && rowp % 2 == 1) {
+				if ((colp & 1) == 1 && (rowp & 1) == 1) {
 					sb.append("\t");
 					Field f = fields[fieldp];
 
@@ -154,7 +154,7 @@ public class Map {
 					 */
 
 					fieldp++;
-				} else if (colp % 2 == 1 || rowp % 2 == 1) {
+				} else if ((colp & 1) == 1 || (rowp & 1) == 1) {
 					sb.append("\t");
 					Edge e = edges[edgep];
 					if (e.isMarked())
