@@ -3,6 +3,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
@@ -54,13 +55,18 @@ public class AdvancedAI extends AI {
 		
 		int max = Collections.max(edgeHash.values());
 		int bestChoice = 0;
+		for(Entry<Integer,Integer> entry: edgeHash.entrySet()){
+			if(entry.getValue().equals(max) ){
+				bestChoice = entry.getKey();
+			}
+		}
 		// picking one with the highest rating
-		for (Integer i : edgeHash.keySet()) {
+		/*for (Integer i : edgeHash.keySet()) {
 
 			if (edgeHash.get(i).equals(max)) {
 				bestChoice = i;
 			}
-		}
+		}*/
 
 		// should not get until here
 		return bestChoice;

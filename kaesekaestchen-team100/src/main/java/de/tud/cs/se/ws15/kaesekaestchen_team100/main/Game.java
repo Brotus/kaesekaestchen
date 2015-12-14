@@ -23,7 +23,7 @@ public class Game {
 	private int width, height;
 	private Player[] players;
 	private int playerAmount;
-	private static Scanner s = new Scanner(System.in);
+	private static Scanner s = new Scanner(System.in, "UTF-8");
 	private Map gameMap;
 	private boolean useAI;
 	private boolean auxAIAvailable;
@@ -39,7 +39,7 @@ public class Game {
 		// readme/help prompt
 		if(parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")){
 			try {
-				String content = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") + "/src/main/resources/readme.txt")));
+				String content = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") + "/src/main/resources/readme.txt")), "UTF-8");
 				System.out.println(content);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
