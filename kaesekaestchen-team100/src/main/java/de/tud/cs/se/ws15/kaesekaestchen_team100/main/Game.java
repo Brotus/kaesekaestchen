@@ -1,8 +1,8 @@
 package de.tud.cs.se.ws15.kaesekaestchen_team100.main;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -35,20 +35,37 @@ public class Game {
 		// width and height need to be entered here because Game.init() needs
 		// gameMap
 		System.out.println("Application will ignore whitespaces.");
-		
+
 		// readme/help prompt
-		if(parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")){
+		if (parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")) {
+			/*
+			 * try { String content = new
+			 * String(Files.readAllBytes(Paths.get(Main
+			 * .class.getResource("/src/main/resources/readme.txt").toURI())),
+			 * "UTF-8"); System.out.println(content); } catch (IOException |
+			 * URISyntaxException e) { // TODO Auto-generated catch block
+			 * e.printStackTrace(); }
+			 */
+			// System.out.println(System.getProperty("user.dir"));
 			try {
-				String content = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") + "/src/main/resources/readme.txt")), "UTF-8");
-				System.out.println(content);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				BufferedReader txtReader = new BufferedReader(
+						new InputStreamReader(getClass().getClassLoader()
+								.getResourceAsStream("readme.txt")));
+				String line;
+				while ((line = txtReader.readLine()) != null) {
+					System.out.println(line);
+				}
+			} catch (IOException ioEx) {
+				ioEx.printStackTrace();
+			} catch (NullPointerException nEx) {
+				System.out.println("Error");
 			}
-			
+
 		}
-		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+\\d*"));
-		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+\\d*"));
+		width = Integer.parseInt(parseInput("Enter the width of the board:",
+				"[1-9]+\\d*"));
+		height = Integer.parseInt(parseInput("Enter the height of the board:",
+				"[1-9]+\\d*"));
 
 		gameMap = new Map(height, width);
 
@@ -62,17 +79,23 @@ public class Game {
 	 */
 	private void init() {
 		String str;
-		playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
+		playerAmount = Integer.parseInt(parseInput(
+				"Enter the amount of players (1 == human against AI):",
+				"[1-9]+\\d*"));
 		useAI = playerAmount == 1;
 		auxAIAvailable = playerAmount <= 2;
 		players = new Player[playerAmount + (useAI ? 1 : 0)];
 		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players[i - 1] = new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true);
+			players[i - 1] = new Player(str, i,
+					auxAIAvailable ? new AdvancedAI(gameMap) : null, true);
 		}
 		if (useAI) {
 			playerAmount = 2;
-			int aiType = Integer.parseInt(parseInput("Enter AI type you want to play against. (0 or 1):", "[01]"));
+			int aiType = Integer
+					.parseInt(parseInput(
+							"Enter AI type you want to play against. (0 or 1):",
+							"[01]"));
 			AI ai;
 			switch (aiType) {
 			case 0:
@@ -102,7 +125,8 @@ public class Game {
 	}
 
 	private String parseInput(String prompt, String matcher, Predicate<String> p) {
-		return parseInput(prompt, matcher, p, "Input has to match " + matcher + ".");
+		return parseInput(prompt, matcher, p, "Input has to match " + matcher
+				+ ".");
 	}
 
 	/**
@@ -119,7 +143,8 @@ public class Game {
 	 *            predicate
 	 * @return a valid string
 	 */
-	private String parseInput(String prompt, String matcher, Predicate<String> p, String predicateFailMessage) {
+	private String parseInput(String prompt, String matcher,
+			Predicate<String> p, String predicateFailMessage) {
 		String str;
 		while (true) {
 			System.out.println(prompt);
@@ -162,11 +187,13 @@ public class Game {
 
 		while (humanTurn) {
 			if (auxAIAvailable) {
-				input = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'help':", "(\\d+)|(help)", p -> {
-					if (p.equals("help"))
-						return true;
-					else
-						// parse for valid edge
+				input = parseInput(players[pid].getName()
+						+ ", enter the edge you want to claim or 'help':",
+						"(\\d+)|(help)", p -> {
+							if (p.equals("help"))
+								return true;
+							else
+								// parse for valid edge
 						try {
 							int n = Integer.parseInt(p);
 							return 0 <= n && n < gameMap.getEdgeCount();
@@ -175,7 +202,8 @@ public class Game {
 						}
 				});
 			} else {
-				input = parseInput(players[pid].getName() + ", enter the edge you want to claim:", "\\d+", p -> {
+				input = parseInput(players[pid].getName()
+						+ ", enter the edge you want to claim:", "\\d+", p -> {
 					int n = Integer.parseInt(p);
 					return 0 <= n && n < gameMap.getEdgeCount();
 				});
@@ -233,14 +261,16 @@ public class Game {
 			if (players[i].getOwnedFields() > players[maxID].getOwnedFields()) {
 				maxID = i;
 				draw = false;
-			} else if (players[i].getOwnedFields() == players[maxID].getOwnedFields()) {
+			} else if (players[i].getOwnedFields() == players[maxID]
+					.getOwnedFields()) {
 				draw = true;
 			}
 		}
 		if (draw)
 			System.out.println("It's a draw. Nobody wins. :( ");
 		else {
-			System.out.println("Congratulations, " + players[maxID].getName() + ", you won!");
+			System.out.println("Congratulations, " + players[maxID].getName()
+					+ ", you won!");
 		}
 	}
 
