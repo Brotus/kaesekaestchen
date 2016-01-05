@@ -1,0 +1,8 @@
+https://www.websequencediagrams.com/?lz=dGl0bGUgSkJ1dHRvbiBNb3VzZUV2ZW50IERpYWdyYW0KClVzZXItLT4AHAc6IFRlc3Q&s=default
+
+
+
+
+title JButton MouseEvent Diagram
+
+User-->JButton: Test
