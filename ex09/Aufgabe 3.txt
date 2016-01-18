@@ -1,0 +1,9 @@
+Kopplung von A ist größer als die von A1 und A2.
+Die Kohäsion hängt davon ab, wie Klassen B und C von A verwendet werden,
+gibt es in A ausschließlich Methoden die jeweils nur B oder C verwenden 
+und diese sind nach der Aufteilung entsprechen in A1 bzw. A2 zu finden,
+so hat sich die Kohäsion von A1 bzw. A2 gegenüber A verbessert, da man 
+offensichtlich zwei verschiedene Aufgaben der Klasse A problemlos 
+aufteilen kann. Andernfalls ist Code-Duplikation zum aufspalten 
+unumgänglich und die Kohesion verschlechtert sich. Die Kohäsion, wie auch
+die Kopplung von B und C werden durch die Aufteilung nicht verändert.
