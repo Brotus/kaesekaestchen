@@ -25,11 +25,13 @@
 
 	<build>
 		<plugins>
+			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.3</version>
 			</plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -51,6 +53,7 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.14.1</version>
@@ -58,9 +61,11 @@
 					<argLine>${argLine}</argLine>
 				</configuration>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 
+	<!--
 	<reporting>
 		<plugins>
 			<plugin>
@@ -130,7 +135,8 @@
 						</reports>
 					</reportSet>
 				</reportSets>
-			</plugin>			
+			</plugin>	
 		</plugins>
 	</reporting>
+	-->
 </project>
