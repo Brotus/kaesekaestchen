@@ -17,6 +17,10 @@ public class Map {
 	private LinkedList<Integer> unmarkedEdges = new LinkedList<Integer>();
 	private Edge[] edges;
 	private Field[] fields;
+	/** the id of the edge causing fancyness */
+	private int fancyId;
+	/** true iff the wall causing fancy stuff should be visible */
+	private boolean fancyVisible = false;
 
 	/**
 	 * Creates a Map.
@@ -25,9 +29,10 @@ public class Map {
 	 * @param columns The number of columns of the map
 	 */
 	public Map(int rows, int columns) {
-
 		this.rows = rows;
 		this.columns = columns;
+		
+		this.fancyId = generateFancyWallId();
 
 		this.makeEdges();
 		this.makeFields();
@@ -165,6 +170,8 @@ public class Map {
 						sb.append(e.isVertical() ? "|" : "-");
 					else
 						sb.append(edgep);
+					if(edgep == fancyId && fancyVisible)
+						sb.append("@");
 
 					edgep++;
 				} else {
@@ -249,7 +256,11 @@ public class Map {
 	 * 
 	 * @return the id
 	 */
-	public int getFancyWall(){
+	private int generateFancyWallId(){
 		return new Random().nextInt(rows * columns);
+	}
+	
+	public void setFancyVisible(){
+		fancyVisible = true;
 	}
 }

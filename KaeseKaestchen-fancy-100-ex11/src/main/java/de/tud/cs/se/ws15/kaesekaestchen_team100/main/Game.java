@@ -30,8 +30,6 @@ public class Game {
 	private boolean useAI;
 	/** true iff there is an auxiliary AI is available to the player */
 	private boolean auxAIAvailable;
-	/** true iff the wall causing fancy stuff should be visible */
-	private boolean fancyVisible;
 	
 	
 	/**
@@ -98,7 +96,6 @@ public class Game {
 		}
 		if (useAI) {
 			playerAmount = 2;
-			fancyVisible = false;
 			int aiType = Integer
 					.parseInt(parseInput(
 							"Enter AI type you want to play against. (0 or 1):",
@@ -116,7 +113,11 @@ public class Game {
 			}
 			players[1] = new Player("AI", 2, ai, false);
 		} else {
-			fancyVisible = parseInput("Shall the wall causing fancy events be visible?","[yn]").equals("y");
+			boolean fancyVisible = parseInput("Shall the wall causing fancy events be visible?","[yn]").equals("y");
+			if(fancyVisible){
+				gameMap.setFancyVisible();
+				System.out.println("Boring. Watch out for the @.");
+			}
 		}
 
 	}
