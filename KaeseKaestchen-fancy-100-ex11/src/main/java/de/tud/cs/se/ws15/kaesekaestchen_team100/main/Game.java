@@ -25,16 +25,22 @@ public class Game {
 	private int playerAmount;
 	private static Scanner s = new Scanner(System.in, "UTF-8");
 	private Map gameMap;
+	
+	/** true iff a player is controlled by AI */
 	private boolean useAI;
+	/** true iff there is an auxiliary AI is available to the player */
 	private boolean auxAIAvailable;
-
+	/** true iff the wall causing fancy stuff should be visible */
+	private boolean fancyVisible;
+	
+	
 	/**
 	 * Start the game.
 	 */
 	public Game() {
 		// width and height need to be entered here because Game.init() needs
 		// gameMap
-		System.out.println("Application will ignore whitespaces.");
+		System.out.println("This application will ignore whitespaces in your input.");
 
 		// readme/help prompt
 		if (parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")) {
@@ -92,6 +98,7 @@ public class Game {
 		}
 		if (useAI) {
 			playerAmount = 2;
+			fancyVisible = false;
 			int aiType = Integer
 					.parseInt(parseInput(
 							"Enter AI type you want to play against. (0 or 1):",
@@ -108,6 +115,8 @@ public class Game {
 				ai = new SimpleAI(gameMap);
 			}
 			players[1] = new Player("AI", 2, ai, false);
+		} else {
+			fancyVisible = parseInput("Shall the wall causing fancy events be visible?","[yn]").equals("y");
 		}
 
 	}

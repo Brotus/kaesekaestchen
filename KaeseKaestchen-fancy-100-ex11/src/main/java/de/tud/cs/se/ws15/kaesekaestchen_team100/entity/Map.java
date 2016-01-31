@@ -1,6 +1,7 @@
 package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * This Class contains the Entities needed for the game loop, manages their ID's
@@ -239,5 +240,16 @@ public class Map {
 			i++;
 		}
 		return map;
+	}
+	
+	/**
+	 * Calculates a random id of an unmarked edge that shall cause fancy actions.
+	 * 
+	 * NOTE: this is called at the beginning of the game so no edge is marked. For the sake of flexibility it is implemented that way.
+	 * 
+	 * @return the id
+	 */
+	public int getFancyWall(){
+		return new Random().nextInt(rows * columns);
 	}
 }
