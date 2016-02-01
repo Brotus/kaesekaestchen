@@ -66,7 +66,7 @@ public class OurAdvancedAITest {
 				simpleSetUp, 2, 2));
 	}
 
-	@Test
+	@Test(timeout = 10000)
 	public void selectBestAdvanced() {
 		int[] edges = new int[] { 0, 1, 2, 4, 7, 9, 11 };
 		for (int e : edges) {
@@ -75,7 +75,7 @@ public class OurAdvancedAITest {
 		assertEquals(10, simpleAISetUp.suggestTurn());
 	}
 
-	@Test(timeout = 10000)
+	@Test(timeout = 15000)
 	public void strategyTest() {
 		Map largerSetUp = new Map(4, 4, handle);
 		int[] edges = new int[] { 1, 2, 3, 4, 5, 11, 12, 13, 14, 18, 19, 20,
