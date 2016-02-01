@@ -1,4 +1,4 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Player;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Player;
 
 public class AdvancedAI extends AI {
 

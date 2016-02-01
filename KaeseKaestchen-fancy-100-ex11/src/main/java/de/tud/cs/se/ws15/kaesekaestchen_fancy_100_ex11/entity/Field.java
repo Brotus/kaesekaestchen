@@ -1,4 +1,4 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity;
 
 /**
  * This is a Field, edgeAmount is the number of marked neighbor Edges and if all

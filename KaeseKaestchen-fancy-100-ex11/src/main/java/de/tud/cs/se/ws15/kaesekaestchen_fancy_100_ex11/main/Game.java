@@ -1,4 +1,4 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.main;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.main;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,17 +7,17 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Player;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AI;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.SimpleAI;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.ChineseWallStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.EarthQuakeStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FloodingStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.TwisterStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.VulcanoStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Player;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.AI;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.AdvancedAI;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.SimpleAI;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.ChineseWallStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EarthQuakeStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FloodingStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.TwisterStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.VulcanoStrategy;
 
 /**
  * 

@@ -1,9 +1,9 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity;
 
 import java.util.LinkedList;
 import java.util.Random;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
 
 /**
  * This Class contains the Entities needed for the game loop, manages their ID's

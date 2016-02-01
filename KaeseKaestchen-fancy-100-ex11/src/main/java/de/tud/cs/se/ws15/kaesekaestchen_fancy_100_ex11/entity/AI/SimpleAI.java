@@ -1,6 +1,6 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
 
 import java.util.Random;
 

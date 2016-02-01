@@ -1,4 +1,4 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.testAufgabe1;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.testAufgabe1;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,11 +7,11 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Player;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.EmptyStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Player;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.AdvancedAI;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EmptyStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
 
 /**
  *  Since we have found mistakes in our code, we decided to test the

@@ -1,4 +1,4 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity;
 /**
  * This is a vertical or horizontal Edge entity that can be marked throughout the Game.
  *

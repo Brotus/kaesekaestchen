@@ -1,6 +1,6 @@
-package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AI;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.AI;
 
 
 /**
