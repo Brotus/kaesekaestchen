@@ -3,6 +3,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_team100.main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -12,6 +13,11 @@ import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AI;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.SimpleAI;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.ChineseWallStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.EarthQuakeStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FloodingStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.TwisterStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.VulcanoStrategy;
 
 /**
  * 
@@ -70,12 +76,38 @@ public class Game {
 				"[1-9]+\\d*"));
 		height = Integer.parseInt(parseInput("Enter the height of the board:",
 				"[1-9]+\\d*"));
-
-		gameMap = new Map(height, width, new ChineseWallStrategy());
+		
+		gameMap = new Map(height, width, getFancyStrategy());
 
 		init();
 
 		MainLoop();
+	}
+	
+	private FancyHandle getFancyStrategy(){
+		// strategy has to be chosen when map is created
+		int rnd = new Random().nextInt(5);
+		FancyHandle fancy;
+		switch (rnd){
+		case 0:
+			fancy = new VulcanoStrategy();
+			break;
+		case 1:
+			fancy = new ChineseWallStrategy();
+			break;
+		case 2:
+			fancy = new TwisterStrategy();
+			break;
+		case 3:
+			fancy = new EarthQuakeStrategy();
+			break;
+		case 4:
+			fancy = new FloodingStrategy();
+			break;
+		default:
+			fancy = new ChineseWallStrategy();
+		}
+		return fancy;
 	}
 
 	/**
