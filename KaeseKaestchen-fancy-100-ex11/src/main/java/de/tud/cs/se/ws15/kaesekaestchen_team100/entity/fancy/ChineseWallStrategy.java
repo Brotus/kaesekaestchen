@@ -6,6 +6,7 @@ public class ChineseWallStrategy implements FancyHandle {
 
 	@Override
 	public void action(Map gameMap) {
+		System.out.println("FEAR THE CHINESE WALL!");
 		
 	}
 

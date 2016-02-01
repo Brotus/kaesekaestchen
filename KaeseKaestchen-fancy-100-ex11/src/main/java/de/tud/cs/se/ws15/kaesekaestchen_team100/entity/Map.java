@@ -3,6 +3,8 @@ package de.tud.cs.se.ws15.kaesekaestchen_team100.entity;
 import java.util.LinkedList;
 import java.util.Random;
 
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
+
 /**
  * This Class contains the Entities needed for the game loop, manages their ID's
  * and marks them as owned or selected.
@@ -17,10 +19,14 @@ public class Map {
 	private LinkedList<Integer> unmarkedEdges = new LinkedList<Integer>();
 	private Edge[] edges;
 	private Field[] fields;
-	/** the id of the edge causing fancyness */
-	private int fancyId;
+	/** the id of the edge causing fanciness */
+	private int fancyID;
 	/** true iff the wall causing fancy stuff should be visible */
 	private boolean fancyVisible = false;
+	
+	private boolean anotherTurn;
+	
+	private FancyHandle fancy;
 
 	/**
 	 * Creates a Map.
@@ -28,12 +34,21 @@ public class Map {
 	 * @param rows The number of rows of the Map
 	 * @param columns The number of columns of the map
 	 */
-	public Map(int rows, int columns) {
+	public Map(int rows, int columns, FancyHandle fancy) {
 		this.rows = rows;
 		this.columns = columns;
+		this.fancy = fancy;
 		
-		this.fancyId = generateFancyWallId();
+		this.fancyID = generateFancyWallId();
 
+		this.makeEdges();
+		this.makeFields();
+	}
+	
+	public Map(int rows, int columns){
+		this.rows = rows;
+		this.columns = columns;
+		this.fancyID = -1;
 		this.makeEdges();
 		this.makeFields();
 	}
@@ -94,38 +109,34 @@ public class Map {
 	 * @return TWO - Edge has been marked and markingPlayer achieved to own two
 	 *         Fields
 	 */
-	public FieldStates markEdge(int edgeID, Player markingPlayer) {
+	public int markEdge(int edgeID, Player markingPlayer) {
 		if (edges[edgeID].isMarked()) {
-			return FieldStates.INVALID;
+			anotherTurn = true;
+			return -1;
 		}
 		
 		// fancy action has to happen before the wall is marked
-		
+		if(edgeID == fancyID){
+			fancy.action(this);
+		}
 		
 		
 		edges[edgeID].setMarked();
 		// instead of new Integer(edgeID)
 		unmarkedEdges.remove(Integer.valueOf(edgeID));
 		
+		// TODO: handle fields closed by the fancy actions
 		// counting marked Fields
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
 			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)) {
 				c++;
-				return FieldStates.MARKED(10);
 			}
 		}
-
-		if (c == 0) {
-			return FieldStates.MARKED;
-		} else {
-			
-			if (c == 1) {
-				return FieldStates.ONE;
-			} else {
-				return FieldStates.TWO;
-			}
-		}
+		// TODO: handle another turn when fancy events happen
+		anotherTurn = (c>0);
+		
+		return c;
 	}
 
 	/**
@@ -174,7 +185,7 @@ public class Map {
 						sb.append(e.isVertical() ? "|" : "-");
 					else
 						sb.append(edgep);
-					if(edgep == fancyId && fancyVisible)
+					if(edgep == fancyID && fancyVisible)
 						sb.append("@");
 
 					edgep++;
@@ -234,7 +245,7 @@ public class Map {
 	}
 
 	public Map copy() {
-		Map map = new Map(rows, columns);
+		Map map = new Map(rows, columns, fancy);
 		int p = 0;
 		map.unmarkedEdges.clear();
 		for (Edge edge : edges){
@@ -266,5 +277,9 @@ public class Map {
 	
 	public void setFancyVisible(){
 		fancyVisible = true;
+	}
+	
+	public boolean anotherTurn(){
+		return anotherTurn;
 	}
 }

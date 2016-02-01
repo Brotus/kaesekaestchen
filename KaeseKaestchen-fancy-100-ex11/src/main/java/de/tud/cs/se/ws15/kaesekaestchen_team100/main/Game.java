@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.FieldStates;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AI;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.SimpleAI;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.ChineseWallStrategy;
 
 /**
  * 
@@ -71,7 +71,7 @@ public class Game {
 		height = Integer.parseInt(parseInput("Enter the height of the board:",
 				"[1-9]+\\d*"));
 
-		gameMap = new Map(height, width);
+		gameMap = new Map(height, width, new ChineseWallStrategy());
 
 		init();
 
@@ -235,26 +235,20 @@ public class Game {
 			} else
 				playerInput = Integer.parseInt(input);
 
-			FieldStates fs = gameMap.markEdge(playerInput, players[pid]);
-			switch (fs) {
-			case INVALID:
+			int fs = gameMap.markEdge(playerInput, players[pid]);
+			
+			if(fs == -1){
 				System.out.println("This edge is already selected.");
 				continue;
-			case MARKED:
-				humanTurn = false;
-				break;
-			case ONE:
-				players[pid].increaseOwnedFields(1);
+			} else if(fs == 0){
+				
+				humanTurn = gameMap.anotherTurn();
+			} else if (fs > 0) {
+				players[pid].increaseOwnedFields(fs);
 				gameMap.plot();
 				if (checkEnd())
 					return true;
-				break;
-			case TWO:
-				players[pid].increaseOwnedFields(2);
-				gameMap.plot();
-				if (checkEnd())
-					return true;
-				break;
+				humanTurn = gameMap.anotherTurn();
 			}
 		}
 
@@ -301,34 +295,17 @@ public class Game {
 
 		while (AITurn) {
 			turn = players[AIindex].getTurn();
-			FieldStates fs = gameMap.markEdge(turn, players[AIindex]);
+			int fs = gameMap.markEdge(turn, players[AIindex]);
 
-			while (fs == FieldStates.INVALID) {
+			while (fs == -1) {
 				turn = players[AIindex].getTurn();
 				fs = gameMap.markEdge(turn, players[AIindex]);
 			}
-
-			switch (fs) {
-			case MARKED:
-				AITurn = false;
-				System.out.println("AI selects " + turn + ".");
-				break;
-			case ONE:
-				players[AIindex].increaseOwnedFields(1);
-				System.out.println("AI selects " + turn + ".");
-				if (checkEnd())
-					return true;
-				break;
-			case TWO:
-				players[AIindex].increaseOwnedFields(2);
-				System.out.println("AI selects " + turn + ".");
-				if (checkEnd())
-					return true;
-				break;
-			default:
-				if (!(fs == FieldStates.MARKED))
-					System.out.println("Unexpected switch case (INVALID)");
-			}
+			
+			AITurn = gameMap.anotherTurn();
+			players[AIindex].increaseOwnedFields(fs);
+			System.out.println("AI selects " + turn + ".");
+			
 		}
 
 		return false;

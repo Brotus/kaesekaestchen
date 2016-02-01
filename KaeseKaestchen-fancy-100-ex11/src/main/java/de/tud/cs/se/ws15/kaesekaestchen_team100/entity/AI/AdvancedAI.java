@@ -99,24 +99,23 @@ public class AdvancedAI extends AI {
 		Map newMap = MapAtThisPoint.copy();
 
 		// the clone Map gets the edge marked and returns if a point was scored
-		switch (newMap.markEdge(edge, AIPlayer)) {
-		case INVALID:
+		int fs = newMap.markEdge(edge, AIPlayer);
+		switch (fs) {
+		case -1:
 			throw new IllegalArgumentException("There should be no marked Edges to check!");
 
-		case MARKED:
+		case 0:
 			// points will not change, but it is the other player's turn
 			sign = -1;
 			--maxLayers;
 			break;
-
-		case ONE:
-			// getting one point - still players turn
-			points = 1;
-			break;
-
-		case TWO:
-			points = 2;
-			break;
+			
+		default:
+			points = fs;
+			if(!newMap.anotherTurn()){
+				sign = -1;
+				--maxLayers;
+			}
 		}
 
 		// if there are too many layers of recursion we will break here

@@ -59,13 +59,11 @@ public class Player extends Entity {
 	/**
 	 * Increases the amount of fields the player receives.
 	 * @param n the amount of fields
-	 * @throws IllegalArgumentException if n is less than 1 or greater than 2
 	 */
-	public void increaseOwnedFields(int n) throws IllegalArgumentException {
-		if (0 < n && n < 3) {
+	public void increaseOwnedFields(int n){
+		if (0 < n) {
 			ownedFields = ownedFields + n;
-		} else
-			throw new IllegalArgumentException();
+		}
 	}
 	
 	public boolean isHuman(){
