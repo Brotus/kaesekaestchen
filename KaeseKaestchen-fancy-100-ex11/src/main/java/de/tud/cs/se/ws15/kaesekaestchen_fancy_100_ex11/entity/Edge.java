@@ -25,7 +25,7 @@ public class Edge extends Entity {
 		this.vertical = vertical;
 	}
 
-	boolean isVertical() {
+	public boolean isVertical() {
 		return vertical;
 	}
 

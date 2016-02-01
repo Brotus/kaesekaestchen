@@ -12,27 +12,49 @@ public class ChineseWallStrategy implements FancyHandle {
 		int col = gameMap.getColumns();
 		int row = gameMap.getRows();
 		Edge[] edges = gameMap.getEdges();
+		boolean vertical = edges[fancyID].isVertical();
 		int ec = gameMap.getEdgeCount();
 		int closedFields = 0;
-		int edgeIndexDiff = col + row;
+		int edgeIndexDiff = col + row + 1;
 		int i = fancyID;
-		
-		while (i < ec){
-			i += edgeIndexDiff;
-			edges[i].setMarked();
-			if(gameMap.removeUnmarkedIndex(i)){
-				closedFields += gameMap.countMarkedFields(i, markingPlayer);
+
+		if (vertical) {
+			
+			i = fancyID + edgeIndexDiff;
+			while (i < ec) {
+				edges[i].setMarked();
+				if (gameMap.removeUnmarkedIndex(i)) {
+					closedFields += gameMap.countMarkedFields(i, markingPlayer);
+				}
+				i += edgeIndexDiff;
+			}
+			i = fancyID - edgeIndexDiff;
+			while (i >= 0) {
+				edges[i].setMarked();
+				if (gameMap.removeUnmarkedIndex(i)) {
+					closedFields += gameMap.countMarkedFields(i, markingPlayer);
+				}
+
+				i -= edgeIndexDiff;
+			}
+		} else {
+			int j = i;
+			while(j + edgeIndexDiff < ec){
+				j += edgeIndexDiff;
+			}
+			int columnIndex = col - (ec - j);
+			int leftIndex = i - columnIndex;
+			
+			for (int k = leftIndex; k < leftIndex + col; k++){
+				if(k != fancyID){
+					edges[k].setMarked();
+					if (gameMap.removeUnmarkedIndex(i)) {
+						closedFields += gameMap.countMarkedFields(i, markingPlayer);
+					}
+				}
 			}
 		}
-		i = fancyID;
-		while(i >= 0){
-			i -= edgeIndexDiff;
-			edges[i].setMarked();
-			if(gameMap.removeUnmarkedIndex(i)){
-				closedFields += gameMap.countMarkedFields(i, markingPlayer);
-			}
-		}
-		
+
 		return closedFields;
 	}
 
