@@ -108,27 +108,38 @@ public class Map {
 		}
 		
 		// fancy action has to happen before the wall is marked
+		int c = 0;
 		if(edgeID == fancyID){
-			fancy.action(this);
+			c += fancy.action(this, markingPlayer);
 		}
 		
 		
 		edges[edgeID].setMarked();
 		// instead of new Integer(edgeID)
-		unmarkedEdges.remove(Integer.valueOf(edgeID));
+		removeUnmarkedIndex(edgeID);
 		
 		// TODO: handle fields closed by the fancy actions
 		// counting marked Fields
+		c += countMarkedFields(edgeID, markingPlayer);
+		
+		// TODO: handle another turn when fancy events happen
+		anotherTurn = (c>0);
+		
+		return c;
+	}
+	
+	public int countMarkedFields(int edgeID, Player markingPlayer){
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
 			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)) {
 				c++;
 			}
 		}
-		// TODO: handle another turn when fancy events happen
-		anotherTurn = (c>0);
-		
 		return c;
+	}
+	
+	public boolean removeUnmarkedIndex(int edgeID){
+		return unmarkedEdges.remove(Integer.valueOf(edgeID));
 	}
 
 	/**
@@ -273,5 +284,17 @@ public class Map {
 	
 	public boolean anotherTurn(){
 		return anotherTurn;
+	}
+	
+	public int getFancyId(){
+		return fancyID;
+	}
+	
+	public int getColumns(){
+		return columns;
+	}
+	
+	public int getRows(){
+		return rows;
 	}
 }

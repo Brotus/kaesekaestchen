@@ -85,9 +85,10 @@ public class Game {
 	
 	private FancyHandle getFancyStrategy(){
 		// strategy has to be chosen when map is created
-		int rnd = new Random().nextInt(5);
+		/*int rnd = new Random().nextInt(5);
 		FancyHandle fancy;
 		switch (rnd){
+	
 		case 0:
 			fancy = new VulcanoStrategy();
 			break;
@@ -106,7 +107,8 @@ public class Game {
 		default:
 			fancy = new ChineseWallStrategy();
 		}
-		return fancy;
+		return fancy;*/
+		return new ChineseWallStrategy();
 	}
 
 	/**

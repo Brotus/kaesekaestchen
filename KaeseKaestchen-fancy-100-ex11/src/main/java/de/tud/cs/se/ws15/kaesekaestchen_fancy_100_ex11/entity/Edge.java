@@ -37,7 +37,7 @@ public class Edge extends Entity {
 		return marked;
 	}
 
-	void setMarked() {
+	public void setMarked() {
 		this.marked = true;
 	}
 	
