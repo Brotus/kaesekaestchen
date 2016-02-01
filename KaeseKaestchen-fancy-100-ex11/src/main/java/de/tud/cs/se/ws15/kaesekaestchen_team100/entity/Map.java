@@ -44,14 +44,6 @@ public class Map {
 		this.makeEdges();
 		this.makeFields();
 	}
-	
-	public Map(int rows, int columns){
-		this.rows = rows;
-		this.columns = columns;
-		this.fancyID = -1;
-		this.makeEdges();
-		this.makeFields();
-	}
 
 
 	/**

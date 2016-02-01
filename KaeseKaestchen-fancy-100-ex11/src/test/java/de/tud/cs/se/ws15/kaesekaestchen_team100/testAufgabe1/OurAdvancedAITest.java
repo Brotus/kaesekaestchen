@@ -10,6 +10,8 @@ import org.junit.Test;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FloodingStrategy;
 
 /**
  *  Since we have found mistakes in our code, we decided to test the
@@ -20,10 +22,12 @@ public class OurAdvancedAITest {
 	Map simpleSetUp;
 	AdvancedAI simpleAISetUp;
 	Player somePlayer;
+	FancyHandle handle;
 
 	@Before
 	public void setUp() {
-		this.simpleSetUp = new Map(2, 2);
+		this.handle = new FloodingStrategy();
+		this.simpleSetUp = new Map(2, 2, handle);
 		this.simpleAISetUp = new AdvancedAI(simpleSetUp);
 		this.somePlayer = new Player("Timmy", 0, null, true);
 	}
@@ -73,7 +77,7 @@ public class OurAdvancedAITest {
 
 	@Test(timeout = 10000)
 	public void strategyTest() {
-		Map largerSetUp = new Map(4, 4);
+		Map largerSetUp = new Map(4, 4, handle);
 		int[] edges = new int[] { 1, 2, 3, 4, 5, 11, 12, 13, 14, 18, 19, 20,
 				21, 27, 28, 29, 30, 31, 37, 38, 39, 40 };
 		for (int e : edges) {
@@ -86,7 +90,7 @@ public class OurAdvancedAITest {
 
 	@Test(timeout = 1000)
 	public void strategyTest2() {
-		Map largerSetUp = new Map(3, 3);
+		Map largerSetUp = new Map(3, 3, handle);
 		int[] edges = new int[] { 1, 2, 3, 4, 9, 10, 11, 15, 16, 17, 22, 23, 24 };
 		for (int e : edges) {
 			largerSetUp.markEdge(e - 1, somePlayer);
