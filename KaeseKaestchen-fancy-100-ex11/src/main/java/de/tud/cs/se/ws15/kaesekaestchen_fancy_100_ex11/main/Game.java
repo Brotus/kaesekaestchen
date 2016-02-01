@@ -90,22 +90,17 @@ public class Game {
 		switch (rnd){
 	
 		case 0:
-			fancy = new VulcanoStrategy();
-			break;
+			return new VulcanoStrategy();
 		case 1:
-			fancy = new ChineseWallStrategy();
-			break;
+			return new ChineseWallStrategy();
 		case 2:
-			fancy = new TwisterStrategy();
-			break;
+			return new TwisterStrategy();
 		case 3:
-			fancy = new EarthQuakeStrategy();
-			break;
+			return new EarthQuakeStrategy();
 		case 4:
-			fancy = new FloodingStrategy();
-			break;
+			return new FloodingStrategy();
 		default:
-			fancy = new ChineseWallStrategy();
+			return new ChineseWallStrategy();
 		}
 		return fancy;*/
 		return new ChineseWallStrategy();

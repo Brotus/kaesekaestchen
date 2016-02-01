@@ -118,7 +118,6 @@ public class Map {
 		// instead of new Integer(edgeID)
 		removeUnmarkedIndex(edgeID);
 		
-		// TODO: handle fields closed by the fancy actions
 		// counting marked Fields
 		c += countMarkedFields(edgeID, markingPlayer);
 		
