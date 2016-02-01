@@ -42,17 +42,29 @@ public class AdvancedAI extends AI {
 	 * This method rates the minimum score a path would give and chooses the
 	 * maximum of all possible choices.
 	 */
+
+	int noedges = gameMap.getUnmarkedEdges().size();
 	public int suggestTurn() {
 		edgeHash.clear();
-
 		System.out.print("AI is thinking");
 		// Rating all possible Edges
+		ThreadGroup tg = new ThreadGroup("AI");
+		tg.setDaemon(true);
 		for (Integer i : gameMap.getUnmarkedEdges()) {
-			edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, MAX_LAYERS, MAX_DEPTH));
-		System.out.print(".");
-		}
+			Thread thread = new Thread(tg, new Runnable(){
+				@Override
+				public void run() {
+					edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, MAX_LAYERS, MAX_DEPTH));
+					noedges--;
+					System.out.print(".");
+				}				
+			});
+			thread.start();
+		}		
 		System.out.println();
 		
+		// Waiting for all Edges to be rated
+		while(!tg.isDestroyed());
 		int max = Collections.max(edgeHash.values());
 		int bestChoice = 0;
 		for(Entry<Integer,Integer> entry: edgeHash.entrySet()){
