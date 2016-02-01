@@ -9,16 +9,29 @@ public enum FieldStates {
 	 * Edge has already been marked.
 	 */
 	INVALID, 
-	/**
-	 * Edge has been marked without surrounding a field.
-	 */
-	MARKED, 
-	/**
-	 * Edge has been marked, one Field got owned.
-	 */
+	
 	ONE,
-	/**
-	 * The two surrounding Fields of the Edge got owned.
-	 */
-	TWO
+	TWO,
+	MARKED(-1){
+		
+	};
+	
+	FieldStates(){
+		
+	}
+		
+	FieldStates(int amount){
+		this.amount = amount;
+	}
+	
+	private int amount;
+	
+	public int getAmount(){
+		return amount;
+	}
+
+	public static FieldStates MARKED(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

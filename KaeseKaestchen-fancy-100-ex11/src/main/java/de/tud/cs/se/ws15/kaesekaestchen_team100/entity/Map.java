@@ -98,7 +98,10 @@ public class Map {
 		if (edges[edgeID].isMarked()) {
 			return FieldStates.INVALID;
 		}
-
+		
+		// fancy action has to happen before the wall is marked
+		
+		
 		
 		edges[edgeID].setMarked();
 		// instead of new Integer(edgeID)
@@ -109,6 +112,7 @@ public class Map {
 		for (int fieldID : this.hashFunction(edgeID)) {
 			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)) {
 				c++;
+				return FieldStates.MARKED(10);
 			}
 		}
 
