@@ -35,8 +35,7 @@ public class Game {
 	/** true iff a player is controlled by AI */
 	private boolean useAI;
 	/** true iff there is an auxiliary AI is available to the player */
-	private boolean auxAIAvailable;
-	
+	private boolean auxAIAvailable;	
 	
 	/**
 	 * Start the game.

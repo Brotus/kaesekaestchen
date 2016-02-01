@@ -11,7 +11,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.AI.AdvancedAI;
 import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FancyHandle;
-import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.FloodingStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_team100.entity.fancy.EmptyStrategy;
 
 /**
  *  Since we have found mistakes in our code, we decided to test the
@@ -26,7 +26,7 @@ public class OurAdvancedAITest {
 
 	@Before
 	public void setUp() {
-		this.handle = new FloodingStrategy();
+		this.handle = new EmptyStrategy();
 		this.simpleSetUp = new Map(2, 2, handle);
 		this.simpleAISetUp = new AdvancedAI(simpleSetUp);
 		this.somePlayer = new Player("Timmy", 0, null, true);
