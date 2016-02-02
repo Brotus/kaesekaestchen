@@ -12,7 +12,7 @@ public abstract class EarthQuakeStrategy implements FancyHandle {
 		
 		int points = 0;
 		
-		int edgesToMark = gameMap.getUnmarkedEdges().size();
+		int edgesToMark = gameMap.getEdges().length - gameMap.getUnmarkedEdges().size();
 		for (int edgeID = 0; edgeID < gameMap.getEdges().length; edgeID++) {
 			gameMap.undo(edgeID);
 		}
