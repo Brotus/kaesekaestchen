@@ -31,8 +31,10 @@ public class EarthQuakeTest {
 
 	}
 
+	// This is for checking the look of an Earthquake action.
 	@Test
-	public void test() {
+	@Deprecated
+	public void visualTest() {
 //		System.out.println("before earthquake");
 //		testMap.plot();
 //		System.out.println("after earthquake");
