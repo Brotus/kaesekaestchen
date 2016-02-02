@@ -142,10 +142,19 @@ public class Map {
 		return c1 + c2;
 	}
 
+	/**
+	 * Counts the amount of marked fields around the edge with edgeID.
+	 * @param markingPlayer the currently active player who will receive the points
+	 * @param 
+	 * @return
+	 */
 	public int countMarkedFields(int edgeID, Player markingPlayer, boolean impact) {
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
 			if (fieldID != -1) {
+				// TODO AN PATRICK:
+				// warum fields[fieldID].getOwner() != markingPlayer? wäre == null nicht das richtige? wenn es einen owner hat, hat es doch bereits 4 edges marked und increment wird false zurückgeben und nichts erhöhen 
+				// außerdem verstehe ich denn sinn von impact nicht
 				// TODO not sure if here objects should be compared, in this
 				// case we need to handle nullpointers
 				if (fields[fieldID].getOwner() != markingPlayer || impact) {
