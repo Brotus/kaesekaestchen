@@ -1,14 +1,13 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.testAufgabe1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Player;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EmptyStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
 
 public class MapTest {
 

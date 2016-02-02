@@ -75,7 +75,7 @@ public class OurAdvancedAITest {
 		assertEquals(10, simpleAISetUp.suggestTurn());
 	}
 
-	@Test(timeout = 15000)
+	@Test(timeout = 30000)
 	public void strategyTest() {
 		Map largerSetUp = new Map(4, 4, handle);
 		int[] edges = new int[] { 1, 2, 3, 4, 5, 11, 12, 13, 14, 18, 19, 20,
