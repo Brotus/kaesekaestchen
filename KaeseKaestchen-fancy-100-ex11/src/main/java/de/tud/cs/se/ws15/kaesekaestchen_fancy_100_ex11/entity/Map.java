@@ -106,29 +106,40 @@ public class Map {
 		return this.markEdge(edgeID, markingPlayer, true);
 	}
 
+	/**
+	 * Marks an edge and calculates the amount of fields doing so closed.
+	 * @param edgeID the ID of the edge that should be marked
+	 * @param markingPlayer the player whose turn it is and who is supposed to earn the points
+	 * @param impact
+	 * @return the amount of points earned or -1 if the player gets another turn because the selected edge has already been marked
+	 */
 	public int markEdge(int edgeID, Player markingPlayer, boolean impact) {
+		// if the edge has already been marked, the player gets another turn
 		if (edges[edgeID].isMarked()) {
 			anotherTurn = true;
 			return -1;
 		}
 
 		// fancy action has to happen before the wall is marked
-		int c = 0;
+		int c1 = 0;
 		if (edgeID == fancyID) {
-			c += fancy.action(this, markingPlayer);
+			c1 += fancy.action(this, markingPlayer);
 		}
-
+		
+		// mark the unmarked edge
 		edges[edgeID].setMarked(true);
-		// instead of new Integer(edgeID)
+		
+		// remove its index from the list of marked edges
 		removeUnmarkedIndex(edgeID);
-		// TODO: handle fields closed by the fancy actions
+		
 		// counting marked Fields
-		c += countMarkedFields(edgeID, markingPlayer, impact);
+		int c2 = countMarkedFields(edgeID, markingPlayer, impact);
+		
+		// Player gets another turn if the marked edge closed a field.
+		// He doesn't get one if a fancy action caused new closed fields.
+		anotherTurn = (c2 > 0);
 
-		// TODO: handle another turn when fancy events happen
-		anotherTurn = (c > 0);
-
-		return c;
+		return c1 + c2;
 	}
 
 	public int countMarkedFields(int edgeID, Player markingPlayer, boolean impact) {
@@ -146,6 +157,14 @@ public class Map {
 		return c;
 	}
 
+	/**
+	 * Tries to remove an ID of an edge from the list of unmarked edges.
+	 * 
+	 * @param edgeID
+	 *            the ID of the edge to be unmarked
+	 * @return true iff removing was successful i.e. if the edge was unmarked
+	 *         before
+	 */
 	public boolean removeUnmarkedIndex(int edgeID) {
 		return unmarkedEdges.remove(Integer.valueOf(edgeID));
 	}
@@ -181,9 +200,7 @@ public class Map {
 		return edges;
 	}
 
-	public HashSet<Integer> getUnmarkedEdges() {
-		return unmarkedEdges;
-	}
+
 
 	/**
 	 * Basic print of this Map to the console.
@@ -271,10 +288,9 @@ public class Map {
 		return result;
 	}
 
-	public int getEdgeCount() {
-		return edges.length;
-	}
-
+	/**
+	 * @return a clone of the current map
+	 */
 	public Map copy() {
 		Map map = new Map(rows, columns, fancy);
 		int p = 0;
@@ -307,6 +323,14 @@ public class Map {
 	private int generateFancyWallId() {
 		return new Random().nextInt(rows * columns);
 	}
+	
+	/**
+	 * 
+	 * @return the total amount of edges existent on this map
+	 */
+	public int getEdgeCount() {
+		return edges.length;
+	}
 
 	public void setFancyVisible() {
 		fancyVisible = true;
@@ -330,5 +354,9 @@ public class Map {
 
 	public Field[] getFieldArray() {
 		return fields;
+	}
+	
+	public HashSet<Integer> getUnmarkedEdges() {
+		return unmarkedEdges;
 	}
 }

@@ -27,13 +27,15 @@ public class ChineseWallStrategy implements FancyHandle {
 		int ec = gameMap.getEdgeCount();
 		// the amount of fields the player closed with this action
 		int closedFields = 0;
-		// if some edge has id x, the next edge directly below has id x + edgeIndexDiff
+		// if some edge has id x, the next edge directly below has id x +
+		// edgeIndexDiff
 		int edgeIndexDiff = col + row + 1;
 		// another index variable needed to count some rows
 		int i = fancyID;
 
 		if (vertical) {
-			// these two loops look unnecessary at first sight but it's a way of avoiding to mark fancyID without a more complicated algorithm
+			// these two loops look unnecessary at first sight but it's a way of
+			// avoiding to mark fancyID without a more complicated algorithm
 			// mark every edge below
 			i = fancyID + edgeIndexDiff;
 			while (i < ec) {
@@ -55,7 +57,7 @@ public class ChineseWallStrategy implements FancyHandle {
 
 				i -= edgeIndexDiff;
 			}
-			
+
 		} else {
 			// let j point to the last row but the same column
 			int j = i;
@@ -67,7 +69,8 @@ public class ChineseWallStrategy implements FancyHandle {
 			int columnIndex = col - (ec - j);
 			// the index of the leftmost edge in this row
 			int leftIndex = i - columnIndex;
-			// iterate over every edge in this row except for the one causing the fancy action
+			// iterate over every edge in this row except for the one causing
+			// the fancy action
 			for (int k = leftIndex; k < leftIndex + col; k++) {
 				if (k != fancyID) {
 					// and mark them
