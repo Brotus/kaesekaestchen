@@ -86,21 +86,9 @@ public class Map {
 	}
 
 	/**
-	 * This marks an edge of a given ID if it is not marked yet and marks the
-	 * surrounding Field-Entities if necessary. It returns the correspondent
-	 * action that took place.
+	 * Calls markEdge(edgeID,markingPlayer,true)
 	 * 
-	 * @param edgeID
-	 *            The ID of the marked Edge.
-	 * @param markingPlayer
-	 *            The Player marking this edge.
-	 * 
-	 * @return FieldStates.INVALID - Edge already marked
-	 * @return MARKED - Edge has been marked
-	 * @return ONE - Edge has been marked and markingPlayer achieved to own one
-	 *         Field
-	 * @return TWO - Edge has been marked and markingPlayer achieved to own two
-	 *         Fields
+	 * @see countMarkedFields(int,Player,boolean)
 	 */
 	public int markEdge(int edgeID, Player markingPlayer) {
 		return this.markEdge(edgeID, markingPlayer, true);
@@ -108,6 +96,7 @@ public class Map {
 
 	/**
 	 * Marks an edge and calculates the amount of fields doing so closed.
+	 * 
 	 * @param edgeID the ID of the edge that should be marked
 	 * @param markingPlayer the player whose turn it is and who is supposed to earn the points
 	 * @param impact

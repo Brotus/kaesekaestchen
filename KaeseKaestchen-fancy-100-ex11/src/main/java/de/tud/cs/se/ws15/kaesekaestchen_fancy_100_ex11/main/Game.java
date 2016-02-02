@@ -31,12 +31,12 @@ public class Game {
 	private int playerAmount;
 	private static Scanner s = new Scanner(System.in, "UTF-8");
 	private Map gameMap;
-	
+
 	/** true iff a player is controlled by AI */
 	private boolean useAI;
 	/** true iff there is an auxiliary AI is available to the player */
-	private boolean auxAIAvailable;	
-	
+	private boolean auxAIAvailable;
+
 	/**
 	 * Start the game.
 	 */
@@ -57,9 +57,7 @@ public class Game {
 			 */
 			// System.out.println(System.getProperty("user.dir"));
 			try {
-				BufferedReader txtReader = new BufferedReader(
-						new InputStreamReader(getClass().getClassLoader()
-								.getResourceAsStream("readme.txt")));
+				BufferedReader txtReader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("readme.txt")));
 				String line;
 				while ((line = txtReader.readLine()) != null) {
 					System.out.println(line);
@@ -71,38 +69,27 @@ public class Game {
 			}
 
 		}
-		width = Integer.parseInt(parseInput("Enter the width of the board:",
-				"[1-9]+\\d*"));
-		height = Integer.parseInt(parseInput("Enter the height of the board:",
-				"[1-9]+\\d*"));
-		
+		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+\\d*"));
+		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+\\d*"));
+
 		gameMap = new Map(height, width, getFancyStrategy());
 
 		init();
 
 		MainLoop();
 	}
-	
-	private FancyHandle getFancyStrategy(){
+
+	private FancyHandle getFancyStrategy() {
 		// strategy has to be chosen when map is created
-		/*int rnd = new Random().nextInt(5);
-		FancyHandle fancy;
-		switch (rnd){
-	
-		case 0:
-			return new VulcanoStrategy();
-		case 1:
-			return new ChineseWallStrategy();
-		case 2:
-			return new TwisterStrategy();
-		case 3:
-			return new EarthQuakeStrategy();
-		case 4:
-			return new FloodingStrategy();
-		default:
-			return new ChineseWallStrategy();
-		}
-		return fancy;*/
+		/*
+		 * int rnd = new Random().nextInt(5); FancyHandle fancy; switch (rnd){
+		 * 
+		 * case 0: return new VulcanoStrategy(); case 1: return new
+		 * ChineseWallStrategy(); case 2: return new TwisterStrategy(); case 3:
+		 * return new EarthQuakeStrategy(); case 4: return new
+		 * FloodingStrategy(); default: return new ChineseWallStrategy(); }
+		 * return fancy;
+		 */
 		return new ChineseWallStrategy();
 	}
 
@@ -111,23 +98,17 @@ public class Game {
 	 */
 	private void init() {
 		String str;
-		playerAmount = Integer.parseInt(parseInput(
-				"Enter the amount of players (1 == human against AI):",
-				"[1-9]+\\d*"));
+		playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
 		useAI = playerAmount == 1;
 		auxAIAvailable = playerAmount <= 2;
 		players = new Player[playerAmount + (useAI ? 1 : 0)];
 		for (int i = 1; i <= playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players[i - 1] = new Player(str, i,
-					auxAIAvailable ? new AdvancedAI(gameMap) : null, true);
+			players[i - 1] = new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true);
 		}
 		if (useAI) {
 			playerAmount = 2;
-			int aiType = Integer
-					.parseInt(parseInput(
-							"Enter AI type you want to play against. (0 or 1):",
-							"[01]"));
+			int aiType = Integer.parseInt(parseInput("Enter AI type you want to play against. (0 or 1):", "[01]"));
 			AI ai;
 			switch (aiType) {
 			case 0:
@@ -141,8 +122,8 @@ public class Game {
 			}
 			players[1] = new Player("AI", 2, ai, false);
 		} else {
-			boolean fancyVisible = parseInput("Shall the wall causing fancy events be visible?","[yn]").equals("y");
-			if(fancyVisible){
+			boolean fancyVisible = parseInput("Shall the wall causing fancy events be visible?", "[yn]").equals("y");
+			if (fancyVisible) {
 				gameMap.setFancyVisible();
 				System.out.println("Boring. Watch out for the @.");
 			}
@@ -163,8 +144,7 @@ public class Game {
 	}
 
 	private String parseInput(String prompt, String matcher, Predicate<String> p) {
-		return parseInput(prompt, matcher, p, "Input has to match " + matcher
-				+ ".");
+		return parseInput(prompt, matcher, p, "Input has to match " + matcher + ".");
 	}
 
 	/**
@@ -181,8 +161,7 @@ public class Game {
 	 *            predicate
 	 * @return a valid string
 	 */
-	private String parseInput(String prompt, String matcher,
-			Predicate<String> p, String predicateFailMessage) {
+	private String parseInput(String prompt, String matcher, Predicate<String> p, String predicateFailMessage) {
 		String str;
 		while (true) {
 			System.out.println(prompt);
@@ -225,36 +204,30 @@ public class Game {
 
 		while (humanTurn) {
 			if (auxAIAvailable) {
-				input = parseInput(
-						players[pid].getName()
-								+ ", enter the edge you want to claim, 'help' or 'quit':",
-						"(\\d+)|(help)|(quit)",
-						p -> {
-							if (p.equals("quit")) {
-								System.exit(0);
-								return false;
-							} else if (p.equals("help"))
-								return true;
-							else
-								try {
-									int n = Integer.parseInt(p);
-									return 0 <= n && n < gameMap.getEdgeCount();
-								} catch (Exception e) {
-									return false;
-								}
-						});
+				input = parseInput(players[pid].getName() + ", enter the edge you want to claim, 'help' or 'quit':", "(\\d+)|(help)|(quit)", p -> {
+					if (p.equals("quit")) {
+						System.exit(0);
+						return false;
+					} else if (p.equals("help"))
+						return true;
+					else
+						try {
+							int n = Integer.parseInt(p);
+							return 0 <= n && n < gameMap.getEdgeCount();
+						} catch (Exception e) {
+							return false;
+						}
+				});
 			} else {
-				input = parseInput(players[pid].getName()
-						+ ", enter the edge you want to claim or 'quit':",
-						"(\\d+)|(quit)", p -> {
-							if (p.equals("quit")) {
-								System.exit(0);
-								return false;
-							} else {
-								int n = Integer.parseInt(p);
-								return 0 <= n && n < gameMap.getEdgeCount();
-							}
-						});
+				input = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'quit':", "(\\d+)|(quit)", p -> {
+					if (p.equals("quit")) {
+						System.exit(0);
+						return false;
+					} else {
+						int n = Integer.parseInt(p);
+						return 0 <= n && n < gameMap.getEdgeCount();
+					}
+				});
 			}
 
 			if (auxAIAvailable && input.equals("help")) {
@@ -264,18 +237,19 @@ public class Game {
 				playerInput = Integer.parseInt(input);
 
 			int fs = gameMap.markEdge(playerInput, players[pid]);
-			
-			if(fs == -1){
+
+			if (fs == -1) {
 				System.out.println("This edge is already selected.");
 				continue;
-			} else if(fs == 0){
-				
+			} else if (fs == 0) {
+
 				humanTurn = gameMap.anotherTurn();
 			} else if (fs > 0) {
 				players[pid].increaseOwnedFields(fs);
-				gameMap.plot();
 				if (checkEnd())
 					return true;
+				else
+					gameMap.plot();
 				humanTurn = gameMap.anotherTurn();
 			}
 		}
@@ -303,16 +277,14 @@ public class Game {
 			if (players[i].getOwnedFields() > players[maxID].getOwnedFields()) {
 				maxID = i;
 				draw = false;
-			} else if (players[i].getOwnedFields() == players[maxID]
-					.getOwnedFields()) {
+			} else if (players[i].getOwnedFields() == players[maxID].getOwnedFields()) {
 				draw = true;
 			}
 		}
 		if (draw)
 			System.out.println("It's a draw. Nobody wins. :( ");
 		else {
-			System.out.println("Congratulations, " + players[maxID].getName()
-					+ ", you won!");
+			System.out.println("Congratulations, " + players[maxID].getName() + ", you won!");
 		}
 	}
 
@@ -329,11 +301,11 @@ public class Game {
 				turn = players[AIindex].getTurn();
 				fs = gameMap.markEdge(turn, players[AIindex]);
 			}
-			
+
 			AITurn = gameMap.anotherTurn();
 			players[AIindex].increaseOwnedFields(fs);
 			System.out.println("AI selects " + turn + ".");
-			
+
 		}
 
 		return false;
