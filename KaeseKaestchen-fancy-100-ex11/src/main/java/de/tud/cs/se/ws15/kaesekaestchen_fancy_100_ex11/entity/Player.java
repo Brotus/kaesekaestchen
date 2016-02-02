@@ -74,5 +74,9 @@ public class Player extends Entity {
 		return ai.suggestTurn();
 		
 	}
+	
+	public String toString() {
+		return this.name;
+	}
 
 }

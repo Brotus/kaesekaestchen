@@ -37,8 +37,8 @@ public class Edge extends Entity {
 		return marked;
 	}
 
-	public void setMarked() {
-		this.marked = true;
+	public void setMarked(boolean marked) {
+		this.marked = marked;
 	}
 	
 	public Edge copy() {

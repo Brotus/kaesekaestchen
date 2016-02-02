@@ -31,7 +31,7 @@ public class Field extends Entity{
 	/**
 	 * @return The current owner of this field or null if it is not yet owned
 	 */
-	Player getOwner() {
+	public Player getOwner() {
 		return owner;
 	}
 
@@ -49,12 +49,20 @@ public class Field extends Entity{
 		}
 		return false;
 	}
+	
+	void decrement(){
+		edgeAmount--;
+	}
 
 	/**
 	 * @return true if this is hold by one of the players.
 	 */
-	boolean isOwned() {
+	public boolean isOwned() {
 		return edgeAmount == 4;
+	}
+	
+	public boolean hasBeenOwned() {
+		return this.owner != null;
 	}
 
 	public Field copy() {

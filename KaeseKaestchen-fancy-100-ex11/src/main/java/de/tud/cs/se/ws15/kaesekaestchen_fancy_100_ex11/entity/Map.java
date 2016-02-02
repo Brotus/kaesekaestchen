@@ -1,6 +1,6 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.Random;
 
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
@@ -16,35 +16,36 @@ public class Map {
 
 	private int rows;
 	private int columns;
-	private LinkedList<Integer> unmarkedEdges = new LinkedList<Integer>();
+	private HashSet<Integer> unmarkedEdges = new HashSet<Integer>();
 	private Edge[] edges;
 	private Field[] fields;
 	/** the id of the edge causing fanciness */
 	private int fancyID;
 	/** true iff the wall causing fancy stuff should be visible */
 	private boolean fancyVisible = false;
-	
+
 	private boolean anotherTurn;
-	
+
 	private FancyHandle fancy;
 
 	/**
 	 * Creates a Map.
 	 * 
-	 * @param rows The number of rows of the Map
-	 * @param columns The number of columns of the map
+	 * @param rows
+	 *            The number of rows of the Map
+	 * @param columns
+	 *            The number of columns of the map
 	 */
 	public Map(int rows, int columns, FancyHandle fancy) {
 		this.rows = rows;
 		this.columns = columns;
 		this.fancy = fancy;
-		
+
 		this.fancyID = generateFancyWallId();
 
 		this.makeEdges();
 		this.makeFields();
 	}
-
 
 	/**
 	 * This initializes the fields array. The ID of a Field in this Map is equal
@@ -59,9 +60,9 @@ public class Map {
 	}
 
 	/**
-	 * This initializes the edges array and the unmarkedEdges list. The ID of an Edge is equal to it's
-	 * position in the edges array of this class. This method also sets if an
-	 * edge is horizontal based on the Maps size.
+	 * This initializes the edges array and the unmarkedEdges list. The ID of an
+	 * Edge is equal to it's position in the edges array of this class. This
+	 * method also sets if an edge is horizontal based on the Maps size.
 	 */
 	private void makeEdges() {
 		int nOfEdges = rows + columns + 2 * rows * columns;
@@ -102,55 +103,86 @@ public class Map {
 	 *         Fields
 	 */
 	public int markEdge(int edgeID, Player markingPlayer) {
+		return this.markEdge(edgeID, markingPlayer, true);
+	}
+
+	public int markEdge(int edgeID, Player markingPlayer, boolean impact) {
 		if (edges[edgeID].isMarked()) {
 			anotherTurn = true;
 			return -1;
 		}
-		
+
 		// fancy action has to happen before the wall is marked
 		int c = 0;
-		if(edgeID == fancyID){
+		if (edgeID == fancyID) {
 			c += fancy.action(this, markingPlayer);
 		}
-		
-		
-		edges[edgeID].setMarked();
+
+		edges[edgeID].setMarked(true);
 		// instead of new Integer(edgeID)
 		removeUnmarkedIndex(edgeID);
-		
+
 		// TODO: handle fields closed by the fancy actions
 		// counting marked Fields
-		c += countMarkedFields(edgeID, markingPlayer);
-		
+		c += countMarkedFields(edgeID, markingPlayer, impact);
+
 		// TODO: handle another turn when fancy events happen
-		anotherTurn = (c>0);
-		
+		anotherTurn = (c > 0);
+
 		return c;
 	}
-	
-	public int countMarkedFields(int edgeID, Player markingPlayer){
+
+	public int countMarkedFields(int edgeID, Player markingPlayer, boolean impact) {
 		int c = 0;
 		for (int fieldID : this.hashFunction(edgeID)) {
-			if (fieldID != -1 && fields[fieldID].increment(markingPlayer)) {
-				c++;
+			if (fieldID != -1) {
+				// TODO not sure if here objects should be compared, in this
+				// case we need to handle nullpointers
+				if (fields[fieldID].getOwner() != markingPlayer || impact) {
+					if (fields[fieldID].increment(markingPlayer))
+						c++;
+				}
 			}
 		}
 		return c;
 	}
-	
-	public boolean removeUnmarkedIndex(int edgeID){
+
+	public boolean removeUnmarkedIndex(int edgeID) {
 		return unmarkedEdges.remove(Integer.valueOf(edgeID));
 	}
 
 	/**
-	 * FindBugs claims this might "expose internal representation" but it needs to be public for the tests
+	 * This undoes the marking of an edge if it has been marked and decrements
+	 * the number of marked edges of a field.
+	 * 
+	 * @param edgeID
+	 *            = The ID of the edge to be unmarked.
+	 * @return true if the edge has been marked before.
+	 */
+	public boolean undo(int edgeID) {
+
+		if (this.unmarkedEdges.add(edgeID)) {
+			edges[edgeID].setMarked(false);
+			for (int f : this.hashFunction(edgeID)) {
+				if (f > -1)
+					this.fields[f].decrement();
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * FindBugs claims this might "expose internal representation" but it needs
+	 * to be public for the tests
+	 * 
 	 * @return the array of the edges
 	 */
 	public Edge[] getEdges() {
 		return edges;
 	}
-	
-	public LinkedList<Integer> getUnmarkedEdges() {
+
+	public HashSet<Integer> getUnmarkedEdges() {
 		return unmarkedEdges;
 	}
 
@@ -168,7 +200,7 @@ public class Map {
 					sb.append("\t");
 					Field f = fields[fieldp];
 
-					if (f.isOwned())
+					if (f.hasBeenOwned())
 						sb.append(f.getOwner().getStrId());
 
 					/**
@@ -188,7 +220,7 @@ public class Map {
 						sb.append(e.isVertical() ? "|" : "-");
 					else
 						sb.append(edgep);
-					if(edgep == fancyID && fancyVisible)
+					if (edgep == fancyID && fancyVisible)
 						sb.append("@");
 
 					edgep++;
@@ -220,17 +252,14 @@ public class Map {
 		if ((edgeID + columns + 1) % edgesPerLine == 0) {
 			result[0] = -1;
 		} else {
-			result[0] = edgeID
-					- Math.floorDiv(edgeID + columns + 1, edgesPerLine)
-					* (columns + 1);
+			result[0] = edgeID - Math.floorDiv(edgeID + columns + 1, edgesPerLine) * (columns + 1);
 		}
 
 		// applying 2nd function
 		if ((edgeID + 1) % edgesPerLine == 0) {
 			result[1] = -1;
 		} else {
-			result[1] = edgeID - columns
-					- Math.floorDiv(edgeID + 1, edgesPerLine) * (columns + 1);
+			result[1] = edgeID - columns - Math.floorDiv(edgeID + 1, edgesPerLine) * (columns + 1);
 		}
 
 		// removing fields out of boundaries
@@ -251,50 +280,56 @@ public class Map {
 		Map map = new Map(rows, columns, fancy);
 		int p = 0;
 		map.unmarkedEdges.clear();
-		for (Edge edge : edges){
+		for (Edge edge : edges) {
 			map.edges[p] = edge.copy();
 			p++;
-			if(!edge.isMarked()) {
+			if (!edge.isMarked()) {
 				map.unmarkedEdges.add(edge.id);
 			}
-			
+
 		}
-		int i=0;
-		for (Field field : this.fields){
+		int i = 0;
+		for (Field field : this.fields) {
 			map.fields[i] = field.copy();
 			i++;
 		}
 		return map;
 	}
-	
+
 	/**
-	 * Calculates a random id of an unmarked edge that shall cause fancy actions.
+	 * Calculates a random id of an unmarked edge that shall cause fancy
+	 * actions.
 	 * 
-	 * NOTE: this is called at the beginning of the game so no edge is marked. For the sake of flexibility it is implemented that way.
+	 * NOTE: this is called at the beginning of the game so no edge is marked.
+	 * For the sake of flexibility it is implemented that way.
 	 * 
 	 * @return the id
 	 */
-	private int generateFancyWallId(){
+	private int generateFancyWallId() {
 		return new Random().nextInt(rows * columns);
 	}
-	
-	public void setFancyVisible(){
+
+	public void setFancyVisible() {
 		fancyVisible = true;
 	}
-	
-	public boolean anotherTurn(){
+
+	public boolean anotherTurn() {
 		return anotherTurn;
 	}
-	
-	public int getFancyId(){
+
+	public int getFancyId() {
 		return fancyID;
 	}
-	
-	public int getColumns(){
+
+	public int getColumns() {
 		return columns;
 	}
-	
-	public int getRows(){
+
+	public int getRows() {
 		return rows;
+	}
+
+	public Field[] getFieldArray() {
+		return fields;
 	}
 }
