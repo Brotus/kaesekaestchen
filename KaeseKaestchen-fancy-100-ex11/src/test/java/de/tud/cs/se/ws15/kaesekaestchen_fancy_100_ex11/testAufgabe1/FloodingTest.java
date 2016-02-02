@@ -17,6 +17,7 @@ public class FloodingTest {
 	@Before
 	public void setUp() {
 		FloodingMap = AllTests.mapSetup(3, 3, new int[]{0,1,2,3,4,5,6,7,8,9});
+		FloodingMap.setFancyVisible();
 		flooding = new ChineseWallStrategy() {};
 		for (int edge : new int[] { 10, 11, 12, 13, 14, 15, 16 }) {
 			FloodingMap.markEdge(edge, AllTests.otherPlayer);

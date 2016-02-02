@@ -46,6 +46,16 @@ public class Map {
 		this.makeEdges();
 		this.makeFields();
 	}
+	
+	public Map(int rows, int columns, FancyHandle fancy, int fancyID) {
+		this.rows = rows;
+		this.columns = columns;
+		this.fancy = fancy;
+		this.fancyID = fancyID;
+
+		this.makeEdges();
+		this.makeFields();
+	}
 
 	/**
 	 * This initializes the fields array. The ID of a Field in this Map is equal
