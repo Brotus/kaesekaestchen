@@ -10,7 +10,6 @@ public class FloodingStrategy implements FancyHandle {
 	public int action(Map gameMap, Player markingPlayer) {
 		// id of the edge causing the action
 		int fancyID = gameMap.getFancyId();
-		System.out.println(fancyID);
 		// amount of columns
 		int col = gameMap.getColumns();
 		// amount of rows
@@ -60,7 +59,7 @@ public class FloodingStrategy implements FancyHandle {
 			// the fancy action
 			for (int k = leftIndex; k < leftIndex + col; k++) {
 				if (k != fancyID) {
-					gameMap.undo(edges[i].getId());
+					gameMap.undo(edges[k].getId());
 				}
 			}
 		}

@@ -88,7 +88,7 @@ public class OurAdvancedAITest {
 		assertEquals(32, sug + 1);
 	}
 
-	@Test(timeout = 1000)
+	@Test(timeout = 10000)
 	public void strategyTest2() {
 		Map largerSetUp = new Map(3, 3, handle);
 		int[] edges = new int[] { 1, 2, 3, 4, 9, 10, 11, 15, 16, 17, 22, 23, 24 };

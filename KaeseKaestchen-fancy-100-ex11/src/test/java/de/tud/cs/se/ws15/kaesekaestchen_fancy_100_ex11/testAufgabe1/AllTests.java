@@ -28,5 +28,13 @@ public class AllTests {
 	public static Map mapSetup(int width, int length, int[] edgesAllreadyMarked) {
 		return AllTests.mapSetup(width, length, edgesAllreadyMarked, defaultFancy);
 	}
-
+	
+	public static Map mapSetup(int width, int length, int[] edgesAllreadyMarked, FancyHandle fancy, int fancyEdge) {
+		Map map = new Map(length, width, fancy, fancyEdge);
+		for (int i : edgesAllreadyMarked) {
+			map.markEdge(i, defaultPlayer);
+		}
+		return map;
+	}
+	
 }
