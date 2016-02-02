@@ -12,18 +12,15 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EarthQuakeSt
 
 public class EarthQuakeTest {
 
-	Map testMap;
 	Map earthQuakeMap;
 	EarthQuakeStrategy earthQuake;
 
 	@Before
 	public void setUp() {
-		testMap = AllTests.mapSetup(3, 3, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 		earthQuakeMap = AllTests.mapSetup(3, 3, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 		earthQuake = new EarthQuakeStrategy() {
 		};
 		for (int edge : new int[] { 10, 11, 12, 13, 14, 15, 16 }) {
-			testMap.markEdge(edge, AllTests.otherPlayer);
 			earthQuakeMap.markEdge(edge, AllTests.otherPlayer);
 		}
 
@@ -43,16 +40,21 @@ public class EarthQuakeTest {
 
 	@Test
 	public void amountOfMarkings() {
-		assertEquals(earthQuakeMap.getUnmarkedEdges().size(), testMap.getUnmarkedEdges().size());
+		assertEquals(7, earthQuakeMap.getUnmarkedEdges().size());
 //		counting marked Fields
-		int counter = 0;
+		int cOfOwnedFields = 0;
+		int cOfOwnedFieldsByDefaultPlayer = 0;
 		for (Field f : earthQuakeMap.getFieldArray()) {
 			if (f.hasBeenOwned()){
-				counter++;
+				cOfOwnedFields++;
+				if (f.getOwner().equals(AllTests.defaultPlayer)){
+					cOfOwnedFieldsByDefaultPlayer++;
+				}
 			}
 		}
+		assertEquals(3, cOfOwnedFieldsByDefaultPlayer);
 //		There should be more or equally many Fields with an owner as before the EartQuake
-		assertTrue(counter >= 6);
+		assertTrue(cOfOwnedFields >= 6);
 		}
 
 }
