@@ -19,7 +19,6 @@ public class MapTest {
 		simpleMap = AllTests.mapSetup(1, 1, new int[] { 0, 1, 2, 3 });
 	}
 
-	
 	@Test
 	public void undoTest() {
 		// all edges are marked, we undo Edge 0 which should be marked
@@ -42,7 +41,7 @@ public class MapTest {
 		// simpleMap.plot();
 		assertEquals(simpleMap.getFieldArray()[0].getOwner(), AllTests.defaultPlayer);
 		simpleMap.markEdge(0, AllTests.otherPlayer, true);
-		simpleMap.plot();
+		// simpleMap.plot();
 		assertEquals(AllTests.otherPlayer, simpleMap.getFieldArray()[0].getOwner());
 	}
 
