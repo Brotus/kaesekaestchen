@@ -45,14 +45,6 @@ public class ChineseWallStrategy implements FancyHandle {
 			int columnIndex = col - (ec - j);
 			int leftIndex = i - columnIndex;
 
-			for (int k = leftIndex; k < leftIndex + col; k++) {
-				if (k != fancyID) {
-					edges[k].setMarked(true);
-					if (gameMap.removeUnmarkedIndex(i)) {
-						closedFields += gameMap.countMarkedFields(i, markingPlayer, true);
-					}
-				}
-			}
 			for (int k = leftIndex; k < leftIndex + col; k++){
 				if(k != fancyID){
 					edges[k].setMarked(true);
