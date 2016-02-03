@@ -32,9 +32,12 @@ public class ChineseWallStrageyTest {
 
 	@Test
 	public void testVertical() {
-		chineseMap = AllTests.mapSetup(3, 3, new int[] { 5 }, chineseStrategy, 12);
+		chineseMap = AllTests.mapSetup(3, 3, new int[] { 2,6,9 }, chineseStrategy, 12);
+		chineseMap.setFancyVisible();
+		chineseMap.plot();
 		chineseMap.markEdge(12, AllTests.otherPlayer);
-		testMap = AllTests.mapSetup(3, 3, new int[] { 12 });
+		chineseMap.plot();
+		testMap = AllTests.mapSetup(3, 3, new int[] { 2,5,6,12,19 });
 		assertEquals(chineseMap.getUnmarkedEdges(), testMap.getUnmarkedEdges());
 	}
 }
