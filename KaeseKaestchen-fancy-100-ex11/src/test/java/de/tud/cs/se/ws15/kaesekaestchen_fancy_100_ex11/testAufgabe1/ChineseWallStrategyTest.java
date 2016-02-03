@@ -21,10 +21,7 @@ public class ChineseWallStrategyTest {
 	@Test
 	public void testHorizontal() {
 		chineseMap = AllTests.mapSetup(6, 3, new int[] { 0,6,7,15,17 }, chineseStrategy, 16);
-		chineseMap.setFancyVisible();
-		chineseMap.plot();
 		chineseMap.markEdge(16, AllTests.otherPlayer);
-		chineseMap.plot();
 		testMap = AllTests.mapSetup(6, 3, new int[] { 0,6,7,13,14,15,16,17,18});
 	
 		assertEquals(chineseMap.getUnmarkedEdges(), testMap.getUnmarkedEdges());

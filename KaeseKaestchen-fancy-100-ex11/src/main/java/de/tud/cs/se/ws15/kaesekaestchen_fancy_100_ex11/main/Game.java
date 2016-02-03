@@ -19,7 +19,6 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EmptyStrateg
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FloodingStrategy;
 
-
 /**
  * 
  * This class handles the UI (console) and runs the game loop.
@@ -84,7 +83,6 @@ public class Game {
 		// strategy has to be chosen when map is created
 
 		int rnd = new Random().nextInt(2);
-		System.out.println("strategy # " + rnd);
 		switch (rnd) {
 		case 0:
 			return new ChineseWallStrategy();

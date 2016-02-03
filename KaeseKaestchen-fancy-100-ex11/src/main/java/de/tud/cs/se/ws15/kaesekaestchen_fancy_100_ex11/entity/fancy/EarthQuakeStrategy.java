@@ -19,7 +19,8 @@ public class EarthQuakeStrategy implements FancyHandle {
 		
 		SimpleAI ai = new SimpleAI(gameMap);
 		for (int i = 0; i < edgesToMark; i++) {
-			points += gameMap.markEdge(ai.suggestTurn(), markingPlayer, false);
+			int suggestedTurn = ai.suggestTurn();
+			points += gameMap.markEdge(suggestedTurn, markingPlayer, false);			
 		}
 		
 		return points;
