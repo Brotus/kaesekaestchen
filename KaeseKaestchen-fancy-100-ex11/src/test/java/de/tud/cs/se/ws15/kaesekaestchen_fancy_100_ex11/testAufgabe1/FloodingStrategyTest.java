@@ -8,7 +8,7 @@ import org.junit.Test;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FloodingStrategy;
 
-public class FloodingTest {
+public class FloodingStrategyTest {
 
 	Map TestMap;
 	Map FloodingMap;

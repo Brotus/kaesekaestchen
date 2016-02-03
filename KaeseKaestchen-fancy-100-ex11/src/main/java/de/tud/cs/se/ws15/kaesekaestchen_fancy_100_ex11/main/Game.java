@@ -258,16 +258,11 @@ public class Game {
 
 	}
 
-	/**
-	 * 
+	/** 
 	 * @return true if the game should be ended, false if it should keep running
 	 */
 	private boolean checkEnd() {
-		int sum = 0;
-		for (int i = 0; i < playerAmount; i++)
-			sum += players[i].getOwnedFields();
-
-		return sum == height * width;
+		return gameMap.getUnmarkedEdges().isEmpty();
 	}
 
 	private void endGame() {

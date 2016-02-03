@@ -5,7 +5,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.SimpleAI;
 
-public abstract class EarthQuakeStrategy implements FancyHandle {
+public class EarthQuakeStrategy implements FancyHandle {
 
 	@Override
 	public int action(Map gameMap, Player markingPlayer) {
