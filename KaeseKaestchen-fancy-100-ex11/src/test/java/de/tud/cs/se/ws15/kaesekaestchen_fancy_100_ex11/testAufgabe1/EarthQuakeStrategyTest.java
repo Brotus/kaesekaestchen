@@ -10,7 +10,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Field;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EarthQuakeStrategy;
 
-public class EarthQuakeTest {
+public class EarthQuakeStrategyTest {
 
 	Map earthQuakeMap;
 	EarthQuakeStrategy earthQuake;
@@ -18,8 +18,7 @@ public class EarthQuakeTest {
 	@Before
 	public void setUp() {
 		earthQuakeMap = AllTests.mapSetup(3, 3, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-		earthQuake = new EarthQuakeStrategy() {
-		};
+		earthQuake = new EarthQuakeStrategy();
 		for (int edge : new int[] { 10, 11, 12, 13, 14, 15, 16 }) {
 			earthQuakeMap.markEdge(edge, AllTests.otherPlayer);
 		}
