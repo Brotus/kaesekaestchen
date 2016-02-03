@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({MapTest.class, EarthQuakeStrategyTest.class, FloodingStrategyTest.class})
+@SuiteClasses({EarthQuakeStrategyTest.class, FloodingStrategyTest.class, ChineseWallStrategyTest.class})
 public class FancyTests {
 
 }

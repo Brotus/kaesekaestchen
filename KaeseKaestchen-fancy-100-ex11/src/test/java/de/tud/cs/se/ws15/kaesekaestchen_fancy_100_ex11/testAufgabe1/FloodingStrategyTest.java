@@ -16,10 +16,8 @@ public class FloodingStrategyTest {
 
 	@Before
 	public void setUp() {
-		flooding = new FloodingStrategy() {};
-		}
-		
-	
+		flooding = new FloodingStrategy();
+	}
 	
 	@Test
 	public void testHorizontal() {

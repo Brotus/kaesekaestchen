@@ -17,8 +17,6 @@ public class ChineseWallStrategy implements FancyHandle {
 		int fancyID = gameMap.getFancyId();
 		// amount of columns
 		int col = gameMap.getColumns();
-		// amount of rows
-		int row = gameMap.getRows();
 		// all edges of the map
 		Edge[] edges = gameMap.getEdges();
 		// whether or not the edge causing the action is vertical
@@ -29,7 +27,7 @@ public class ChineseWallStrategy implements FancyHandle {
 		int closedFields = 0;
 		// if some edge has id x, the next edge directly below has id x +
 		// edgeIndexDiff
-		int edgeIndexDiff = col + row + 1;
+		int edgeIndexDiff = 2 * col +1;
 		// another index variable needed to count some rows
 		int i = fancyID;
 
@@ -43,7 +41,7 @@ public class ChineseWallStrategy implements FancyHandle {
 				// add points if fields have been closed
 				if (gameMap.removeUnmarkedIndex(i)) {
 					closedFields += gameMap.countMarkedFields(i, markingPlayer, true);
-				}
+				} 
 				i += edgeIndexDiff;
 			}
 			// and every edge above
