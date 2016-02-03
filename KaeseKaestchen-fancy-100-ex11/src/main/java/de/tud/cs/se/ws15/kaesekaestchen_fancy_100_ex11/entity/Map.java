@@ -138,6 +138,7 @@ public class Map {
 		int c1 = 0;
 		if (edgeID == fancyID) {
 			c1 += fancy.action(this, markingPlayer);
+			fancyID = -1;
 		}
 
 		// mark the unmarked edge
