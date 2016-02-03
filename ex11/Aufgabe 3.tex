@@ -1,0 +1,9 @@
+\documentclass[a4paper]{article}
+
+\usepackage[german]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\begin{document}
+	\subsection*{Aufgabe 3}
+	Die MINMAX-KI müsste zu erst daran Angepasst werden, Pseudozufall nicht \"vorrauszuschauen\". Dafür würde es vermutlich genügen im switch von AdvancedAI:115 einen Fall einzufügen der Abfragt ob die Auswahl oder Volcano/Earthquake ist und in dem Fall 0 (keinen Gewinn & keinen Verlust) zurückgeben und diesen Ast des Möglichkeiten-Baums nicht zu vertiefen. Die KI würde dann abwägen, ob es sich lohnt ein Ereignis auszuwählen, das eine 50\% Chance bringt den Ertrag des Gegners zu minimieren. Die anderen Ereignisse werden von der KI en
+\end{document}
