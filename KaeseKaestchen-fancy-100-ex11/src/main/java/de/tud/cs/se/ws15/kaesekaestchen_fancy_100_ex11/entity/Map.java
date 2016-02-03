@@ -1,6 +1,9 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Random;
 
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
@@ -342,6 +345,26 @@ public class Map {
 	 */
 	private int generateFancyWallId() {
 		return new Random().nextInt(rows * columns);
+	}
+	
+	public LinkedList<Player> getWinner() {
+		HashMap<Player, Integer> points = new HashMap<Player, Integer>(5);
+		for (Field f : fields) {
+			Player p = f.getOwner();
+			if (points.get(p) != null) {
+				points.put(p, points.get(p)+1 );
+			} else {
+				points.put(f.getOwner(), 1);
+			}
+		}
+		int max = Collections.max(points.values());
+		LinkedList<Player> winningPlayers = new LinkedList<>();
+		for (Player p : points.keySet()) {
+			if (points.get(p) == max) {
+				winningPlayers.add(p);
+			}
+		}
+		return winningPlayers;
 	}
 
 	/**

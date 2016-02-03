@@ -16,10 +16,7 @@ public class Player extends Entity {
 	 * The name of the player. Will be displayed in console messages.
 	 */
 	private String name;
-	/**
-	 * The amount of fields the player owns.
-	 */
-	private int ownedFields = 0;
+	
 
 	/**
 	 * Create a new player with a name and an id (inherited from Entity)
@@ -33,10 +30,6 @@ public class Player extends Entity {
 		this.id = id;
 		this.ai = ai;
 		this.human = human;
-	}
-
-	public int getOwnedFields() {
-		return ownedFields;
 	}
 
 	public String getName() {
@@ -54,16 +47,6 @@ public class Player extends Entity {
 	 */
 	public String getStrId() {
 		return "P" + id;
-	}
-
-	/**
-	 * Increases the amount of fields the player receives.
-	 * @param n the amount of fields
-	 */
-	public void increaseOwnedFields(int n){
-		if (0 < n) {
-			ownedFields = ownedFields + n;
-		}
 	}
 	
 	public boolean isHuman(){
