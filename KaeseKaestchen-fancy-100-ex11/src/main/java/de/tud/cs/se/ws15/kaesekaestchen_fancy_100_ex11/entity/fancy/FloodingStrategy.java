@@ -4,8 +4,12 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Edge;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.Player;
 
+/**
+ * Implementation of Flooding. This event unmarks all edges in the row/column of
+ * the fancy edge.
+ */
 public class FloodingStrategy implements FancyHandle {
-	
+
 	@Override
 	public int action(Map gameMap, Player markingPlayer) {
 		// id of the edge causing the action
@@ -67,5 +71,4 @@ public class FloodingStrategy implements FancyHandle {
 		return closedFields;
 	}
 
-	
 }
