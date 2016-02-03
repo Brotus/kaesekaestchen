@@ -3,6 +3,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -17,6 +18,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EarthQuakeSt
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EmptyStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FloodingStrategy;
+
 
 /**
  * 
@@ -247,7 +249,6 @@ public class Game {
 
 				humanTurn = gameMap.anotherTurn();
 			} else if (fs > 0) {
-				players[pid].increaseOwnedFields(fs);
 				if (checkEnd())
 					return true;
 				else
@@ -268,20 +269,11 @@ public class Game {
 	}
 
 	private void endGame() {
-		int maxID = 0;
-		boolean draw = false;
-		for (int i = 1; i < playerAmount; i++) {
-			if (players[i].getOwnedFields() > players[maxID].getOwnedFields()) {
-				maxID = i;
-				draw = false;
-			} else if (players[i].getOwnedFields() == players[maxID].getOwnedFields()) {
-				draw = true;
-			}
-		}
-		if (draw)
+		LinkedList<Player> winningPlayer = gameMap.getWinner();
+		if (winningPlayer.size() > 1)
 			System.out.println("It's a draw. Nobody wins. :( ");
 		else {
-			System.out.println("Congratulations, " + players[maxID].getName() + ", you won!");
+			System.out.println("Congratulations, " + winningPlayer.get(0) + ", you won!");
 		}
 	}
 
@@ -300,7 +292,6 @@ public class Game {
 			}
 
 			AITurn = gameMap.anotherTurn();
-			players[AIindex].increaseOwnedFields(fs);
 			System.out.println("AI selects " + turn + ".");
 
 		}
