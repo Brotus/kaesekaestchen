@@ -270,7 +270,7 @@ public class Game {
 	 * @return true if the game should be ended, false if it should keep running
 	 */
 	private boolean checkEnd() {
-		return gameMap.getUnmarkedEdges().isEmpty();
+		return gameMap.isEnd();
 	}
 
 	private void endGame() {
