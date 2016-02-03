@@ -13,6 +13,7 @@ public class ChineseWallStrategy implements FancyHandle {
 
 	@Override
 	public int action(Map gameMap, Player markingPlayer) {
+		System.out.println("The chinese wall has been built.");
 		// id of the edge causing the action
 		int fancyID = gameMap.getFancyId();
 		// amount of columns

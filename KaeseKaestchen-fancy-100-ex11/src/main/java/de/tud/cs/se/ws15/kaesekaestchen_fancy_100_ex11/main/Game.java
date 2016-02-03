@@ -14,10 +14,9 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.AdvancedAI;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.AI.SimpleAI;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.ChineseWallStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EarthQuakeStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.EmptyStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.FloodingStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.TwisterStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy.VulcanoStrategy;
 
 /**
  * 
@@ -81,16 +80,19 @@ public class Game {
 
 	private FancyHandle getFancyStrategy() {
 		// strategy has to be chosen when map is created
-		/*
-		 * int rnd = new Random().nextInt(5); FancyHandle fancy; switch (rnd){
-		 * 
-		 * case 0: return new VulcanoStrategy(); case 1: return new
-		 * ChineseWallStrategy(); case 2: return new TwisterStrategy(); case 3:
-		 * return new EarthQuakeStrategy(); case 4: return new
-		 * FloodingStrategy(); default: return new ChineseWallStrategy(); }
-		 * return fancy;
-		 */
-		return new ChineseWallStrategy();
+
+		int rnd = new Random().nextInt(2);
+		System.out.println("strategy # " + rnd);
+		switch (rnd) {
+		case 0:
+			return new ChineseWallStrategy();
+		case 1:
+			return new EarthQuakeStrategy();
+		case 2:
+			return new FloodingStrategy();
+		default:
+			return new EmptyStrategy();
+		}
 	}
 
 	/**
@@ -258,7 +260,7 @@ public class Game {
 
 	}
 
-	/** 
+	/**
 	 * @return true if the game should be ended, false if it should keep running
 	 */
 	private boolean checkEnd() {

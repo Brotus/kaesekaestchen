@@ -1,8 +1,6 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.testAufgabe1;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,11 +29,11 @@ public class EarthQuakeStrategyTest {
 	public void amountOfMarkings() {
 		assertEquals(7, earthQuakeMap.getUnmarkedEdges().size());
 		// counting marked Fields
-		int cOfOwnedFields = 0;
+		//int cOfOwnedFields = 0;
 		int cOfOwnedFieldsByDefaultPlayer = 0;
 		for (Field f : earthQuakeMap.getFieldArray()) {
 			if (f.hasBeenOwned()) {
-				cOfOwnedFields++;
+				//cOfOwnedFields++;
 				if (f.getOwner().equals(AllTests.defaultPlayer)) {
 					cOfOwnedFieldsByDefaultPlayer++;
 				}

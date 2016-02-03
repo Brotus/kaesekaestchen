@@ -12,6 +12,7 @@ public class FloodingStrategy implements FancyHandle {
 
 	@Override
 	public int action(Map gameMap, Player markingPlayer) {
+		System.out.println("A devastating flood washes over the map");
 		// id of the edge causing the action
 		int fancyID = gameMap.getFancyId();
 		// amount of columns
