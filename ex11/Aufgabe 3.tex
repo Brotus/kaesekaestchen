@@ -1,12 +1,13 @@
 \documentclass[a4paper]{article}
 
-\usepackage[german]{babel}
+\usepackage[ngerman]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
 \begin{document}
 \subsection*{Aufgabe 2}
-Dokumentation des Strategy Patterns in unserer Implementation:\\[1.0cm]
-Das handle und die strategys befinden sich im package  \textit{de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex11.entity.fancy}. Das handle wird durch das interface \textit{FancyHandle} modelliert. 
+Dokumentation des Strategy Patterns in unserer Implementation:\\[0.5cm]
+Das handle und die strategies befinden sich im package \textit{...entity.fancy}
+ Das handle wird durch das interface \textit{FancyHandle} modelliert. Die ConcreteStrategies, welche dieses implementieren, heißen \textit{ChineseWallStrategy, EarthQuakeStrategy, FloodingStrategy} und \textit{EmptyStrategy}. \textit{FancyHandle} enthält lediglich eine Methode, nämlich \textit{action(int,Player)}. Diese wird von der \textit{Map} aufgerufen und führt das entsprechende event aus. Die \textit{EmptyStrategy} war zwar nicht gefordert, aber ermöglicht es in unserer implementation, auch ohne fancy events zu spielen. Der Client/Context unseres Strategy Patterns ist lediglich die Klasse \textit{Map}. Sie übergibt sich selber, wenn sie die action auslöst.
 \subsection*{Aufgabe 3}
 	Damit die KI halbwegs fair arbeitet, sollte sie so arbeiten, als gäbe es keine besonderen Kanten. Hierfür würde es in unserer Implementation genügen, die Map-Kopien die beim "Vorausschauen" angelegt werden, ohne Edge mit "Fancy"-Eigenschaften zu erstellen, z.B. mit Map.setFancyID(-1). Weiterhin müsste man für ein besseres Spielerlebnis vermutlich dafür sorgen, dass die AI zu einem bestimmten Anteil Fehlentscheidungen trifft, was man mit Pseudozufall und Normalverteilung implementieren könnte. 
 \end{document}
