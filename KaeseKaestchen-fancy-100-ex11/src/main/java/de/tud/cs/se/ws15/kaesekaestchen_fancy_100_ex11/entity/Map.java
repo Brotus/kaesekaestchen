@@ -35,6 +35,8 @@ public class Map {
 	 *            The number of rows of the Map
 	 * @param columns
 	 *            The number of columns of the map
+	 * @param fancy
+	 *            The FancyHandle when an edge with fancyID is marked
 	 */
 	public Map(int rows, int columns, FancyHandle fancy) {
 		this.rows = rows;
@@ -46,7 +48,7 @@ public class Map {
 		this.makeEdges();
 		this.makeFields();
 	}
-	
+
 	public Map(int rows, int columns, FancyHandle fancy, int fancyID) {
 		this.rows = rows;
 		this.columns = columns;
@@ -96,9 +98,13 @@ public class Map {
 	}
 
 	/**
-	 * Calls markEdge(edgeID,markingPlayer,true)
+	 * Marks the Edge and increments the surrounding fields.
 	 * 
-	 * @see countMarkedFields(int,Player,boolean)
+	 * @param edgeID
+	 *            = Edge to be marked.
+	 * @param markingPlayer
+	 *            = Player selecting this edge.
+	 * @return the amount of points made by this selection.
 	 */
 	public int markEdge(int edgeID, Player markingPlayer) {
 		return this.markEdge(edgeID, markingPlayer, true);
@@ -113,6 +119,8 @@ public class Map {
 	 *            the player whose turn it is and who is supposed to earn the
 	 *            points
 	 * @param impact
+	 *            decides whether surrounding fields change their owner, if a
+	 *            field is closed again
 	 * @return the amount of points earned or -1 if the player gets another turn
 	 *         because the selected edge has already been marked
 	 */
@@ -146,12 +154,17 @@ public class Map {
 	}
 
 	/**
-	 * Counts the amount of marked fields around the edge with edgeID.
+	 * * Counts the amount of marked fields around the edge with edgeID.
 	 * 
+	 * 
+	 * @param edgeID
+	 *            the edge marked
 	 * @param markingPlayer
 	 *            the currently active player who will receive the points
-	 * @param
-	 * @return
+	 * @param impact
+	 *            decides whether surrounding fields change their owner, if a
+	 *            field is closed again
+	 * @return the amount of points gained by the marking player
 	 */
 	public int countMarkedFields(int edgeID, Player markingPlayer, boolean impact) {
 		int c = 0;
