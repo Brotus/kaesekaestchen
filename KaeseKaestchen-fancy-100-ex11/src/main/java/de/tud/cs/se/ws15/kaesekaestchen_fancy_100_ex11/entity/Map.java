@@ -366,6 +366,18 @@ public class Map {
 		}
 		return winningPlayers;
 	}
+	
+	/**
+	 * @return if the game is done
+	 */
+	public boolean isEnd() {
+		for (Field f : fields) {
+			if (!f.hasBeenOwned()){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * 
