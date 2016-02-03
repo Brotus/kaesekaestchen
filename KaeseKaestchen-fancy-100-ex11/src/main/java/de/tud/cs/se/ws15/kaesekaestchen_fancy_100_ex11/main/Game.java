@@ -37,6 +37,8 @@ public class Game {
 	/** true iff there is an auxiliary AI is available to the player */
 	private boolean auxAIAvailable;
 
+	private boolean beFancy;
+
 	/**
 	 * Start the game.
 	 */
@@ -72,18 +74,23 @@ public class Game {
 		width = Integer.parseInt(parseInput("Enter the width of the board:", "[1-9]+\\d*"));
 		height = Integer.parseInt(parseInput("Enter the height of the board:", "[1-9]+\\d*"));
 
-		gameMap = new Map(height, width, getFancyStrategy());
+		beFancy = parseInput("Do you enjoy fanciness?", "[yn]").equals("y");
+		FancyHandle fancy;
+		if (beFancy) {
+			fancy = getFancyStrategy(new Random().nextInt(2));
+		} else {
+			fancy = getFancyStrategy(-1);
+		}
+		gameMap = new Map(height, width, fancy);
 
 		init();
 
 		MainLoop();
 	}
 
-	private FancyHandle getFancyStrategy() {
+	private FancyHandle getFancyStrategy(int strategyID) {
 		// strategy has to be chosen when map is created
-
-		int rnd = new Random().nextInt(2);
-		switch (rnd) {
+		switch (strategyID) {
 		case 0:
 			return new ChineseWallStrategy();
 		case 1:
@@ -123,7 +130,7 @@ public class Game {
 				ai = new SimpleAI(gameMap);
 			}
 			players[1] = new Player("AI", 2, ai, false);
-		} else {
+		} else if (beFancy) {
 			boolean fancyVisible = parseInput("Shall the wall causing fancy events be visible?", "[yn]").equals("y");
 			if (fancyVisible) {
 				gameMap.setFancyVisible();
