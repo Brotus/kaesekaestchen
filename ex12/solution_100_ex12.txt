@@ -1,0 +1,8 @@
+// Für unseren lieben Patrick ohne Word eine .txt Datei!!
+
+Aufgabe 1: Composite Pattern erkennen
+
+java.awt:
+	Component ist Component
+	Composite ist Container
+	Leaves sind Subklassen von Component
