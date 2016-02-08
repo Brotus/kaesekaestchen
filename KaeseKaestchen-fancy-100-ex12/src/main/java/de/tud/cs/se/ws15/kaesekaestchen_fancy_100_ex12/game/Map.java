@@ -1,12 +1,18 @@
-package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Edge;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Field;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.NotifyMessage;
 
 /**
  * This Class contains the Entities needed for the game loop, manages their ID's
@@ -15,7 +21,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
  * @author paddy
  *
  */
-public class Map {
+public class Map extends Observable {
 
 	private int rows;
 	private int columns;
@@ -53,13 +59,16 @@ public class Map {
 	}
 
 	public Map(int rows, int columns, FancyHandle fancy, int fancyID) {
-		this.rows = rows;
-		this.columns = columns;
-		this.fancy = fancy;
+		this(rows, columns, fancy);
 		this.fancyID = fancyID;
-
-		this.makeEdges();
-		this.makeFields();
+	}
+	
+	public Map(int rows, int columns, FancyHandle fancy, Observer[] achievements) {
+		this(rows,columns,fancy);
+		
+		for(Observer ach: achievements){
+			this.addObserver(ach);
+		}
 	}
 
 	/**
@@ -137,6 +146,10 @@ public class Map {
 		// fancy action has to happen before the wall is marked
 		int c1 = 0;
 		if (edgeID == fancyID) {
+			// notify observers, especially SurvivorAchievement
+			setChanged();
+			notifyObservers(NotifyMessage.FANCY_ACTION_START);
+
 			c1 += fancy.action(this, markingPlayer);
 			fancyID = -1;
 		}
@@ -323,7 +336,7 @@ public class Map {
 			map.edges[p] = edge.copy();
 			p++;
 			if (!edge.isMarked()) {
-				map.unmarkedEdges.add(edge.id);
+				map.unmarkedEdges.add(edge.getId());
 			}
 
 		}

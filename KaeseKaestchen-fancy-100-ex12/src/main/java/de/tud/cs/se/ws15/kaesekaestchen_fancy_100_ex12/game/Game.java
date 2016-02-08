@@ -1,14 +1,14 @@
-package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.main;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
+import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.AI.AI;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.AI.AdvancedAI;
@@ -18,6 +18,8 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EarthQuakeSt
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EmptyStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FloodingStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.SurvivorAchievement;
 
 /**
  * 
@@ -27,13 +29,9 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FloodingStra
 public class Game {
 
 	private int width, height;
-	private Player[] players;
-	private int playerAmount;
 	private static Scanner s = new Scanner(System.in, "UTF-8");
 	private Map gameMap;
-
-	/** true iff a player is controlled by AI */
-	private boolean useAI;
+	private PlayerHandle players;
 	/** true iff there is an auxiliary AI is available to the player */
 	private boolean auxAIAvailable;
 
@@ -81,7 +79,9 @@ public class Game {
 		} else {
 			fancy = getFancyStrategy(-1);
 		}
-		gameMap = new Map(height, width, fancy);
+		
+		Observer[] ach = new Observer[]{new SurvivorAchievement()};
+		gameMap = new Map(height, width, fancy, ach);
 
 		init();
 
@@ -107,16 +107,14 @@ public class Game {
 	 */
 	private void init() {
 		String str;
-		playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
-		useAI = playerAmount == 1;
+		int playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
 		auxAIAvailable = playerAmount <= 2;
-		players = new Player[playerAmount + (useAI ? 1 : 0)];
-		for (int i = 1; i <= playerAmount; i++) {
+		players = new PlayerHandle(playerAmount);
+		for (int i = 0; i < playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players[i - 1] = new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true);
+			players.set(new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true),i);
 		}
-		if (useAI) {
-			playerAmount = 2;
+		if (players.useAI()) {
 			int aiType = Integer.parseInt(parseInput("Enter AI type you want to play against. (0 or 1):", "[01]"));
 			AI ai;
 			switch (aiType) {
@@ -129,7 +127,7 @@ public class Game {
 			default:
 				ai = new SimpleAI(gameMap);
 			}
-			players[1] = new Player("AI", 2, ai, false);
+			players.set(new Player("AI", 1, ai, false),1);
 		} else if (beFancy) {
 			boolean fancyVisible = parseInput("Shall the wall causing fancy events be visible?", "[yn]").equals("y");
 			if (fancyVisible) {
@@ -186,19 +184,17 @@ public class Game {
 	}
 
 	private void MainLoop() {
-		int pid = 0;
 		boolean running = true;
 
 		gameMap.plot();
 
 		while (running) {
-			if (useAI && pid == 1) {
+			if (players.AITurn()) {
 				running = !AILoopIteration();
-				pid = 0;
 			} else {
-				running = !HumanLoopIteration(pid);
-				pid = switchActivePlayer(pid);
+				running = !HumanLoopIteration();
 			}
+			players.switchActivePlayer();
 			gameMap.plot();
 		}
 
@@ -206,14 +202,14 @@ public class Game {
 
 	}
 
-	private boolean HumanLoopIteration(int pid) {
+	private boolean HumanLoopIteration() {
 		String input;
 		int playerInput;
 		boolean humanTurn = true;
 
 		while (humanTurn) {
 			if (auxAIAvailable) {
-				input = parseInput(players[pid].getName() + ", enter the edge you want to claim, 'help' or 'quit':", "(\\d+)|(help)|(quit)", p -> {
+				input = parseInput(players.getActive().getName() + ", enter the edge you want to claim, 'help' or 'quit':", "(\\d+)|(help)|(quit)", p -> {
 					if (p.equals("quit")) {
 						System.exit(0);
 						return false;
@@ -228,7 +224,7 @@ public class Game {
 						}
 				});
 			} else {
-				input = parseInput(players[pid].getName() + ", enter the edge you want to claim or 'quit':", "(\\d+)|(quit)", p -> {
+				input = parseInput(players.getActive().getName() + ", enter the edge you want to claim or 'quit':", "(\\d+)|(quit)", p -> {
 					if (p.equals("quit")) {
 						System.exit(0);
 						return false;
@@ -240,12 +236,12 @@ public class Game {
 			}
 
 			if (auxAIAvailable && input.equals("help")) {
-				System.out.println("AI suggests: " + players[pid].getTurn());
+				System.out.println("AI suggests: " + players.getActive().getTurn());
 				continue;
 			} else
 				playerInput = Integer.parseInt(input);
 
-			int fs = gameMap.markEdge(playerInput, players[pid]);
+			int fs = gameMap.markEdge(playerInput, players.getActive());
 
 			if (fs == -1) {
 				System.out.println("This edge is already selected.");
@@ -283,17 +279,17 @@ public class Game {
 	}
 
 	private boolean AILoopIteration() {
-		int AIindex = 1;
 		int turn;
 		boolean AITurn = true;
 
+		Player p = players.getActive();
 		while (AITurn) {
-			turn = players[AIindex].getTurn();
-			int fs = gameMap.markEdge(turn, players[AIindex]);
+			turn = p.getTurn();
+			int fs = gameMap.markEdge(turn, players.getActive());
 
 			while (fs == -1) {
-				turn = players[AIindex].getTurn();
-				fs = gameMap.markEdge(turn, players[AIindex]);
+				turn = players.getActive().getTurn();
+				fs = gameMap.markEdge(turn, players.getActive());
 			}
 
 			AITurn = gameMap.anotherTurn();
@@ -303,19 +299,5 @@ public class Game {
 
 		return false;
 	}
-
-	/**
-	 * switches the active player
-	 * 
-	 * @param activePlayer
-	 * @return
-	 */
-	private int switchActivePlayer(int pid) {
-		if (pid < playerAmount - 1)
-			pid++;
-		else
-			pid = 0;
-
-		return pid;
-	}
+	
 }

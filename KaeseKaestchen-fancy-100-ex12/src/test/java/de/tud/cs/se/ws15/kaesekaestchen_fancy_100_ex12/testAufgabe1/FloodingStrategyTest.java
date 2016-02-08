@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FloodingStrategy;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
 public class FloodingStrategyTest {
 

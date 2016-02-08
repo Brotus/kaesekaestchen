@@ -1,6 +1,6 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.AI;
 
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
 /**
  * And AI provides suggestions of Edges to be chosen.

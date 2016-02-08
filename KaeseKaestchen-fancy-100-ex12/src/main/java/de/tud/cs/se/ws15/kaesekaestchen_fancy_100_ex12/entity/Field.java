@@ -23,7 +23,7 @@ public class Field extends Entity{
 	 * 
 	 * @param id
 	 */
-	Field(int id) {
+	public Field(int id) {
 		this.id = id;
 		edgeAmount = 0;
 	}
@@ -42,7 +42,7 @@ public class Field extends Entity{
 	 * @param markingPlayer
 	 * @return true if owner was set
 	 */
-	boolean increment(Player markingPlayer) {
+	public boolean increment(Player markingPlayer) {
 		if (++edgeAmount == 4) {
 			this.owner = markingPlayer;
 			return true;
@@ -50,7 +50,7 @@ public class Field extends Entity{
 		return false;
 	}
 	
-	void decrement(){
+	public void decrement(){
 		edgeAmount--;
 	}
 

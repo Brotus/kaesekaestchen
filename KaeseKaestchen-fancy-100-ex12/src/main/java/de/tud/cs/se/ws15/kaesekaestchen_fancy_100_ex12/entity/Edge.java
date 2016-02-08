@@ -19,7 +19,7 @@ public class Edge extends Entity {
 	 * @param id the id of the edge (inherited from Entity)
 	 * @param vertical whether the edge is aligned vertically or horizontally
 	 */
-	Edge(int id, boolean vertical) {
+	public Edge(int id, boolean vertical) {
 		this.id = id;
 		marked = false;
 		this.vertical = vertical;
@@ -27,10 +27,6 @@ public class Edge extends Entity {
 
 	public boolean isVertical() {
 		return vertical;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public boolean isMarked() {

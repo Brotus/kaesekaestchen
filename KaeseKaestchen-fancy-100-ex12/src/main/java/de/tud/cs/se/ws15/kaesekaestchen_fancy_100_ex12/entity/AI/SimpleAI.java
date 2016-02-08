@@ -3,7 +3,7 @@ package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.AI;
 import java.util.LinkedList;
 import java.util.Random;
 
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
 public class SimpleAI extends AI {
 	

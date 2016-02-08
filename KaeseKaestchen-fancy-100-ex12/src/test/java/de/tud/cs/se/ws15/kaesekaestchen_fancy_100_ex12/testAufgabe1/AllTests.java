@@ -4,10 +4,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EmptyStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
 @RunWith(Suite.class)
 @SuiteClasses({ FancyTests.class, OurAdvancedAITest.class })

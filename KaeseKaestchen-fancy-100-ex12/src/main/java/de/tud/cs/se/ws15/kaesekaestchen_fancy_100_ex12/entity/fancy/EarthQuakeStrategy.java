@@ -1,8 +1,8 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy;
 
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.AI.SimpleAI;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
 public class EarthQuakeStrategy implements FancyHandle {
 

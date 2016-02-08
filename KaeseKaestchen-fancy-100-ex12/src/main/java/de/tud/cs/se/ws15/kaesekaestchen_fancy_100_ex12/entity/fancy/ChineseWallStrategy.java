@@ -1,8 +1,8 @@
 package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy;
 
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Edge;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
 /**
  * This is an implementation of the Chinese Wall fancy event. If it gets
