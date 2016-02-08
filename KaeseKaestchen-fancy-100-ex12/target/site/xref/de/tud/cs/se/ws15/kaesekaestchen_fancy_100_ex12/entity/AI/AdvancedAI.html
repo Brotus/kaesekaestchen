@@ -16,8 +16,8 @@
 <a class="jxr_linenumber" name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
 <a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> java.util.NoSuchElementException;
 <a class="jxr_linenumber" name="8" href="#8">8</a>   
-<a class="jxr_linenumber" name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Map;
-<a class="jxr_linenumber" name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
+<a class="jxr_linenumber" name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
+<a class="jxr_linenumber" name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 <a class="jxr_linenumber" name="11" href="#11">11</a>  
 <a class="jxr_linenumber" name="12" href="#12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/AI/AdvancedAI.html">AdvancedAI</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/AI/AI.html">AI</a> {
 <a class="jxr_linenumber" name="13" href="#13">13</a>  
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="34" href="#34">34</a>  <em class="jxr_javadoccomment">	 * Creating an artificial intelligence for the game using the MinMax-Algorithm</em>
 <a class="jxr_linenumber" name="35" href="#35">35</a>  <em class="jxr_javadoccomment">	 * @param gameMap the gamemap</em>
 <a class="jxr_linenumber" name="36" href="#36">36</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="37" href="#37">37</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/AI/AdvancedAI.html">AdvancedAI</a>(<a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/Map.html">Map</a> gameMap) {
+<a class="jxr_linenumber" name="37" href="#37">37</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/AI/AdvancedAI.html">AdvancedAI</a>(<a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/game/Map.html">Map</a> gameMap) {
 <a class="jxr_linenumber" name="38" href="#38">38</a>  		<strong class="jxr_keyword">super</strong>(gameMap);
 <a class="jxr_linenumber" name="39" href="#39">39</a>  	}
 <a class="jxr_linenumber" name="40" href="#40">40</a>  
@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="100" href="#100">100</a> <em class="jxr_javadoccomment">	 * @param maxDepth the maximum depth</em>
 <a class="jxr_linenumber" name="101" href="#101">101</a> <em class="jxr_javadoccomment">	 * @return a rating of choosing this edge</em>
 <a class="jxr_linenumber" name="102" href="#102">102</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="103" href="#103">103</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> rate(LinkedList&lt;Integer&gt; path, <strong class="jxr_keyword">int</strong> edge, <a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/Map.html">Map</a> MapAtThisPoint,
+<a class="jxr_linenumber" name="103" href="#103">103</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> rate(LinkedList&lt;Integer&gt; path, <strong class="jxr_keyword">int</strong> edge, <a href="../../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/game/Map.html">Map</a> MapAtThisPoint,
 <a class="jxr_linenumber" name="104" href="#104">104</a> 			<strong class="jxr_keyword">int</strong> maxLayers, <strong class="jxr_keyword">int</strong> maxDepth) {
 <a class="jxr_linenumber" name="105" href="#105">105</a> 
 <a class="jxr_linenumber" name="106" href="#106">106</a> 		<em class="jxr_comment">// sign is used to subtract the score if its the other players turn</em>

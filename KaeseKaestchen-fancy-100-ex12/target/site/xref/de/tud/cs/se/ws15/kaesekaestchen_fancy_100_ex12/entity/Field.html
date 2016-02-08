@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <em class="jxr_javadoccomment">	 * </em>
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <em class="jxr_javadoccomment">	 * @param id</em>
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="26" href="#26">26</a>  	Field(<strong class="jxr_keyword">int</strong> id) {
+<a class="jxr_linenumber" name="26" href="#26">26</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/Field.html">Field</a>(<strong class="jxr_keyword">int</strong> id) {
 <a class="jxr_linenumber" name="27" href="#27">27</a>  		<strong class="jxr_keyword">this</strong>.id = id;
 <a class="jxr_linenumber" name="28" href="#28">28</a>  		edgeAmount = 0;
 <a class="jxr_linenumber" name="29" href="#29">29</a>  	}
@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="42" href="#42">42</a>  <em class="jxr_javadoccomment">	 * @param markingPlayer</em>
 <a class="jxr_linenumber" name="43" href="#43">43</a>  <em class="jxr_javadoccomment">	 * @return true if owner was set</em>
 <a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="45" href="#45">45</a>  	<strong class="jxr_keyword">boolean</strong> increment(<a href="../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/Player.html">Player</a> markingPlayer) {
+<a class="jxr_linenumber" name="45" href="#45">45</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> increment(<a href="../../../../../../../de/tud/cs/se/ws15/kaesekaestchen_fancy_100_ex12/entity/Player.html">Player</a> markingPlayer) {
 <a class="jxr_linenumber" name="46" href="#46">46</a>  		<strong class="jxr_keyword">if</strong> (++edgeAmount == 4) {
 <a class="jxr_linenumber" name="47" href="#47">47</a>  			<strong class="jxr_keyword">this</strong>.owner = markingPlayer;
 <a class="jxr_linenumber" name="48" href="#48">48</a>  			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
@@ -60,7 +60,7 @@
 <a class="jxr_linenumber" name="50" href="#50">50</a>  		<strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="51" href="#51">51</a>  	}
 <a class="jxr_linenumber" name="52" href="#52">52</a>  	
-<a class="jxr_linenumber" name="53" href="#53">53</a>  	<strong class="jxr_keyword">void</strong> decrement(){
+<a class="jxr_linenumber" name="53" href="#53">53</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> decrement(){
 <a class="jxr_linenumber" name="54" href="#54">54</a>  		edgeAmount--;
 <a class="jxr_linenumber" name="55" href="#55">55</a>  	}
 <a class="jxr_linenumber" name="56" href="#56">56</a>  
