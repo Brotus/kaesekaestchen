@@ -3,6 +3,15 @@
 Aufgabe 1: Composite Pattern erkennen
 
 java.awt:
-	Component ist Component
-	Composite ist Container
-	Leaves sind Subklassen von Component
+	Component ist java.awt.Component
+		Denn es ist abstract. Es enthaelt einige Methoden, welche die Leave
+	Composite ist java.awt.Container
+		Die Klasse enthält eine java.util.List<Component> und implementiert die 
+		Methoden add(Component), remove(Component), remove(int) und getComponent(int), 
+		welches als das getChild(int) im Skript fungiert.
+	Leaves sind Subklassen von Component, zum Beispiel java.awt.Button und java.awt.Label
+	
+	Warum wurde hier das Composite pattern gewählt?
+		Eine graphische java.awt Benutzeroberfläche kann viele Elemente enthalten.
+		Diese sollen auch als Gruppen behandelt werden können.
+		
