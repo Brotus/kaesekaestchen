@@ -161,8 +161,12 @@ public class Map extends Observable {
 
 			c1 += fancy.action(this, markingPlayer);
 			fancyID = -1;
+			
+			// notify SurivorAchievement that marking has been done
+			setChanged();
+			notifyObservers(NotifyMessage.FANCY_ACTION_END);
 		}
-
+		
 		// mark the unmarked edge
 		edges[edgeID].setMarked(markingPlayer);
 
@@ -172,9 +176,7 @@ public class Map extends Observable {
 		// counting marked Fields
 		int c2 = countMarkedFields(edgeID, markingPlayer, impact);
 		
-		// notify SurivorAchievement that marking has been done
-		setChanged();
-		notifyObservers(NotifyMessage.FANCY_ACTION_END);
+
 
 		// Player gets another turn if the marked edge closed a field.
 		// He doesn't get one if a fancy action caused new closed fields.

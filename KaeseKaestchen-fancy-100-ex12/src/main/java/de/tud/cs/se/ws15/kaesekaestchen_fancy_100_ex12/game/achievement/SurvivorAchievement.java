@@ -32,10 +32,9 @@ public class SurvivorAchievement implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("update");
+		System.out.println("SurvivorAchievement.update called with " + arg.toString());
 		if (o instanceof Map && arg != null) {
 			if (arg.equals(NotifyMessage.FANCY_ACTION_START)) {
-				System.out.println("FancyActionStart");
 				fancyActionStarted = true;
 				this.size = Game.players.getSize();
 				edgesBefore = new int[size];
@@ -44,7 +43,6 @@ public class SurvivorAchievement implements Observer {
 				}
 				actionPlayerId = Game.players.getActive().getId();
 			} else if (fancyActionStarted && arg.equals(NotifyMessage.FANCY_ACTION_END)) {
-				System.out.println("FancyActionEnd");
 				survivor = true;
 				int lostEdges = edgesBefore[actionPlayerId] - Game.players.get(actionPlayerId).getSelectedEdges();
 				if (lostEdges > 0) {
@@ -58,7 +56,6 @@ public class SurvivorAchievement implements Observer {
 				}
 				
 			} else if (arg.equals(NotifyMessage.GAME_END)) {
-				System.out.println("GameEnd");
 				Map map = (Map) o;
 				LinkedList<Player> winners = map.getWinner();
 				Player p = winners.getFirst();

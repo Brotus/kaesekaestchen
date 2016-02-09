@@ -6,7 +6,7 @@ public class PlayerHandle {
 	private Player[] players;
 	private int size;
 	/* the position of the currently active player */
-	private int pid;
+	private int pid = 0;
 	private boolean useAI;
 	
 	
