@@ -38,11 +38,15 @@ public class Edge extends Entity {
 	public void setMarked(Player markingPlayer) {
 		this.marked = true;
 		this.owner = markingPlayer;
-		markingPlayer.increment();
+		if(markingPlayer != null){
+			markingPlayer.increment();
+		}
 	}
 	
 	public void setUnmarked(){
+		if(owner != null){
 		this.owner.decrement();
+		}
 		this.marked = false;
 		this.owner = null;
 	}
