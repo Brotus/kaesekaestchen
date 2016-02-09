@@ -1,4 +1,6 @@
-package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.testAufgabe1;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.test;
+
+import java.util.Observer;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -18,6 +20,7 @@ public class AllTests {
 	public static FancyHandle defaultFancy = new EmptyStrategy();
 
 	public static Map mapSetup(int width, int length, int[] edgesAllreadyMarked, FancyHandle fancy) {
+		resetPlayers();
 		Map map = new Map(length, width, fancy);
 		for (int i : edgesAllreadyMarked) {
 			map.markEdge(i, defaultPlayer);
@@ -30,11 +33,26 @@ public class AllTests {
 	}
 	
 	public static Map mapSetup(int width, int length, int[] edgesAllreadyMarked, FancyHandle fancy, int fancyEdge) {
+		resetPlayers();
 		Map map = new Map(length, width, fancy, fancyEdge);
 		for (int i : edgesAllreadyMarked) {
 			map.markEdge(i, defaultPlayer);
 		}
 		return map;
+	}
+	
+	public static Map mapSetup(int width, int length, int[] edgesAllreadyMarked, FancyHandle fancy, int fancyEdge, Observer[] achievements) {
+		resetPlayers();
+		Map map = new Map(length, width, fancy, fancyEdge, achievements);
+		for (int i : edgesAllreadyMarked) {
+			map.markEdge(i, defaultPlayer);
+		}
+		return map;
+	}
+	
+	private static void resetPlayers(){
+		defaultPlayer = new Player("DefaultPlayer", 0, null, true);
+		otherPlayer = new Player("other", 1, null, false);
 	}
 	
 }

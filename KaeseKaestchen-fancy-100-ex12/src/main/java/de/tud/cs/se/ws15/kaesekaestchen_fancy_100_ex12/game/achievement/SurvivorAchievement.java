@@ -26,19 +26,25 @@ public class SurvivorAchievement implements Observer {
 	/**
 	 * Whether or not the player lost more Edges than the others.
 	 */
-	private boolean survivor;
+	private boolean survivor = false;
+	
+	private boolean fancyActionStarted = false;
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("update");
 		if (o instanceof Map && arg != null) {
 			if (arg.equals(NotifyMessage.FANCY_ACTION_START)) {
+				System.out.println("FancyActionStart");
+				fancyActionStarted = true;
 				this.size = Game.players.getSize();
 				edgesBefore = new int[size];
 				for (int i = 0; i < size; i++) {
 					edgesBefore[i] = Game.players.get(i).getSelectedEdges();
 				}
 				actionPlayerId = Game.players.getActive().getId();
-			} else if (arg.equals(NotifyMessage.FANCY_ACTION_END)) {
+			} else if (fancyActionStarted && arg.equals(NotifyMessage.FANCY_ACTION_END)) {
+				System.out.println("FancyActionEnd");
 				survivor = true;
 				int lostEdges = edgesBefore[actionPlayerId] - Game.players.get(actionPlayerId).getSelectedEdges();
 				if (lostEdges > 0) {
@@ -50,7 +56,9 @@ public class SurvivorAchievement implements Observer {
 				} else {
 					survivor = false;
 				}
+				
 			} else if (arg.equals(NotifyMessage.GAME_END)) {
+				System.out.println("GameEnd");
 				Map map = (Map) o;
 				LinkedList<Player> winners = map.getWinner();
 				Player p = winners.getFirst();

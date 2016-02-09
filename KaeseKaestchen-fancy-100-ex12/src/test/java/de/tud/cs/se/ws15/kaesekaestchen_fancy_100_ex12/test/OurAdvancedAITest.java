@@ -1,4 +1,4 @@
-package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.testAufgabe1;
+package de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.test;
 
 import static org.junit.Assert.assertEquals;
 

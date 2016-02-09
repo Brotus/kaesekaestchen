@@ -75,7 +75,8 @@ public class Game {
 		beFancy = parseInput("Do you enjoy fanciness?", "[yn]").equals("y");
 		FancyHandle fancy;
 		if (beFancy) {
-			fancy = getFancyStrategy(new Random().nextInt(2));
+			fancy = getFancyStrategy(2);
+			//fancy = getFancyStrategy(new Random().nextInt(3));
 		} else {
 			fancy = getFancyStrategy(-1);
 		}

@@ -63,6 +63,15 @@ public class Map extends Observable {
 		this.fancyID = fancyID;
 	}
 	
+	public Map(int rows, int columns, FancyHandle fancy, int fancyID, Observer[] achievements) {
+		this(rows, columns, fancy);
+		this.fancyID = fancyID;
+		
+		for(Observer ach: achievements){
+			this.addObserver(ach);
+		}
+	}
+	
 	public Map(int rows, int columns, FancyHandle fancy, Observer[] achievements) {
 		this(rows,columns,fancy);
 		
