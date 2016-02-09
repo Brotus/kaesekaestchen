@@ -48,5 +48,8 @@ public class PlayerHandle {
 			pid = 0;
 	}
 	
+	public int getSize(){
+		return size;
+	}
 	
 }

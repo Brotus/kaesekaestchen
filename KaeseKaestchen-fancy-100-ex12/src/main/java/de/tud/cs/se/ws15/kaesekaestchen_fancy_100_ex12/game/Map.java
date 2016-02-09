@@ -155,13 +155,17 @@ public class Map extends Observable {
 		}
 
 		// mark the unmarked edge
-		edges[edgeID].setMarked(true);
+		edges[edgeID].setMarked(markingPlayer);
 
 		// remove its index from the list of marked edges
 		removeUnmarkedIndex(edgeID);
-
+		
 		// counting marked Fields
 		int c2 = countMarkedFields(edgeID, markingPlayer, impact);
+		
+		// notify SurivorAchievement that marking has been done
+		setChanged();
+		notifyObservers(NotifyMessage.FANCY_ACTION_END);
 
 		// Player gets another turn if the marked edge closed a field.
 		// He doesn't get one if a fancy action caused new closed fields.
@@ -210,7 +214,7 @@ public class Map extends Observable {
 
 	/**
 	 * This undoes the marking of an edge if it has been marked and decrements
-	 * the number of marked edges of a field.
+	 * the number of marked edges of a field, and the amount of owned edges for the player.
 	 * 
 	 * @param edgeID
 	 *            = The ID of the edge to be unmarked.
@@ -219,7 +223,7 @@ public class Map extends Observable {
 	public boolean undo(int edgeID) {
 
 		if (this.unmarkedEdges.add(edgeID)) {
-			edges[edgeID].setMarked(false);
+			edges[edgeID].setUnmarked();
 			for (int f : this.hashFunction(edgeID)) {
 				if (f > -1)
 					this.fields[f].decrement();
@@ -390,6 +394,10 @@ public class Map extends Observable {
 				return false;
 			}
 		}
+		
+		setChanged();
+		notifyObservers(NotifyMessage.GAME_END);
+		
 		return true;
 	}
 

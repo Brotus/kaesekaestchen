@@ -11,6 +11,7 @@ public class Player extends Entity {
 
 	private AI ai;
 	private boolean human;
+	private int selectedEdges;
 
 	/**
 	 * The name of the player. Will be displayed in console messages.
@@ -30,6 +31,7 @@ public class Player extends Entity {
 		this.id = id;
 		this.ai = ai;
 		this.human = human;
+		this.selectedEdges = 0;
 	}
 
 	public String getName() {
@@ -60,6 +62,18 @@ public class Player extends Entity {
 	
 	public String toString() {
 		return this.name;
+	}
+	
+	public void increment(){
+		selectedEdges++;
+	}
+	
+	public void decrement(){
+		selectedEdges--;
+	}
+	
+	public int getSelectedEdges(){
+		return selectedEdges;
 	}
 
 }

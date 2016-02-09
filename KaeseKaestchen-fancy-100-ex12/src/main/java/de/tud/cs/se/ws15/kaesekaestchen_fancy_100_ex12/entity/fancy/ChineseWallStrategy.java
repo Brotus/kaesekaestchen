@@ -38,7 +38,7 @@ public class ChineseWallStrategy implements FancyHandle {
 			// mark every edge below
 			i = fancyID + edgeIndexDiff;
 			while (i < ec) {
-				edges[i].setMarked(true);
+				edges[i].setMarked(markingPlayer);
 				// add points if fields have been closed
 				if (gameMap.removeUnmarkedIndex(i)) {
 					closedFields += gameMap.countMarkedFields(i, markingPlayer, true);
@@ -48,7 +48,7 @@ public class ChineseWallStrategy implements FancyHandle {
 			// and every edge above
 			i = fancyID - edgeIndexDiff;
 			while (i >= 0) {
-				edges[i].setMarked(true);
+				edges[i].setMarked(markingPlayer);
 				// add points if fields have been closed
 				if (gameMap.removeUnmarkedIndex(i)) {
 					closedFields += gameMap.countMarkedFields(i, markingPlayer, true);
@@ -73,7 +73,7 @@ public class ChineseWallStrategy implements FancyHandle {
 			for (int k = leftIndex; k < leftIndex + col; k++) {
 				if (k != fancyID) {
 					// and mark them
-					edges[k].setMarked(true);
+					edges[k].setMarked(markingPlayer);
 					// add points if fields have been closed
 					if (gameMap.removeUnmarkedIndex(k)) {
 						closedFields += gameMap.countMarkedFields(k, markingPlayer, true);

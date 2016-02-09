@@ -13,6 +13,8 @@ public class Edge extends Entity {
 	 * vertical describes the alignment in the map
 	 */
 	vertical;
+	
+	private Player owner;
 
 	/**
 	 * Initializes an unmarked edge
@@ -21,7 +23,7 @@ public class Edge extends Entity {
 	 */
 	public Edge(int id, boolean vertical) {
 		this.id = id;
-		marked = false;
+		this.marked = false;
 		this.vertical = vertical;
 	}
 
@@ -33,13 +35,22 @@ public class Edge extends Entity {
 		return marked;
 	}
 
-	public void setMarked(boolean marked) {
-		this.marked = marked;
+	public void setMarked(Player markingPlayer) {
+		this.marked = true;
+		this.owner = markingPlayer;
+		markingPlayer.increment();
+	}
+	
+	public void setUnmarked(){
+		this.owner.decrement();
+		this.marked = false;
+		this.owner = null;
 	}
 	
 	public Edge copy() {
 		Edge newEdge = new Edge(id, vertical);
 		newEdge.marked = this.marked;
+		newEdge.owner = this.owner;
 		return newEdge;
 	}
 

@@ -31,7 +31,7 @@ public class Game {
 	private int width, height;
 	private static Scanner s = new Scanner(System.in, "UTF-8");
 	private Map gameMap;
-	private PlayerHandle players;
+	public static PlayerHandle players;
 	/** true iff there is an auxiliary AI is available to the player */
 	private boolean auxAIAvailable;
 
