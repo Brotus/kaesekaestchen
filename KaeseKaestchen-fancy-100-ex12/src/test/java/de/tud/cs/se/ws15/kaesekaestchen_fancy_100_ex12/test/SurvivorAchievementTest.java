@@ -31,6 +31,7 @@ public class SurvivorAchievementTest {
 	
 	@Test
 	public void testUpdateGameEnd(){
+		System.out.println("----------------------\nStart of SurvivorAchievementTest");
 		map.plot();
 		map.markEdge(0, AllTests.defaultPlayer);
 		map.plot();
@@ -41,6 +42,7 @@ public class SurvivorAchievementTest {
 		map.markEdge(15, AllTests.otherPlayer);
 		map.plot();
 		System.out.println(map.isEnd());
+		System.out.println("End of SurvivorAchievementText\n----------------------------");
 	}
 
 }
