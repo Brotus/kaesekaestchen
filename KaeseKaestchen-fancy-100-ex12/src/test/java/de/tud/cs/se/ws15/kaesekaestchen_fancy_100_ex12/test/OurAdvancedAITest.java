@@ -99,5 +99,14 @@ public class OurAdvancedAITest {
 		int sug = localAI.suggestTurn();
 		assertEquals(21, sug + 1);
 	}
+	
+//	@Test(timeout = 10000)
+//	public void aiEndTest() {
+//		for (int e = 0; e < 12; e++) {
+//			simpleSetUp.markEdge(e, somePlayer);
+//		}
+//		simpleAISetUp.suggestTurn();
+//		
+//	}
 
 }
