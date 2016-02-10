@@ -21,14 +21,14 @@ public class AdvancedAI extends AI {
 	 */
 	private Player AIPlayer;
 	/**
-	 * Layers of recursion (This is how often the players alternated), we decided that two is adequately.
+	 * Layers of recursion (This is how often the players alternated), we decided that four is adequately.
 	 */
-	private static final int MAX_LAYERS = 4;
+	private final int max_Layers;
 	
 	/**
-	 * Maximum Depth of the decision tree.
+	 * Maximum Depth of the decision five.
 	 */
-	private static final int MAX_DEPTH = 5;
+	private final int max_Depth;
 
 	/**
 	 * Creating an artificial intelligence for the game using the MinMax-Algorithm
@@ -36,6 +36,20 @@ public class AdvancedAI extends AI {
 	 */
 	public AdvancedAI(Map gameMap) {
 		super(gameMap);
+		max_Layers =4;
+		max_Depth = 5;
+	}
+	
+	/**
+	 * Creating an AI using MinMax-Algorithm
+	 * @param gameMap the game Map
+	 * @param maxLayers the maximum of Steps simulated
+	 * @param maxDepth the maximum depth of the tree (i.e. Maximum Streaks simulated)
+	 */
+	public AdvancedAI(Map gameMap, int maxLayers, int maxDepth) {
+		super(gameMap);
+		this.max_Layers = maxLayers;
+		this.max_Depth = maxDepth;
 	}
 
 	/**
@@ -54,7 +68,7 @@ public class AdvancedAI extends AI {
 			Thread thread = new Thread(tg, new Runnable(){
 				@Override
 				public void run() {
-					edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, MAX_LAYERS, MAX_DEPTH));
+					edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, max_Layers, max_Depth));
 					noedges--;
 					System.out.print(".");
 				}				
@@ -160,5 +174,11 @@ public class AdvancedAI extends AI {
 		} catch (NoSuchElementException e) {
 			return points;
 		}
+		
+		
+	}
+
+	public HashMap<Integer, Integer> getEdgeHash() {
+		return edgeHash;
 	}
 }

@@ -8,7 +8,7 @@ public class EarthQuakeStrategy implements FancyHandle {
 
 	@Override
 	public int action(Map gameMap, Player markingPlayer) {
-		System.out.println("An earthquake shakes the ground.");
+		System.out.println("What do you think? 5.1?");
 		
 		int points = 0;
 		

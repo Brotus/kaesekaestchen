@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Observer;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -18,8 +17,9 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EarthQuakeSt
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EmptyStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FloodingStrategy;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.FatalAchievement;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.NotifyMessage;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.PrivilegedAchievement;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.SurvivorAchievement;
 
 /**
@@ -49,7 +49,8 @@ public class Game {
 		// readme/help prompt
 		if (parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")) {
 			try {
-				BufferedReader txtReader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("readme.txt")));
+				BufferedReader txtReader = new BufferedReader(
+						new InputStreamReader(getClass().getClassLoader().getResourceAsStream("readme.txt")));
 				String line;
 				while ((line = txtReader.readLine()) != null) {
 					System.out.println(line);
@@ -68,12 +69,14 @@ public class Game {
 		FancyHandle fancy;
 		if (beFancy) {
 			fancy = getFancyStrategy(2);
-			//fancy = getFancyStrategy(new Random().nextInt(3));
+			// fancy = getFancyStrategy(new Random().nextInt(3));
 		} else {
 			fancy = getFancyStrategy(-1);
 		}
-		
-		Observer[] ach = new Observer[]{new SurvivorAchievement(), new FatalAchievement()};
+
+		Observer[] ach = new Observer[] { new SurvivorAchievement(), new PrivilegedAchievement(),
+				new FatalAchievement() };
+
 		gameMap = new Map(height, width, fancy, ach);
 
 		init();
@@ -100,12 +103,13 @@ public class Game {
 	 */
 	private void init() {
 		String str;
-		int playerAmount = Integer.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
+		int playerAmount = Integer
+				.parseInt(parseInput("Enter the amount of players (1 == human against AI):", "[1-9]+\\d*"));
 		auxAIAvailable = playerAmount <= 2;
 		players = new PlayerHandle(playerAmount);
 		for (int i = 0; i < playerAmount; i++) {
 			str = parseInput("Enter the name of player P" + i, "[a-zA-Z]+\\w*");
-			players.set(new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true),i);
+			players.set(new Player(str, i, auxAIAvailable ? new AdvancedAI(gameMap) : null, true), i);
 		}
 		if (players.useAI()) {
 			int aiType = Integer.parseInt(parseInput("Enter AI type you want to play against. (0 or 1):", "[01]"));
@@ -120,7 +124,7 @@ public class Game {
 			default:
 				ai = new SimpleAI(gameMap);
 			}
-			players.set(new Player("AI", 1, ai, false),1);
+			players.set(new Player("AI", 1, ai, false), 1);
 		} else if (beFancy) {
 			boolean fancyVisible = parseInput("Shall the wall causing fancy events be visible?", "[yn]").equals("y");
 			if (fancyVisible) {
@@ -199,33 +203,38 @@ public class Game {
 		String input;
 		int playerInput;
 		boolean humanTurn = true;
+		gameMap.setChanged();
+		gameMap.notifyObservers(NotifyMessage.PRIVILEGE_CHECK);
 
 		while (humanTurn) {
 			if (auxAIAvailable) {
-				input = parseInput(players.getActive().getName() + ", enter the edge you want to claim, 'help' or 'quit':", "(\\d+)|(help)|(quit)", p -> {
-					if (p.equals("quit")) {
-						System.exit(0);
-						return false;
-					} else if (p.equals("help"))
-						return true;
-					else
-						try {
-							int n = Integer.parseInt(p);
-							return 0 <= n && n < gameMap.getEdgeCount();
-						} catch (Exception e) {
-							return false;
-						}
-				});
+				input = parseInput(
+						players.getActive().getName() + ", enter the edge you want to claim, 'help' or 'quit':",
+						"(\\d+)|(help)|(quit)", p -> {
+							if (p.equals("quit")) {
+								System.exit(0);
+								return false;
+							} else if (p.equals("help"))
+								return true;
+							else
+								try {
+									int n = Integer.parseInt(p);
+									return 0 <= n && n < gameMap.getEdgeCount();
+								} catch (Exception e) {
+									return false;
+								}
+						});
 			} else {
-				input = parseInput(players.getActive().getName() + ", enter the edge you want to claim or 'quit':", "(\\d+)|(quit)", p -> {
-					if (p.equals("quit")) {
-						System.exit(0);
-						return false;
-					} else {
-						int n = Integer.parseInt(p);
-						return 0 <= n && n < gameMap.getEdgeCount();
-					}
-				});
+				input = parseInput(players.getActive().getName() + ", enter the edge you want to claim or 'quit':",
+						"(\\d+)|(quit)", p -> {
+							if (p.equals("quit")) {
+								System.exit(0);
+								return false;
+							} else {
+								int n = Integer.parseInt(p);
+								return 0 <= n && n < gameMap.getEdgeCount();
+							}
+						});
 			}
 
 			if (auxAIAvailable && input.equals("help")) {
@@ -282,13 +291,13 @@ public class Game {
 
 			AITurn = gameMap.anotherTurn();
 			System.out.println("AI selects " + turn + ".");
-			
-			if(checkEnd()){
+
+			if (checkEnd()) {
 				return true;
 			}
 		}
 
 		return false;
 	}
-	
+
 }
