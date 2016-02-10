@@ -99,5 +99,7 @@ public class OurAdvancedAITest {
 		int sug = localAI.suggestTurn();
 		assertEquals(21, sug + 1);
 	}
+	
+	
 
 }

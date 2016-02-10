@@ -3,6 +3,7 @@ de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\game\achievement\NotifyMessage.c
 de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\entity\Player.class
 de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\entity\AI\AdvancedAI.class
 de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\entity\fancy\FancyHandle.class
+de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\game\achievement\PrivilegedAchievement.class
 de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\game\achievement\SurvivorAchievement.class
 de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\entity\AI\SimpleAI.class
 de\tud\cs\se\ws15\kaesekaestchen_fancy_100_ex12\entity\AI\AdvancedAI$1.class
