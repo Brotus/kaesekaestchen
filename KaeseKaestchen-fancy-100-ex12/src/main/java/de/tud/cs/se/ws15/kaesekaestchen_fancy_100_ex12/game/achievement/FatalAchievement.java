@@ -7,7 +7,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.Player;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Game;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
 
-public class RageAchievement implements Observer {
+public class FatalAchievement implements Observer {
 
 	int size = 0, c = 0;
 	Player streakingPlayer;

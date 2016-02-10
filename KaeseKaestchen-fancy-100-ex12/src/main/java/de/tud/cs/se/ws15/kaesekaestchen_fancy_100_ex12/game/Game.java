@@ -19,7 +19,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EmptyStrateg
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FloodingStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
-import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.RageAchievement;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.FatalAchievement;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.SurvivorAchievement;
 
 /**
@@ -73,7 +73,7 @@ public class Game {
 			fancy = getFancyStrategy(-1);
 		}
 		
-		Observer[] ach = new Observer[]{new SurvivorAchievement(), new RageAchievement()};
+		Observer[] ach = new Observer[]{new SurvivorAchievement(), new FatalAchievement()};
 		gameMap = new Map(height, width, fancy, ach);
 
 		init();
