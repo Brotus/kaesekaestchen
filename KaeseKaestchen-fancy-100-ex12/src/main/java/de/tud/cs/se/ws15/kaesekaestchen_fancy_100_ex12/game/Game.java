@@ -75,7 +75,8 @@ public class Game {
 		beFancy = parseInput("Do you enjoy fanciness?", "[yn]").equals("y");
 		FancyHandle fancy;
 		if (beFancy) {
-			fancy = getFancyStrategy(new Random().nextInt(3));
+			fancy = getFancyStrategy(2);
+			//fancy = getFancyStrategy(new Random().nextInt(3));
 		} else {
 			fancy = getFancyStrategy(-1);
 		}
@@ -285,16 +286,14 @@ public class Game {
 		Player p = players.getActive();
 		while (AITurn) {
 			turn = p.getTurn();
-			int fs = gameMap.markEdge(turn, players.getActive());
-
-			while (fs == -1) {
-				turn = players.getActive().getTurn();
-				fs = gameMap.markEdge(turn, players.getActive());
-			}
+			gameMap.markEdge(turn, p);
 
 			AITurn = gameMap.anotherTurn();
 			System.out.println("AI selects " + turn + ".");
-
+			
+			if(checkEnd()){
+				return true;
+			}
 		}
 
 		return false;
