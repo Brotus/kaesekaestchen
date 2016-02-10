@@ -447,4 +447,9 @@ public class Map extends Observable {
 	public HashSet<Integer> getUnmarkedEdges() {
 		return unmarkedEdges;
 	}
+	
+	@Override
+	public void setChanged(){
+		super.setChanged();
+	}
 }

@@ -7,8 +7,8 @@
     <tagletArtifact />
   </tagletArtifacts>
   <excludePackageNames>
-    <excludePackageName>D</excludePackageName>
-    <excludePackageName>\my_eclipse_projects\SE\kaesekaestchen\KaeseKaestchen-fancy-100-ex12\src\test\*</excludePackageName>
+    <excludePackageName>C</excludePackageName>
+    <excludePackageName>\Users\Julian\Kaesekaestchen\KaeseKaestchen-fancy-100-ex12\src\test\*</excludePackageName>
   </excludePackageNames>
   <javadocResourcesDirectory>src/main/javadoc</javadocResourcesDirectory>
 </javadocOptions>
