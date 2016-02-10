@@ -205,6 +205,8 @@ public class Map extends Observable {
 				if (fields[fieldID].getOwner() == null || fields[fieldID].getOwner() == markingPlayer || impact) {
 					if (fields[fieldID].increment(markingPlayer))
 						c++;
+					
+					setChanged();
 					notifyObservers(NotifyMessage.FIELD_CLOSED);
 				}
 			}
@@ -449,6 +451,9 @@ public class Map extends Observable {
 		return unmarkedEdges;
 	}
 	
+	/**
+	 * Overridden to be accessible from Game
+	 */
 	@Override
 	public void setChanged(){
 		super.setChanged();

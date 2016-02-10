@@ -34,10 +34,6 @@ public class Player extends Entity {
 		this.selectedEdges = 0;
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	/**
 	 * This method is used to make it transparent which field belongs to whom on
 	 * the map. This is necessary because the entered names of the players are
@@ -60,6 +56,7 @@ public class Player extends Entity {
 		
 	}
 	
+	@Override
 	public String toString() {
 		return this.name;
 	}
