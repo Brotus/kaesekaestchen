@@ -205,6 +205,7 @@ public class Map extends Observable {
 				if (fields[fieldID].getOwner() == null || fields[fieldID].getOwner() == markingPlayer || impact) {
 					if (fields[fieldID].increment(markingPlayer))
 						c++;
+					notifyObservers(NotifyMessage.FIELD_CLOSED);
 				}
 			}
 		}

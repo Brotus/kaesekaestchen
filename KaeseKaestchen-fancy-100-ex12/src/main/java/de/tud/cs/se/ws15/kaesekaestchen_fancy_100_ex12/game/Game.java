@@ -19,6 +19,7 @@ import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.EmptyStrateg
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FancyHandle;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.entity.fancy.FloodingStrategy;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.Map;
+import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.RageAchievement;
 import de.tud.cs.se.ws15.kaesekaestchen_fancy_100_ex12.game.achievement.SurvivorAchievement;
 
 /**
@@ -47,15 +48,6 @@ public class Game {
 
 		// readme/help prompt
 		if (parseInput("Do you want to read the ReadMe?", "[yn]").equals("y")) {
-			/*
-			 * try { String content = new
-			 * String(Files.readAllBytes(Paths.get(Main
-			 * .class.getResource("/src/main/resources/readme.txt").toURI())),
-			 * "UTF-8"); System.out.println(content); } catch (IOException |
-			 * URISyntaxException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); }
-			 */
-			// System.out.println(System.getProperty("user.dir"));
 			try {
 				BufferedReader txtReader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("readme.txt")));
 				String line;
@@ -81,7 +73,7 @@ public class Game {
 			fancy = getFancyStrategy(-1);
 		}
 		
-		Observer[] ach = new Observer[]{new SurvivorAchievement()};
+		Observer[] ach = new Observer[]{new SurvivorAchievement(), new RageAchievement()};
 		gameMap = new Map(height, width, fancy, ach);
 
 		init();
