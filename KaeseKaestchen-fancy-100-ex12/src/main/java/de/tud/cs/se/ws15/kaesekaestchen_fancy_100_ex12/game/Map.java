@@ -62,21 +62,21 @@ public class Map extends Observable {
 		this(rows, columns, fancy);
 		this.fancyID = fancyID;
 	}
-	
+
 	public Map(int rows, int columns, FancyHandle fancy, int fancyID, Observer[] achievements) {
 		this(rows, columns, fancy);
 		this.fancyID = fancyID;
-		
-		for(Observer ach: achievements){
+
+		for (Observer ach : achievements) {
 			this.addObserver(ach);
 		}
 		
 	}
-	
+
 	public Map(int rows, int columns, FancyHandle fancy, Observer[] achievements) {
-		this(rows,columns,fancy);
-		
-		for(Observer ach: achievements){
+		this(rows, columns, fancy);
+
+		for (Observer ach : achievements) {
 			this.addObserver(ach);
 		}
 	}
@@ -164,22 +164,20 @@ public class Map extends Observable {
 
 			c1 += fancy.action(this, markingPlayer);
 			fancyID = -1;
-			
+
 			// notify SurivorAchievement that marking has been done
 			setChanged();
 			notifyObservers(NotifyMessage.FANCY_ACTION_END);
 		}
-		
+
 		// mark the unmarked edge
 		edges[edgeID].setMarked(markingPlayer);
 
 		// remove its index from the list of marked edges
 		removeUnmarkedIndex(edgeID);
-		
+
 		// counting marked Fields
 		int c2 = countMarkedFields(edgeID, markingPlayer, impact);
-		
-
 
 		// Player gets another turn if the marked edge closed a field.
 		// He doesn't get one if a fancy action caused new closed fields.
@@ -206,9 +204,11 @@ public class Map extends Observable {
 		for (int fieldID : this.hashFunction(edgeID)) {
 			if (fieldID != -1) {
 				if (fields[fieldID].getOwner() == null || fields[fieldID].getOwner() == markingPlayer || impact) {
-					if (fields[fieldID].increment(markingPlayer))
+					if (fields[fieldID].increment(markingPlayer)) {
 						c++;
-					notifyObservers(NotifyMessage.FIELD_CLOSED);
+						setChanged();
+						notifyObservers(NotifyMessage.FIELD_CLOSED);
+					}
 				}
 			}
 		}
@@ -229,7 +229,8 @@ public class Map extends Observable {
 
 	/**
 	 * This undoes the marking of an edge if it has been marked and decrements
-	 * the number of marked edges of a field, and the amount of owned edges for the player.
+	 * the number of marked edges of a field, and the amount of owned edges for
+	 * the player.
 	 * 
 	 * @param edgeID
 	 *            = The ID of the edge to be unmarked.
@@ -379,13 +380,13 @@ public class Map extends Observable {
 	private int generateFancyWallId() {
 		return new Random().nextInt(rows * columns);
 	}
-	
+
 	public LinkedList<Player> getWinner() {
 		HashMap<Player, Integer> points = new HashMap<Player, Integer>(5);
 		for (Field f : fields) {
 			Player p = f.getOwner();
 			if (points.get(p) != null) {
-				points.put(p, points.get(p)+1 );
+				points.put(p, points.get(p) + 1);
 			} else {
 				points.put(f.getOwner(), 1);
 			}
@@ -399,20 +400,20 @@ public class Map extends Observable {
 		}
 		return winningPlayers;
 	}
-	
+
 	/**
 	 * @return if the game is done
 	 */
 	public boolean isEnd() {
 		for (Field f : fields) {
-			if (!f.hasBeenOwned()){
+			if (!f.hasBeenOwned()) {
 				return false;
 			}
 		}
-		
+
 		setChanged();
 		notifyObservers(NotifyMessage.GAME_END);
-		
+
 		return true;
 	}
 
@@ -451,5 +452,4 @@ public class Map extends Observable {
 	public HashSet<Integer> getUnmarkedEdges() {
 		return unmarkedEdges;
 	}
-	
 }

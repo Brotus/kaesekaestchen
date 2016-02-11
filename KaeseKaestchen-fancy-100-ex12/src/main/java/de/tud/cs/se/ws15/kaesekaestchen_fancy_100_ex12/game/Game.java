@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Observer;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -68,12 +69,12 @@ public class Game {
 		beFancy = parseInput("Do you enjoy fanciness?", "[yn]").equals("y");
 		FancyHandle fancy;
 		if (beFancy) {
-			fancy = getFancyStrategy(2);
-			// fancy = getFancyStrategy(new Random().nextInt(3));
+			fancy = getFancyStrategy(new Random().nextInt(3));
 		} else {
 			fancy = getFancyStrategy(-1);
 		}
 
+		// add observers to the map (which extends Observable)
 		Observer[] ach = new Observer[] { new SurvivorAchievement(), new PrivilegedAchievement(),
 				new FatalAchievement() };
 
@@ -207,7 +208,7 @@ public class Game {
 		while (humanTurn) {
 			if (auxAIAvailable) {
 				input = parseInput(
-						players.getActive().getName() + ", enter the edge you want to claim, 'help' or 'quit':",
+						players.getActive() + ", enter the edge you want to claim, 'help' or 'quit':",
 						"(\\d+)|(help)|(quit)", p -> {
 							if (p.equals("quit")) {
 								System.exit(0);
@@ -223,7 +224,7 @@ public class Game {
 								}
 						});
 			} else {
-				input = parseInput(players.getActive().getName() + ", enter the edge you want to claim or 'quit':",
+				input = parseInput(players.getActive() + ", enter the edge you want to claim or 'quit':",
 						"(\\d+)|(quit)", p -> {
 							if (p.equals("quit")) {
 								System.exit(0);
