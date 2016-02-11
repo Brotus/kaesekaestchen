@@ -1,3 +1,5 @@
+
+
 // Für unseren lieben Patrick ohne Word eine .txt Datei!!
 
 Aufgabe 1: Composite Pattern erkennen
@@ -14,26 +16,11 @@ java.awt:
 	Warum wurde hier das Composite pattern gewählt?
 		Eine graphische java.awt Benutzeroberfläche kann viele Elemente enthalten.
 		Diese sollen auch als Gruppen behandelt werden können.
+
+
+
+swing
+	Component ist JComponent
+	Leaf z.b. AbstractButton, JTree (erben von JComponent, konkrete Objekte)
+	Composite JPanel (erbt von JComponent, dient als Behälter für die JComponents, besitzt die Methoden add/remove component und getComponent).
 		
-
-Aufgabe 2:
-
-javax.xml.parsers:
-
-SAXParserFactory fungiert als AbstractFactory. 
-Eine ConreteFactory kann durch die statische Methode newInstance(...) erzeugt werden.
-die FactoryMethod newSAXParser erzeugt einen SAXParser. SAXParser ist das AbstractProduct-Interface, 
-concrete Products müssen implementiert werden.
-
-javax.xml.transform: 
-
-Eine AbstractFactory ist TransformerFactory, mit FactoryMethod newTransformer(). 
-Templates und SAXTransformerFactory sind concreteFactories. Templates ist das Interface, 
-dass im Sinne des Abstract Factory Patterns ein AbtractProduct ist, Transformer dagegen ein
-concreteProduct.
-
-javax.xml.xpath:
-
-Die XPathFactory ist eine AbstractFactory. Mit deren statischer Methode newInstance(...) können conreteFactories erzeugt werden.
-FactoryMethod ist newXPath(), XPath ist das ConreteProduct; XPathExpression etwa, ein abstractProduct-Interface.
-
