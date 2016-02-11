@@ -32,9 +32,11 @@ public class SurvivorAchievement implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("SurvivorAchievement.update called with " + arg.toString());
 		if (o instanceof Map && arg != null) {
 			if (arg.equals(NotifyMessage.FANCY_ACTION_START)) {
+				// when an edge causing a fancy action has been selected, this message gets pushed.
+				// this object then saves the amount of edges each player owned at this point in time
+				// and the id of the currently active player
 				fancyActionStarted = true;
 				this.size = Game.players.getSize();
 				edgesBefore = new int[size];
@@ -43,6 +45,8 @@ public class SurvivorAchievement implements Observer {
 				}
 				actionPlayerId = Game.players.getActive().getId();
 			} else if (fancyActionStarted && arg.equals(NotifyMessage.FANCY_ACTION_END)) {
+				// this is called when the fancy action has ended (before the edge causing the action has been marked)
+				// it calculates whether the player lost more edges than each other player
 				survivor = true;
 				int lostEdges = edgesBefore[actionPlayerId] - Game.players.get(actionPlayerId).getSelectedEdges();
 				if (lostEdges > 0) {
@@ -56,11 +60,13 @@ public class SurvivorAchievement implements Observer {
 				}
 				
 			} else if (arg.equals(NotifyMessage.GAME_END)) {
+				// when the game has ended, there is a unique winner and it was the one who caused the action,
+				// he unlocks the survivor achievement
 				Map map = (Map) o;
 				LinkedList<Player> winners = map.getWinner();
 				Player p = winners.getFirst();
-				if(survivor && winners.size() == 1 && p.getId() == actionPlayerId){
-					System.out.println("Congratulations, " + p.getName() + ", you unlocked the Survivor Achievement!");
+				if(survivor && p.isHuman() && winners.size() == 1 && p.getId() == actionPlayerId){
+					System.out.println("Congratulations, " + p + ", you unlocked the Survivor Achievement!");
 				}
 			}
 		}

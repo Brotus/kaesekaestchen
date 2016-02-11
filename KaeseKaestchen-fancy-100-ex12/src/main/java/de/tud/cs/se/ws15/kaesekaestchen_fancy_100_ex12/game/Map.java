@@ -449,7 +449,9 @@ public class Map extends Observable {
 	public HashSet<Integer> getUnmarkedEdges() {
 		return unmarkedEdges;
 	}
-
+	/**
+	 * Overridden to be accessible from Game
+	 */
 	@Override
 	public void setChanged() {
 		super.setChanged();

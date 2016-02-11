@@ -58,9 +58,15 @@ public class AdvancedAI extends AI {
 	 */
 
 	int noedges = gameMap.getUnmarkedEdges().size();
-	public int suggestTurn() {
+	
+	public int suggestTurn(){
+		return suggestTurn(false);
+	}
+	
+	public int suggestTurn(boolean suppressOutput) {
 		edgeHash.clear();
-		System.out.print("AI is thinking");
+		if(!suppressOutput)
+			System.out.print("AI is thinking");
 		// Rating all possible Edges
 		ThreadGroup tg = new ThreadGroup("AI");
 		tg.setDaemon(true);
@@ -70,12 +76,14 @@ public class AdvancedAI extends AI {
 				public void run() {
 					edgeHash.put(i, rate(new LinkedList<Integer>(), i, gameMap, max_Layers, max_Depth));
 					noedges--;
-					System.out.print(".");
+					if(!suppressOutput)
+						System.out.print(".");
 				}				
 			});
 			thread.start();
 		}		
-		System.out.println();
+		if(!suppressOutput)
+			System.out.println();
 		
 		// Waiting for all Edges to be rated
 		while(!tg.isDestroyed());
