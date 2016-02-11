@@ -203,8 +203,6 @@ public class Game {
 		String input;
 		int playerInput;
 		boolean humanTurn = true;
-		gameMap.setChanged();
-		gameMap.notifyObservers(NotifyMessage.PRIVILEGE_CHECK);
 
 		while (humanTurn) {
 			if (auxAIAvailable) {

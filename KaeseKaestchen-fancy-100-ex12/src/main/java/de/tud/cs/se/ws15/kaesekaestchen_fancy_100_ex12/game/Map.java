@@ -70,6 +70,7 @@ public class Map extends Observable {
 		for(Observer ach: achievements){
 			this.addObserver(ach);
 		}
+		
 	}
 	
 	public Map(int rows, int columns, FancyHandle fancy, Observer[] achievements) {
@@ -151,6 +152,8 @@ public class Map extends Observable {
 			anotherTurn = true;
 			return -1;
 		}
+		setChanged();
+		notifyObservers(NotifyMessage.PRIVILEGE_CHECK);
 
 		// fancy action has to happen before the wall is marked
 		int c1 = 0;
@@ -449,8 +452,4 @@ public class Map extends Observable {
 		return unmarkedEdges;
 	}
 	
-	@Override
-	public void setChanged(){
-		super.setChanged();
-	}
 }

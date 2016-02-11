@@ -8,7 +8,7 @@
   </tagletArtifacts>
   <excludePackageNames>
     <excludePackageName>C</excludePackageName>
-    <excludePackageName>\Users\Paddy\Desktop\SE\Kaesekaestchen\kaesekaestchen\KaeseKaestchen-fancy-100-ex12\src\test\*</excludePackageName>
+    <excludePackageName>\Users\Julian\Kaesekaestchen\KaeseKaestchen-fancy-100-ex12\src\test\*</excludePackageName>
   </excludePackageNames>
   <javadocResourcesDirectory>src/main/javadoc</javadocResourcesDirectory>
 </javadocOptions>
