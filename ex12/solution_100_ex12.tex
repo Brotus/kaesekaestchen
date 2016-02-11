@@ -1,0 +1,39 @@
+\documentclass[a4paper]{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+
+\title{Ex. 12 - Team 100}
+\begin{document}
+	\maketitle
+\subsection*{Aufgabe 1}
+\subsubsection*{\textit{java.awt}:}
+\textit{Component} ist \textit{java.awt.Component}, denn es ist \textit{abstract}. Es enth"alt einige Methoden, welche die \textit{Leave}s auch enthalten. \\
+\textit{Composite} ist \textit{java.awt.Container}. Die Klasse enthält eine \textit{java.util.List}$<$\textit{Component}$>$ und implementiert die 
+Methoden \textit{add(Component), remove(Component), remove(int)} und \textit{getComponent(int)}, welches als das \textit{getChild(int)} im Skript fungiert. \\
+\textit{Leaves} sind Subklassen von \textit{Component}, zum Beispiel \textit{java.awt.Button} und \textit{java.awt.Label}.\\
+\emph{Warum wurde hier das \textit{Composite Pattern} gewählt?} \\
+Eine graphische \textit{java.awt} Benutzeroberfläche kann viele Elemente enthalten. Diese sollen auch als Gruppen behandelt werden können.
+\subsection*{Aufgabe 2}
+	\subsubsection*{\textit{javax.xml.parsers}:}
+	
+	\textit{SAXParserFactory} fungiert als \textit{AbstractFactory}. 
+	Eine \textit{ConreteFactory} kann durch die statische Methode \textit{newInstance(...)} erzeugt werden.
+	Die \textit{FactoryMethod newSAXParser()} erzeugt einen \textit{SAXParser}. \textit{SAXParser} ist das \textit{AbstractProduct}-Interface, 
+	\textit{concreteProducts} müssen implementiert werden.
+	
+	\subsubsection*{\textit{javax.xml.transform}:} 
+	
+	Eine \textit{AbstractFactory} ist \textit{TransformerFactory}, mit \textit{FactoryMethod newTransformer()}. 
+	\textit{Templates} und \textit{SAXTransformerFactory} sind \textit{concreteFactories}. \textit{Templates} ist das Interface, 
+	dass im Sinne des \emph{Abstract Factory Pattern}s ein \textit{AbtractProduct} ist, \textit{Transformer} dagegen ein
+	\textit{concreteProduct}.
+	
+	\subsubsection*{\textit{javax.xml.xpath}:}
+	
+	Die \textit{XPathFactory} ist eine \textit{AbstractFactory}. Mit deren statischer Methode \textit{newInstance(\dots)} können \textit{conreteFactories} erzeugt werden.
+	\textit{FactoryMethod} ist \textit{newXPath()}, \textit{XPath} ist das \textit{ConreteProduct}; \textit{XPathExpression} etwa, ein \textit{abstractProduct}-Interface.
+	
+	
+\end{document}
