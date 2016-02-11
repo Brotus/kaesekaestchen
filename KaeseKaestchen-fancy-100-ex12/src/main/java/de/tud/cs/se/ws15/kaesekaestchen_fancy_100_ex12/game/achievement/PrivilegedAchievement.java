@@ -19,7 +19,6 @@ public class PrivilegedAchievement implements Observer {
 			ai = new AdvancedAI((Map) o ,1 ,1);
 		}
 		if (o instanceof Map) {
-			System.out.println(arg);
 			if (arg.equals(NotifyMessage.PRIVILEGE_CHECK) && (!unlocked)) {
 				ai.suggestTurn();
 				HashMap<Integer, Integer> edgeRate = ai.getEdgeHash();

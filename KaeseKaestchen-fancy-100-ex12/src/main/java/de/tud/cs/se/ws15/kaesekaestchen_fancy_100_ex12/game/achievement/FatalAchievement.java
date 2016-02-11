@@ -26,7 +26,6 @@ public class FatalAchievement implements Observer {
 			size = ((Map) o).getFieldArray().length;
 		}
 		if (arg != null) {
-			System.out.println(((NotifyMessage) arg).name());
 			if (!achieved && arg.equals(NotifyMessage.FIELD_CLOSED)) {
 				Player active = Game.players.getActive();
 				if (streakingPlayer == active) {
@@ -38,7 +37,6 @@ public class FatalAchievement implements Observer {
 				} else {
 					streakingPlayer = active;
 					c = 0;
-					streakingPlayer = Game.players.getActive();
 				}
 			} else if (achieved && arg.equals(NotifyMessage.GAME_END) && streakingPlayer.isHuman()) {
 				System.out.println(streakingPlayer + " achieved fatality!");
